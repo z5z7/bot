@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./out/www.js",
-    "postinstall": "grunt build",
+    "postinstall": "grunt build"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
