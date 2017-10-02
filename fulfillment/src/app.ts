@@ -16,13 +16,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 /**
  * IMPORTANT:
  *
- * The index URI of this service has to be the same as the Google AppEngine dispatch URL,
+ * The base URI of this service has to be the same as the Google AppEngine dispatch URL,
  * in order for routing and service-discovery to function correctly.
  *
  * AppEngine routing is specified for the default app in ../hscb-api/dispatch.yaml
  *
  */
-app.route('/apiai').post(function (req: any, res: any) {
+app.route('/apiai/v0').post(function (req: any, res: any) {
 
     handleRequest(req).then(response => {
         res.json(response);
