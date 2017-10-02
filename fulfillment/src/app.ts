@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: false}));
  * Service Discovery:
  *
  * HSBC API is the default service, and so it will be available at
- * https://MY_PROJECT_ID.appspot.com/...
+ * const HSBC_API_URL = https://MY_PROJECT_ID.appspot.com/v1
  *
  * // todo: configure project metadata for dynamic address discovery
  *
