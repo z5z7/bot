@@ -14,6 +14,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 /**
+ * Service Discovery:
+ *
+ * HSBC API is the default service, and so it will be available at
+ * https://MY_PROJECT_ID.appspot.com/...
+ *
+ * // todo: configure project metadata for dynamic address discovery
+ *
+ */
+
+/**
  * IMPORTANT:
  *
  * The base URI of this service has to be the same as the Google AppEngine dispatch URL,
@@ -22,7 +32,9 @@ app.use(bodyParser.urlencoded({extended: false}));
  * AppEngine routing is specified for the default app in ../hscb-api/dispatch.yaml
  *
  */
-app.route('/apiai/v0').post(function (req: any, res: any) {
+app.route('/apiai/v1').post(function (req: any, res: any) {
+
+    // todo: authentication
 
     handleRequest(req).then(response => {
         res.json(response);

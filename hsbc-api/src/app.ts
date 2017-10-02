@@ -10,7 +10,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.get("/v0", (req, res) => {
+app.get("/v1", (req, res) => {
 
     res.json({msg: "hi there!"})
 
