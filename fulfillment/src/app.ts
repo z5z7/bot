@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}));
  * AppEngine routing is specified for the default app in ../hscb-api/dispatch.yaml
  *
  */
-app.route('/apiai/v0').post(function (req: any, res: any) {
+app.route('/apiai').post(function (req: any, res: any) {
 
     handleRequest(req).then(response => {
         res.json(response);

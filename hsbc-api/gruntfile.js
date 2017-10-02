@@ -27,8 +27,7 @@ module.exports = function (grunt) {
                 script: 'out/www.js'
             },
             options: {
-                ignore: ['node_modules/**', 'gruntfile.js'],
-                env: {PORT: '8181'}
+                ignore: ['node_modules/**', 'gruntfile.js']
             }
         },
 

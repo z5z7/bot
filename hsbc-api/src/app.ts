@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.get("/v0", (req, res) => {
 
-    res.json({msg: "hello!"})
+    res.json({msg: "hi there!"})
 
 });
 
