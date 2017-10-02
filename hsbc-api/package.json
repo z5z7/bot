@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./out/www.js",
+    "grunt": "grunt",
     "compile": "tsc -p ./src"
   },
   "dependencies": {
@@ -20,6 +21,9 @@
     "@types/body-parser": "^1.16.5",
     "@types/morgan": "^1.7.33",
     "@types/mocha": "^2.2.43",
-    "@types/debug": "^0.0.30"
+    "@types/debug": "^0.0.30",
+    "@types/es6-promise": "^0.0.33",
+    "grunt": "^1.0.1",
+    "grunt-ts": "^6.0.0-beta.16"
   }
 }
