@@ -1,1 +1,0 @@
-Run with `grunt serve`, and route the port in another terminal with `ngrok HTTP $port`
