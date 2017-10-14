@@ -30,7 +30,7 @@ module.exports = function (grunt) {
             },
             options: {
                 ignore: ['node_modules/**', 'gruntfile.js'],
-                env: {PORT: '8082'}
+                env: {PORT: '8080'}
             }
         },
 
