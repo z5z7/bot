@@ -7,9 +7,11 @@ module.exports = function (grunt) {
         ts: {
             build: {
                 src: ["src/\*\*/\*.ts", "!node_modules/\*\*/\*.ts"],
+                outDir: "out",
                 options: {
                     module: 'commonjs',
-                    fast: 'never'
+                    fast: 'never',
+                    inlineSourceMap: true
                 }
             }
         },
@@ -17,7 +19,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ["src/\*\*/\*.ts", "!node_modules/\*\*/\*.ts"],
-                tasks: ["newer:tslint:all", "ts:build"],
+                tasks: ["ts:build"],
                 options: {spawn: false}
             }
         },
@@ -28,16 +30,7 @@ module.exports = function (grunt) {
             },
             options: {
                 ignore: ['node_modules/**', 'gruntfile.js'],
-                env: {PORT: '8082'}
-            }
-        },
-
-        tslint: {
-            options: {
-                configuration: grunt.file.readJSON("src/tslint.json")
-            },
-            all: {
-                src: ["src/\*\*/\*.ts", "!node_modules/\*\*/\*.ts"]
+                env: {PORT: '8080'}
             }
         },
 
@@ -53,7 +46,6 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks("grunt-ts");
-    grunt.loadNpmTasks("grunt-tslint");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-nodemon");
     grunt.loadNpmTasks("grunt-concurrent");
