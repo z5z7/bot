@@ -6,6 +6,7 @@ import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {Actions} from './actions';
 
 'use strict';
+import {Request} from "express";
 
 const app: express.Express = express();
 
@@ -39,17 +40,17 @@ app.route('/apiai/v1').post(function (req: any, res: any) {
     handleRequest(req).then(response => {
         res.json(response);
     }).catch(err => {
-        res.sendStatus(400)
+        res.sendStatus(400);
     });
 
 });
 
-function handleRequest(req: any) : Promise<FulfillmentResponse> {
+function handleRequest(req: express.Request): Promise<FulfillmentResponse> {
 
     return new Promise<FulfillmentResponse>((resolve, reject) => {
 
         let action = req.body.result.action;
-        if(typeof action === 'undefined') {
+        if(typeof action === "undefined") {
             reject("invalid request");
         }
 
@@ -57,6 +58,66 @@ function handleRequest(req: any) : Promise<FulfillmentResponse> {
 
             case Actions.MY_ACTION :
                 handleMyAction(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.WELCOME :
+                handleInputWelcome(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.MORTGAGERATE_SPECIALOFFER_ADVANCE :
+                handleMortgageRateSpecialOfferAdvance(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.MORTGAGERATE_SPECIALOFFER_PREMIER :
+                handleMortgageRateSpecialOfferPremier(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.MORTGAGERATE_SPECIALOFFER_PERSONALRATES :
+                handleMortgageRateSpecialOfferPersonalRates(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.MORTGAGERATE_SPECIALOFFER_SMARTSAVER :
+                handleMortgageRateSpecialOfferSmartSaver(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.FIND_WHAT_EXCHANGERATE :
+                handleFindWhatExchangeRate(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.FIND_ATM :
+                handleFindAtm(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.SEARCH_CURRENCY_EXCHANGE:
+                handleSearchCurrencyExchange(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.SEARCH_WHAT_EXCHANGERATE :
+                handleSearchWhatExchangeRate(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.SEARCH_WHAT_MORTGAGETYPE :
+                handleSearchWhatMortgageType(req).then(response => {
                     resolve(response);
                 });
                 break;
@@ -91,4 +152,253 @@ function handleMyAction(req: any) : Promise<FulfillmentResponse>{
 
 }
 
+function handleInputWelcome(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            "speech" : "Welcome",
+            displayText: "Welcome",
+            data: {},
+            contextOut: [],
+            source: "MY BACKEND"
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleMortgageRateSpecialOfferAdvance(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleMortgageRateSpecialOfferPremier(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleMortgageRateSpecialOfferPersonalRates(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleMortgageRateSpecialOfferSmartSaver(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleFindWhatExchangeRate(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleFindAtm(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleSearchCurrencyExchange(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleSearchWhatExchangeRate(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
+
+function handleSearchWhatMortgageType(req: any) : Promise<FulfillmentResponse> {
+
+    return new Promise<FulfillmentResponse> ((resolve, reject) => {
+
+        // todo: stub
+
+        if(!req.body.result) {
+            reject("invalid request");
+
+        }
+
+        const result: FulfillmentResponse = {
+            speech: "",
+            displayText: "",
+            data: {},
+            contextOut: [],
+            source: ""
+        };
+
+        resolve(result);
+
+    });
+
+}
 export default app;
