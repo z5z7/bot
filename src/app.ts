@@ -1,14 +1,12 @@
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
+import * as config from 'config';
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {Actions} from './actions';
 
 'use strict';
-import {Request} from "express";
-
-// const app = require('actions-on-google').ApiAiApp;
 
 const app: express.Express = express();
 
@@ -16,36 +14,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-//app.SupportedPermissions.NAME;
-//app.SupportedPermissions.DEVICE_PRECISE_LOCATION;
-//app.SupportedPermissions.DEVICE_COARSE_LOCATION;
+// Fetch config
+let GOOGLE_MAPS_API_KEY = config.get('Google.maps.apiKey');
 
 /**
  * Service Discovery:
  *
  * HSBC API is the default service, and so it will be available at
  * const HSBC_API_URL = https://MY_PROJECT_ID.appspot.com/v1
- *
  * // todo: configure project metadata for dynamic address discovery
  *
  */
-
-
-// set up the google API key
-var fs = require('fs');
-
-
-var fileContents;
-try {
-    fileContents = fs.readFileSync('KEY', 'utf8');
-} catch (err) {
-    // Here you get the error when the file was not found,
-    // but you also get any other error
-    console.log('Create A KEY.txt containing your GOOGLE MAP API');
-}
-
-var MapKey = fileContents;
-// console.log(MapKey);
 
 /**
  * IMPORTANT:
@@ -63,55 +42,61 @@ app.route('/apiai/v1').post(function (req: any, res: any) {
     handleRequest(req).then(response => {
         res.json(response);
     }).catch(err => {
+        console.error(err);
         res.sendStatus(400);
     });
 
 });
 
 // only some as a test sample
-var ATMloc = [
+const ATMloc = [
     // Abbotsford
-    {address:'32412 South Fraser Way, Abbotsford, BC',city: "Abbotsford", lat:49.0513971, long:-122.3261882},
+    {address: '32412 South Fraser Way, Abbotsford, BC', city: "Abbotsford", lat: 49.0513971, long: -122.3261882},
     // Burnaby
-    {address:'5210 Kingsway, Burnaby, BC',city: "Burnaby", lat:49.2248347, long:-122.9884586},
-    {address:'2829-4500 Kingsway Street, Burnaby, BC',city: "Burnaby", lat:49.2292147, long:-123.0045148},
-    {address:'Unit #3 - 4447 Lougheed Hwy, Burnaby, BC',city: "Burnaby",lat:49.2665398, long:-123.0043323},
-    {address:'4447 Lougheed Hwy, Burnaby, BC',city: "Burnaby",lat:49.2665426, long:-123.0043319},
+    {address: '5210 Kingsway, Burnaby, BC', city: "Burnaby", lat: 49.2248347, long: -122.9884586},
+    {address: '2829-4500 Kingsway Street, Burnaby, BC', city: "Burnaby", lat: 49.2292147, long: -123.0045148},
+    {address: 'Unit #3 - 4447 Lougheed Hwy, Burnaby, BC', city: "Burnaby", lat: 49.2665398, long: -123.0043323},
+    {address: '4447 Lougheed Hwy, Burnaby, BC', city: "Burnaby", lat: 49.2665426, long: -123.0043319},
     // Vancouver
-    {address:'2735 Granville Street, Vancouver, BC',city: "Vancouver", lat:49.2612063, long:-123.1386705},
-    {address:'4498 West 10th Avenue, Vancouver, BC',city: "Vancouver", lat:49.2638173, long:-123.2091386},
-    {address:'2164 West 41st Avenue, Vancouver, BC',city: "Vancouver", lat:49.2346012, long:-123.1575976},
-    {address:'1010 Denman Street, Vancouver, BC',city: "Vancouver", lat:49.2892145, long:-123.1386129},
-    {address:'1196 Pacific Boulevard, Vancouver, BC',city: "Vancouver", lat:49.2739721, long:-123.1212017},
-    {address:'601 West Broadway Street, Vancouver, BC',city: "Vancouver", lat:49.2634241, long:-123.1179907},
-    {address:'5688 Granville Street, Vancouver, BC',city: "Vancouver", lat:49.2346455, long:-123.1393632},
-    {address:'8118 Granville Street, Vancouver, BC',city: "Vancouver", lat:49.2119998, long:-123.1403979},
-    {address:'5812 Cambie Street, Vancouver, BC',city: "Vancouver", lat:49.2324081, long:-123.1159475},
-    {address:'885 W. Georgia St., Vancouver, BC',city: "Vancouver", lat:49.2837077, long:-123.119255},
-    {address:'885 West Georgia Street',city: "Vancouver", lat:49.2836617, long:-123.1197445},
-    {address:'999 West Hastings Street, Vancouver, BC',city: "Vancouver", lat:49.2871187, long:-123.1169403},
-    {address:'1188 West Georgia St., Vancouver, BC', city: "Vancouver",lat:49.286686, long:-123.125174},
-    {address:'608 Main Street, Vancouver, BC', city: "Vancouver",lat:49.2792834, long:-123.0997277},
-    {address:'6373 Fraser Street, Vancouver, BC',city: "Vancouver", lat:49.2267225, long:-123.0907474},
-    {address:'3366 Kingsway, Vancouver, BC', city: "Vancouver",lat:49.2330972, long:-123.0340536},
-    {address:'2590 East Hastings, Vancouver, BC', city: "Vancouver",lat:49.2809114, long:-123.0524426},
+    {address: '2735 Granville Street, Vancouver, BC', city: "Vancouver", lat: 49.2612063, long: -123.1386705},
+    {address: '4498 West 10th Avenue, Vancouver, BC', city: "Vancouver", lat: 49.2638173, long: -123.2091386},
+    {address: '2164 West 41st Avenue, Vancouver, BC', city: "Vancouver", lat: 49.2346012, long: -123.1575976},
+    {address: '1010 Denman Street, Vancouver, BC', city: "Vancouver", lat: 49.2892145, long: -123.1386129},
+    {address: '1196 Pacific Boulevard, Vancouver, BC', city: "Vancouver", lat: 49.2739721, long: -123.1212017},
+    {address: '601 West Broadway Street, Vancouver, BC', city: "Vancouver", lat: 49.2634241, long: -123.1179907},
+    {address: '5688 Granville Street, Vancouver, BC', city: "Vancouver", lat: 49.2346455, long: -123.1393632},
+    {address: '8118 Granville Street, Vancouver, BC', city: "Vancouver", lat: 49.2119998, long: -123.1403979},
+    {address: '5812 Cambie Street, Vancouver, BC', city: "Vancouver", lat: 49.2324081, long: -123.1159475},
+    {address: '885 W. Georgia St., Vancouver, BC', city: "Vancouver", lat: 49.2837077, long: -123.119255},
+    {address: '885 West Georgia Street', city: "Vancouver", lat: 49.2836617, long: -123.1197445},
+    {address: '999 West Hastings Street, Vancouver, BC', city: "Vancouver", lat: 49.2871187, long: -123.1169403},
+    {address: '1188 West Georgia St., Vancouver, BC', city: "Vancouver", lat: 49.286686, long: -123.125174},
+    {address: '608 Main Street, Vancouver, BC', city: "Vancouver", lat: 49.2792834, long: -123.0997277},
+    {address: '6373 Fraser Street, Vancouver, BC', city: "Vancouver", lat: 49.2267225, long: -123.0907474},
+    {address: '3366 Kingsway, Vancouver, BC', city: "Vancouver", lat: 49.2330972, long: -123.0340536},
+    {address: '2590 East Hastings, Vancouver, BC', city: "Vancouver", lat: 49.2809114, long: -123.0524426},
     // New Westminster
-    {address:'504 Sixth Street, New Westminster, BC',city: "New Westminster", lat:49.2118087, long:-122.9188674},
+    {address: '504 Sixth Street, New Westminster, BC', city: "New Westminster", lat: 49.2118087, long: -122.9188674},
     // North Vancouver
-    {address:'1577 Lonsdale Avenue, North Vancouver, BC',city: "North Vancouver", lat:49.3230064, long:-123.0724882},
-    {address:'3160 Edgemont Blvd., North Vancouver, BC',city: "North Vancouver", lat:49.3377917, long:-123.102523},
+    {
+        address: '1577 Lonsdale Avenue, North Vancouver, BC',
+        city: "North Vancouver",
+        lat: 49.3230064,
+        long: -123.0724882
+    },
+    {address: '3160 Edgemont Blvd., North Vancouver, BC', city: "North Vancouver", lat: 49.3377917, long: -123.102523},
     // West Vancouver
-    {address:'1550 Marine Drive, West Vancouver, BC',city: "West Vancouver", lat:49.3283937, long:-123.1579282},
+    {address: '1550 Marine Drive, West Vancouver, BC', city: "West Vancouver", lat: 49.3283937, long: -123.1579282},
     // Richmond
-    {address:'4380 No.3 Road, Richmond, BC', city: "Richmond",lat:49.1812933, long:-123.1365081},
-    {address:'4380 No.3 Road, Richmond, BC', city: "Richmond",lat:49.1807631, long:-123.1365505},
-    {address:'6168 No. 3 Road, Richmond, BC', city: "Richmond",lat:49.1699514, long:-123.1365666},
-    {address:'6168 No.3 Road, Richmond, BC', city: "Richmond",lat:49.168813, long:-123.1364477},
-    {address:'4151 Hazelbridge Way, Richmond, BC', city: "Richmond",lat:49.1835596, long:-123.133584},
-    {address:'6800 No. 3 Road, Richmond, BC', city: "Richmond",lat:49.1643796, long:-123.1362071},
+    {address: '4380 No.3 Road, Richmond, BC', city: "Richmond", lat: 49.1812933, long: -123.1365081},
+    {address: '4380 No.3 Road, Richmond, BC', city: "Richmond", lat: 49.1807631, long: -123.1365505},
+    {address: '6168 No. 3 Road, Richmond, BC', city: "Richmond", lat: 49.1699514, long: -123.1365666},
+    {address: '6168 No.3 Road, Richmond, BC', city: "Richmond", lat: 49.168813, long: -123.1364477},
+    {address: '4151 Hazelbridge Way, Richmond, BC', city: "Richmond", lat: 49.1835596, long: -123.133584},
+    {address: '6800 No. 3 Road, Richmond, BC', city: "Richmond", lat: 49.1643796, long: -123.1362071},
     // Coquitlam
-    {address:'1-405 North Road, Coquitlam, BC', city: "Coquitlam",lat:49.2407536, long:-122.8925376},
-    {address:'405 North Road, Coquitlam, BC', city: "Coquitlam",lat:49.2482018, long:-122.8921276}
+    {address: '1-405 North Road, Coquitlam, BC', city: "Coquitlam", lat: 49.2407536, long: -122.8925376},
+    {address: '405 North Road, Coquitlam, BC', city: "Coquitlam", lat: 49.2482018, long: -122.8921276}
 ];
 function handleRequest(req: express.Request): Promise<FulfillmentResponse> {
 
@@ -540,14 +525,14 @@ function handleFindAtmFallback(req: any) : Promise<FulfillmentResponse> {
 
                 }
 
-        var lat = req.body.originalRequest.data.device.location.coordinates.latitude;
-        var long = req.body.originalRequest.data.device.location.coordinates.longitude;
+        let lat = req.body.originalRequest.data.device.location.coordinates.latitude;
+        let long = req.body.originalRequest.data.device.location.coordinates.longitude;
 
         // function to calculate distance between 2 lat long using harversine formula
         function distance(lat1, lon1, lat2, lon2) {
-            var p = 0.017453292519943295;    // Math.PI / 180
-            var c = Math.cos;
-            var a = 0.5 - c((lat2 - lat1) * p)/2 +
+            let p = 0.017453292519943295;    // Math.PI / 180
+            let c = Math.cos;
+            let a = 0.5 - c((lat2 - lat1) * p)/2 +
                 c(lat1 * p) * c(lat2 * p) *
                 (1 - c((lon2 - lon1) * p))/2;
 
@@ -555,22 +540,22 @@ function handleFindAtmFallback(req: any) : Promise<FulfillmentResponse> {
         }
 
         console.log(ATMloc.length);
-        var closest = null;
-        var cindex = null;
-        var i;
-        var len = ATMloc.length;
+        let closest = null;
+        let cindex = null;
+        let i;
+        let len = ATMloc.length;
 
         for (i = 0; i < len; i++) {
-            var y = distance(lat,long,ATMloc[i].lat,ATMloc[i].long);
+            let y = distance(lat,long,ATMloc[i].lat,ATMloc[i].long);
             if (closest == null || closest > y) {
                 closest =  y;
                 cindex = i;
             }
         }
 
-        var speak = ATMloc[cindex].address;
-        var clat = ATMloc[cindex].lat;
-        var clong = ATMloc[cindex].long;
+        let speak = ATMloc[cindex].address;
+        let clat = ATMloc[cindex].lat;
+        let clong = ATMloc[cindex].long;
 
 
         const result: FulfillmentResponse = {
@@ -591,7 +576,10 @@ function handleFindAtmFallback(req: any) : Promise<FulfillmentResponse> {
                                     "title":"Nearest ATM",
                                     "formattedText": speak,
                                     "image": {
-                                        "url": "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + long + "&size=300x250&markers=color:blue%7C" + lat + "," + long + "&markers=color:red%7C" + clat + "," + clong + "&key=" + MapKey,
+                                        "url": "https://maps.googleapis.com/maps/api/staticmap?center=" +
+                                        lat + "," + long + "&size=300x250&markers=color:blue%7C" + lat + "," + long +
+                                        "&markers=color:red%7C" + clat + "," + clong + "&key=" +
+                                        GOOGLE_MAPS_API_KEY,
                                         "accessibilityText":"map"
                                     }
                                 }
@@ -703,30 +691,31 @@ function handleSearchWhereAtm(req: any) : Promise<FulfillmentResponse> {
 
         }
 
-        var city = req.body.result.parameters.city;
-        var atmlist = [];
-        var markerlist = [];
+        let city = req.body.result.parameters.city;
+        let atmlist = [];
+        let markerlist = [];
 
 
         // Get all the ATM address,lat,lon of given city
 
-        var i;
-        var len = ATMloc.length;
+        let i;
+        let len = ATMloc.length;
 
         for (i = 0; i < len; i++) {
             if (ATMloc[i].city == city) {
                 atmlist.push(ATMloc[i].address);
-                var str = "&markers=color:red%7C" + ATMloc[i].lat + "," + ATMloc[i].long;
+                let str = "&markers=color:red%7C" + ATMloc[i].lat + "," + ATMloc[i].long;
                 markerlist.push(str);
             }
         }
 
-        var speak = atmlist.join("\n");
-        var markers = markerlist.join("");
+        let speak = atmlist.join("\n");
+        let markers = markerlist.join("");
 
-        var image = "https://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&hl=en&sensor=false&size=300x250&markers=color:red%7C" + markers + "&sensor=false&key=" + MapKey;
+        let image = "https://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&hl=en&sensor=false&size=300x250&markers=color:red%7C" +
+            markers + "&sensor=false&key=" + GOOGLE_MAPS_API_KEY;
 
-        var result: FulfillmentResponse = {
+        let result: FulfillmentResponse = {
             speech: "",
             displayText: "",
             data: {
@@ -758,7 +747,8 @@ function handleSearchWhereAtm(req: any) : Promise<FulfillmentResponse> {
         };
 
         if (atmlist.length <= 0) {
-            var result: FulfillmentResponse = {
+
+            result = {
                 speech: "Sorry, we don't have a map for atm in that city yet",
                 displayText: "Sorry, we don't have a map for atm in that city yet",
                 data: {},
