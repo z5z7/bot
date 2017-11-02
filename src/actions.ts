@@ -7,7 +7,8 @@ export namespace Actions {
     export const MORTGAGERATE_SPECIALOFFER_PERSONALRATES = "mortgageRate.specialOffer.personalRates";
     export const MORTGAGERATE_SPECIALOFFER_SMARTSAVER = "mortgageRate.specialOffer.smartSaver";
     export const FIND_WHAT_EXCHANGERATE = "find.what.exchangeRate";
-    export const FIND_ATM = "find.atm";
+    export const FIND_ATM = "find.atm"; // change to search.where.atm.location
+    // find atm now just return all the atm in vancouver map
     export const FIND_ATM_FALLBACK = "actions.intent.PERMISSION";
     export const SEARCH_CURRENCY_EXCHANGE = "search.currency.exchange";
     export const SEARCH_WHAT_EXCHANGERATE = "search.what.exchangeRate";
