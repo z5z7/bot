@@ -10,9 +10,6 @@ import {Fxfunc} from "./fxfunc";
 import {Atmfunc} from "./atmfunc";
 import {Mortfunc} from "./mortgagefunc";
 
-
-
-
 'use strict';
 
 const app: express.Express = express();
@@ -22,16 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Fetch config
-// let GOOGLE_MAPS_API_KEY = config.get('Google.maps.apiKey');
-
-/**
- * Service Discovery:
- *
- * HSBC API is the default service, and so it will be available at
- * const HSBC_API_URL = https://MY_PROJECT_ID.appspot.com/v1
- * // todo: configure project metadata for dynamic address discovery
- *
- */
+let GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
 /**
  * IMPORTANT:
@@ -56,6 +44,60 @@ app.route('/apiai/v1').post(function (req: any, res: any) {
 
 });
 
+app.route('/healthz').get((req : any, res : any) => {
+    req.sendStatus(200);
+});
+
+// only some as a test sample
+const ATMloc = [
+    // Abbotsford
+    {address: '32412 South Fraser Way, Abbotsford, BC', city: "Abbotsford", lat: 49.0513971, long: -122.3261882},
+    // Burnaby
+    {address: '5210 Kingsway, Burnaby, BC', city: "Burnaby", lat: 49.2248347, long: -122.9884586},
+    {address: '2829-4500 Kingsway Street, Burnaby, BC', city: "Burnaby", lat: 49.2292147, long: -123.0045148},
+    {address: 'Unit #3 - 4447 Lougheed Hwy, Burnaby, BC', city: "Burnaby", lat: 49.2665398, long: -123.0043323},
+    {address: '4447 Lougheed Hwy, Burnaby, BC', city: "Burnaby", lat: 49.2665426, long: -123.0043319},
+    // Vancouver
+    {address: '2735 Granville Street, Vancouver, BC', city: "Vancouver", lat: 49.2612063, long: -123.1386705},
+    {address: '4498 West 10th Avenue, Vancouver, BC', city: "Vancouver", lat: 49.2638173, long: -123.2091386},
+    {address: '2164 West 41st Avenue, Vancouver, BC', city: "Vancouver", lat: 49.2346012, long: -123.1575976},
+    {address: '1010 Denman Street, Vancouver, BC', city: "Vancouver", lat: 49.2892145, long: -123.1386129},
+    {address: '1196 Pacific Boulevard, Vancouver, BC', city: "Vancouver", lat: 49.2739721, long: -123.1212017},
+    {address: '601 West Broadway Street, Vancouver, BC', city: "Vancouver", lat: 49.2634241, long: -123.1179907},
+    {address: '5688 Granville Street, Vancouver, BC', city: "Vancouver", lat: 49.2346455, long: -123.1393632},
+    {address: '8118 Granville Street, Vancouver, BC', city: "Vancouver", lat: 49.2119998, long: -123.1403979},
+    {address: '5812 Cambie Street, Vancouver, BC', city: "Vancouver", lat: 49.2324081, long: -123.1159475},
+    {address: '885 W. Georgia St., Vancouver, BC', city: "Vancouver", lat: 49.2837077, long: -123.119255},
+    {address: '885 West Georgia Street', city: "Vancouver", lat: 49.2836617, long: -123.1197445},
+    {address: '999 West Hastings Street, Vancouver, BC', city: "Vancouver", lat: 49.2871187, long: -123.1169403},
+    {address: '1188 West Georgia St., Vancouver, BC', city: "Vancouver", lat: 49.286686, long: -123.125174},
+    {address: '608 Main Street, Vancouver, BC', city: "Vancouver", lat: 49.2792834, long: -123.0997277},
+    {address: '6373 Fraser Street, Vancouver, BC', city: "Vancouver", lat: 49.2267225, long: -123.0907474},
+    {address: '3366 Kingsway, Vancouver, BC', city: "Vancouver", lat: 49.2330972, long: -123.0340536},
+    {address: '2590 East Hastings, Vancouver, BC', city: "Vancouver", lat: 49.2809114, long: -123.0524426},
+    // New Westminster
+    {address: '504 Sixth Street, New Westminster, BC', city: "New Westminster", lat: 49.2118087, long: -122.9188674},
+    // North Vancouver
+    {
+        address: '1577 Lonsdale Avenue, North Vancouver, BC',
+        city: "North Vancouver",
+        lat: 49.3230064,
+        long: -123.0724882
+    },
+    {address: '3160 Edgemont Blvd., North Vancouver, BC', city: "North Vancouver", lat: 49.3377917, long: -123.102523},
+    // West Vancouver
+    {address: '1550 Marine Drive, West Vancouver, BC', city: "West Vancouver", lat: 49.3283937, long: -123.1579282},
+    // Richmond
+    {address: '4380 No.3 Road, Richmond, BC', city: "Richmond", lat: 49.1812933, long: -123.1365081},
+    {address: '4380 No.3 Road, Richmond, BC', city: "Richmond", lat: 49.1807631, long: -123.1365505},
+    {address: '6168 No. 3 Road, Richmond, BC', city: "Richmond", lat: 49.1699514, long: -123.1365666},
+    {address: '6168 No.3 Road, Richmond, BC', city: "Richmond", lat: 49.168813, long: -123.1364477},
+    {address: '4151 Hazelbridge Way, Richmond, BC', city: "Richmond", lat: 49.1835596, long: -123.133584},
+    {address: '6800 No. 3 Road, Richmond, BC', city: "Richmond", lat: 49.1643796, long: -123.1362071},
+    // Coquitlam
+    {address: '1-405 North Road, Coquitlam, BC', city: "Coquitlam", lat: 49.2407536, long: -122.8925376},
+    {address: '405 North Road, Coquitlam, BC', city: "Coquitlam", lat: 49.2482018, long: -122.8921276}
+];
 
 function handleRequest(req: express.Request): Promise<FulfillmentResponse> {
 
