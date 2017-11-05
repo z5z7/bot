@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as config from 'config';
+import * as basicAuth from 'express-basic-auth';
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {Actions} from './actions';
@@ -19,24 +20,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-// Fetch config
 let GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
+// let DF_USER = process.env.DIALOGFLOW_USER;
+// let DF_PASS = process.env.DIALOGFLOW_PASS;
+// app.use(basicAuth({users:{user:DF_USER,password:DF_PASS}}));
 
-
-/**
- * IMPORTANT:
- *
- * The base URI of this service has to be the same as the Google AppEngine dispatch URL,
- * in order for routing and service-discovery to function correctly.
- *
- * AppEngine routing is specified for the default app in ../hscb-api/dispatch.yaml
- *
- */
-
-app.route('/apiai/v1').post(function (req: any, res: any) {
-
-    // todo: authentication
+app.route('/dialogflow').post(function (req: any, res: any) {
 
     handleRequest(req).then(response => {
         res.json(response);
