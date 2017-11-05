@@ -56,7 +56,7 @@ const ATMloc = [
 export namespace Atmfunc {
 
 
-    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
+    export function handleSearchWhereAtmLocation(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
 
@@ -125,7 +125,7 @@ export namespace Atmfunc {
 
     }
 
-    export function handleFindAtmFallback(req: any): Promise<FulfillmentResponse> {
+    export function handleSearchWhereAtmLocationFallback(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
 
@@ -334,6 +334,125 @@ export namespace Atmfunc {
                 link = "https://www.google.ca/search?tbm=lcl&ei=LTTyWb2XJtCSjwOWmInQCA&q=hsbc+coquitlam&oq=hsbc+coquitlam&gs_l=psy-ab.3..0j0i20i263k1j0i22i30k1l8.13649.15706.0.16031.9.9.0.0.0.0.95.628.9.9.0....0...1.1.64.psy-ab..0.9.624...35i39k1j0i67k1j0i131k1.0.Cm7lvowTj_s#rlfi=hd:;si:;mv:!1m3!1d14321.255615212176!2d-123.01301759999998!3d49.2600097!2m3!1f0!2f0!3f0!3m2!1i733!2i66!4f13.1;tbs:lrf:!2m1!1e3!3sIAE,lf:1,lf_ui:4";
             }
 
+
+            let result: FulfillmentResponse = {
+                speech: "",
+                displayText: "",
+                data: {
+                    "google": {
+                        "expect_user_response": true,
+                        "rich_response": {
+                            "items": [
+                                {
+                                    "simpleResponse": {
+                                        "textToSpeech": speak,
+                                    }
+                                },
+                                {
+                                    "basicCard": {
+                                        "title": "ATM at " + city,
+                                        "formattedText": speak,
+                                        "image": {
+                                            "url": image,
+                                            "accessibilityText": "map"
+                                        },
+                                        "buttons": [
+                                            {
+                                                "title": "Go to Google Map",
+                                                "openUrlAction": {
+                                                    "url": link
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                            ]
+                        }
+                    },
+                    'facebook': {
+                        'attachment': {
+                            'type': 'template',
+                            'payload': {
+                                'template_type': 'generic',
+                                'elements': [
+                                    {
+                                        'title': "ATM at " + city,
+                                        'image_url': image,
+                                        'subtitle': 'This is a subtitle',
+                                        'default_action': {
+                                            'type': 'web_url',
+                                            'url': 'https://assistant.google.com/'
+                                        },
+                                        'buttons': [
+                                            {
+                                                'type': 'web_url',
+                                                'url': 'https://assistant.google.com/',
+                                                'title': 'Go to Google Map'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                contextOut: [],
+                source: ""
+            };
+
+            if (atmlist.length <= 0) {
+
+                result = {
+                    speech: "Sorry, we don't have a map for atm in that city yet",
+                    displayText: "Sorry, we don't have a map for atm in that city yet",
+                    data: {},
+                    contextOut: [],
+                    source: ""
+                };
+            }
+
+            resolve(result);
+
+        });
+    }
+
+    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
+
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+
+
+            if (!req.body.result) {
+                reject("invalid request");
+
+            }
+
+            let city = "Vancouver";
+            let atmlist = [];
+            let markerlist = [];
+
+
+            // Get all the ATM address,lat,lon of given city
+
+            let i;
+            let len = ATMloc.length;
+
+            for (i = 0; i < len; i++) {
+                if (ATMloc[i].city == city) {
+                    atmlist.push(ATMloc[i].address);
+                    let str = "&markers=color:red%7C" + ATMloc[i].lat + "," + ATMloc[i].long;
+                    markerlist.push(str);
+                }
+            }
+
+            let speak = atmlist.join("\n");
+            speak = "Would you like to find an ATM in Richmond, New West, North Van, West Van, or Burnaby?\n" +
+                "Or would you like to find the closest one to you?";
+            let markers = markerlist.join("");
+
+            let image = "https://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&hl=en&sensor=false&size=300x250&markers=color:red%7C" +
+                markers + "&sensor=false&key=" + GOOGLE_MAPS_API_KEY;
+
+             let link = "https://www.google.ca/search?q=hsbc+vancouver&npsic=0&rflfq=1&rlha=0&rllag=49249030,-123174134,3003&tbm=lcl&ved=0ahUKEwi_hJKj_I7XAhUQ02MKHUSlBlUQtgMIKg&tbs=lrf:!2m1!1e3!3sIAE,lf:1,lf_ui:4&rldoc=1#rlfi=hd:;si:;mv:!1m3!1d273694.9472248933!2d-122.8178858855469!3d49.286105544413516!3m2!1i1018!2i631!4f13.1";
 
             let result: FulfillmentResponse = {
                 speech: "",

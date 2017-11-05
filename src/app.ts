@@ -9,6 +9,7 @@ import {Calculator} from "./calculator";
 import {Fxfunc} from "./fxfunc";
 import {Atmfunc} from "./atmfunc";
 import {Mortfunc} from "./mortgagefunc";
+import {Bookfunc} from "./bookfunc";
 
 'use strict';
 
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // Fetch config
 let GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
+
 
 /**
  * IMPORTANT:
@@ -153,24 +156,29 @@ function handleRequest(req: express.Request): Promise<FulfillmentResponse> {
                 });
                 break;
 
-
             case Actions.FIND_ATM :
                 Atmfunc.handleFindAtm(req).then(response => {
                     resolve(response);
                 });
                 break;
 
-            case Actions.FIND_ATM_FALLBACK :
-                Atmfunc.handleFindAtmFallback(req).then(response => {
+            case Actions.SEARCH_WHERE_ATM_LOCATION :
+                Atmfunc.handleSearchWhereAtmLocation(req).then(response => {
                     resolve(response);
                 });
                 break;
 
-            case Actions.SEARCH_CURRENCY_EXCHANGE:
-                Fxfunc.handleSearchCurrencyExchange(req).then(response => {
+            case Actions.SEARCH_WHERE_ATM_LOCATION_FALLBACK :
+                Atmfunc.handleSearchWhereAtmLocationFallback(req).then(response => {
                     resolve(response);
                 });
                 break;
+
+            /*case Actions.SEARCH_CURRENCY_EXCHANGE:
+                Fxfunc.handleSearchCurrencyExchange(req).then(response => {
+                    resolve(response);
+                });
+                break;*/
 
             case Actions.SEARCH_WHAT_EXCHANGERATE :
                 Fxfunc.handleSearchWhatExchangeRate(req).then(response => {
@@ -192,6 +200,12 @@ function handleRequest(req: express.Request): Promise<FulfillmentResponse> {
 
             case Actions.SEARCH_WHAT_MORTGAGE_CALCULATOR_PAYMENT_LEFT :
                 Calculator.handleSearchWhatMortgageCalculatorPaymentLeft(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.BOOKING :
+                Bookfunc.handleBooking(req).then(response => {
                     resolve(response);
                 });
                 break;

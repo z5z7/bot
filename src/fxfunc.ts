@@ -1,4 +1,8 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
+import {DefaultApi} from './hsbc-api';
+
+const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST;
+let fakeClient = new DefaultApi(HSBC_SERVICE_HOST);
 
 export namespace Fxfunc {
 
@@ -7,53 +11,119 @@ export namespace Fxfunc {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
 
             // todo: stub
-            // call backend to get all the FX rates
+            // call backend to get all the FX rates name available
 
             if (!req.body.result) {
                 reject("invalid request");
 
             }
 
-            const result: FulfillmentResponse = {
-                speech: "Returns list of rates.        currency : rates     \n" +
-                "no parameters as this is a find, rather than a search, function and so you are returning ALL rates as a list",
-                displayText: "Returns list of rates.        currency : rates     \n" +
-                "no parameters as this is a find, rather than a search, function and so you are returning ALL rates as a list",
-                data: {},
-                contextOut: [],
-                source: ""
-            };
+            //roundabout way currently use
 
-            resolve(result);
+            fakeClient.xratesGet().then(result => {
+                let response = result.response;
 
-        });
+                let currencies = result.body.currencies;
 
-    }
+                //console.log(currencies);
 
-    export function handleSearchCurrencyExchange(req: any): Promise<FulfillmentResponse> {
+                //let i;
+                //let len = currencies.length;
+                //let Rarray = [];
 
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
+                //for (i = 0; i < len; i++) {
+                //    Rarray.push(currencies[i].code);
+                //}
 
-            // todo: ??? is it still used
+                function ratehelper (cur: any) : Promise<any> { // do the data adding here then use prom.all with answers inside then? adress+shortname
+                    return new Promise(function (fulfill, reject) {
+                        //console.log(cur);
+                        fakeClient.xratesFromGet(cur).then(result => {
+                            //console.log(result.body.rates);
+                            let Parray = [];
+                            let j;
+                            let len2 = result.body.rates.length;
+                            // console.log(result.body.rates.length);
+                            for (j = 0; j < len2; j++) {
+                                // console.log(result.body.rates[j]);
+                                let str0 = cur;
+                                // "to" + result.body.ExchangeRateInfo.rates[j].code +
+                                // "rate for buy is" + result.body.ExchangeRateInfo.rates[j].buy.toString();
+                                let str1 = str0.concat(" to ", result.body.rates[j].code," rate for buy is ", result.body.rates[j].buy.toString());
+                                let str2 = str0.concat(" to ", result.body.rates[j].code," rate for sell is ", result.body.rates[j].sell.toString());
+                                // "to" + result.body.ExchangeRateInfo.rates[j].code + "rate for sell is" + result.body.ExchangeRateInfo.rates[j].sell.toString();
+                                //console.log(result.body.rates[j].code);
+                                Parray.push(str1);
+                                Parray.push(str2);
+                            }
+                            //console.log(Parray);
+                            fulfill(Parray);
+                        }).catch(err => {
+                            let Reject = [];
+                            fulfill(Reject);
+                        })
+                    })
+                }
 
-            if (!req.body.result) {
-                reject("invalid request");
+                let i;
+                let len = currencies.length;
+                let Rarray = [];
 
-            }
+                let rateProm : Promise<any>[] = [];
+                for (i = 0; i < len; i++) {
+                    // console.log(currencies[i].code);
+                    rateProm.push(ratehelper(currencies[i].code));
+                }
 
-            const result: FulfillmentResponse = {
-                speech: "This will return just one value foreign_currency : amount\n" +
-                "The parameter will be the currency to exchange in shortForm: e.g. USD\n" +
-                "Optional parameter: they might include a sum to convert... in this case multiply sum by exchange rate and return",
-                displayText: "This will return just one value foreign_currency : amount\n" +
-                "The parameter will be the currency to exchange in shortForm: e.g. USD\n" +
-                "Optional parameter: they might include a sum to convert... in this case multiply sum by exchange rate and return",
-                data: {},
-                contextOut: [],
-                source: ""
-            };
+                // console.log(rateProm);
 
-            resolve(result);
+                Promise.all(rateProm).then(values => {
+                    //console.log(values);
+                    Rarray.push(values)
+                    //console.log(Rarray);
+                    let text = Rarray.join('\n');
+                    //text = text.replace(/\\n/g, '\n');
+                    //console.log(text);
+                    const result1: FulfillmentResponse = {
+                        speech:text,
+                        //"Returns list of rates.        currency : rates     \n" +
+                        //"no parameters as this is a find, rather than a search, function and so you are returning ALL rates as a list",
+                        displayText:text,
+                        //"Returns list of rates.        currency : rates     \n" +
+                        //"no parameters as this is a find, rather than a search, function and so you are returning ALL rates as a list",
+                        data: {},
+                        contextOut: [],
+                        source: ""
+                    };
+
+                    resolve(result1);
+
+
+                }).catch(reason => {
+                    const return2: FulfillmentResponse = {
+                        speech: "Something went wrong at our backend",
+                        displayText: "Something went wrong at our backend",
+                        data: {},
+                        contextOut: [],
+                        source: ""
+                    };
+
+                    resolve(return2);
+                });
+
+            }).catch(err => {
+                //console.log(err.response);
+                //console.log(err.body);
+                const return2: FulfillmentResponse = {
+                    speech: "Something went wrong at our backend",
+                    displayText: "Something went wrong at our backend",
+                    data: {},
+                    contextOut: [],
+                    source: ""
+                };
+
+                resolve(return2);
+            });
 
         });
 
@@ -70,15 +140,112 @@ export namespace Fxfunc {
 
             }
 
-            const result: FulfillmentResponse = {
-                speech: "**webhook here returning $amount converted into $currency",
-                displayText: "**webhook here returning $amount converted into $currency",
-                data: {},
-                contextOut: [],
-                source: ""
-            };
+            let currency_from = req.body.result.parameters.currency_from;
+            let currency_into = req.body.result.parameters.currency_into;
+            let amount = req.body.result.parameters.amount;
+            //console.log(amount);
+            if (currency_from == "undefined") {
+                currency_from = "CAD";
+            }
 
-            resolve(result);
+            //console.log(currency_from);
+            //console.log(currency_into);
+            //console.log(amount);
+
+            if (amount == "") {
+                fakeClient.xratesFromToGet(currency_from,currency_into).then(result => {
+                    // console.log(result.body);
+                    let Rarray =[];
+                    let response = result.response;
+
+                    let bprice = result.body.buy;
+                    let sprice = result.body.sell;
+
+                    let str0 = currency_from;
+                    // "to" + result.body.ExchangeRateInfo.rates[j].code +
+                    // "rate for buy is" + result.body.ExchangeRateInfo.rates[j].buy.toString();
+                    let str1 = str0.concat(" to ", currency_into," rate for buy is ", bprice.toString());
+                    let str2 = str0.concat(" to ", currency_into," rate for sell is ", sprice.toString());
+
+                    Rarray.push(str1);
+                    Rarray.push(str2);
+
+                    let text = Rarray.join('\n');
+
+                    const result1: FulfillmentResponse = {
+                        speech:text,
+                        displayText:text,
+                        data: {},
+                        contextOut: [],
+                        source: ""
+                    };
+
+                    resolve(result1);
+
+
+                }).catch(err => {
+                    const return2: FulfillmentResponse = {
+                        speech: "Something went wrong at our backend",
+                        displayText: "Something went wrong at our backend",
+                        data: {},
+                        contextOut: [],
+                        source: ""
+                    };
+
+                    resolve(return2);
+                });
+            }
+
+            else {
+
+                fakeClient.xratesConvertGet(currency_from,currency_into,amount).then(result => {
+                    let response = result.response;
+
+                    let body = result.body;
+
+                    // body now just return from and rates???
+                    // shoud return FROM TO AMOUNT CONVERSION
+                    // conversion {from :currency,to:currency, amount:number,conversion:number)
+
+
+                    let conversion = result.body.conversion;
+                    //console.log(result.body.conversion);
+                    // putting in 80 as stub for now
+                    if (typeof conversion == 'undefined') {
+                        conversion = 100;
+                    }
+                    //console.log(body);
+
+                    const return1: FulfillmentResponse = {
+                        speech: conversion.toString(),
+                        displayText: conversion.toString(),
+                        data: {},
+                        contextOut: [],
+                        source: ""
+                    };
+
+                    resolve(return1);
+
+
+
+                }).catch(err => {
+                    //console.log(err.response);
+                    //console.log(err.body);
+                    const return2: FulfillmentResponse = {
+                        speech: "Something went wrong at our backend",
+                        displayText: "Something went wrong at our backend",
+                        data: {},
+                        contextOut: [],
+                        source: ""
+                    };
+
+                    resolve(return2);
+                });
+
+
+            }
+
+
 
         });
 
