@@ -12,6 +12,8 @@ import {Atmfunc} from "./atmfunc";
 import {Mortfunc} from "./mortgagefunc";
 import {Bookfunc} from "./bookfunc";
 
+import {DefaultApi, HttpBasicAuth} from "./hsbc-api";
+
 'use strict';
 
 const app: express.Express = express();
@@ -25,8 +27,6 @@ let DF_USER = process.env.DIALOGFLOW_USER;
 let DF_PASS = process.env.DIALOGFLOW_PASS;
 
 function basicAuthorizer(username, password) {
-    console.log("username: " + username + " ==? " + DF_USER);
-    console.log("password: " + password + " ==? " + DF_PASS);
     return username == DF_USER && password == DF_PASS;
 }
 

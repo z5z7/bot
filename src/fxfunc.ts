@@ -1,8 +1,15 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
-import {DefaultApi} from './hsbc-api';
+import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 
-const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST;
-let fakeClient = new DefaultApi(HSBC_SERVICE_HOST);
+const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
+let client = new DefaultApi(HSBC_SERVICE_HOST);
+
+const HSBC_USER = process.env.HSBC_USER;
+const HSBC_PASS = process.env.HSBC_PASS;
+let auth = new HttpBasicAuth();
+auth.username = HSBC_USER;
+auth.password = HSBC_PASS;
+client.setDefaultAuthentication(auth);
 
 export namespace Fxfunc {
 
@@ -20,7 +27,7 @@ export namespace Fxfunc {
 
             //roundabout way currently use
 
-            fakeClient.xratesGet().then(result => {
+            client.xratesGet().then(result => {
                 let response = result.response;
 
                 let currencies = result.body.currencies;
@@ -38,7 +45,7 @@ export namespace Fxfunc {
                 function ratehelper (cur: any) : Promise<any> { // do the data adding here then use prom.all with answers inside then? adress+shortname
                     return new Promise(function (fulfill, reject) {
                         //console.log(cur);
-                        fakeClient.xratesFromGet(cur).then(result => {
+                        client.xratesFromGet(cur).then(result => {
                             //console.log(result.body.rates);
                             let Parray = [];
                             let j;
@@ -153,7 +160,7 @@ export namespace Fxfunc {
             //console.log(amount);
 
             if (amount == "") {
-                fakeClient.xratesFromToGet(currency_from,currency_into).then(result => {
+                client.xratesFromToGet(currency_from,currency_into).then(result => {
                     // console.log(result.body);
                     let Rarray =[];
                     let response = result.response;
@@ -198,7 +205,7 @@ export namespace Fxfunc {
 
             else {
 
-                fakeClient.xratesConvertGet(currency_from,currency_into,amount).then(result => {
+                client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
                     let response = result.response;
 
                     let body = result.body;
