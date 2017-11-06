@@ -21,10 +21,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 let GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+let DF_USER = process.env.DIALOGFLOW_USER;
+let DF_PASS = process.env.DIALOGFLOW_PASS;
 
-// let DF_USER = process.env.DIALOGFLOW_USER;
-// let DF_PASS = process.env.DIALOGFLOW_PASS;
-// app.use(basicAuth({users:{user:DF_USER,password:DF_PASS}}));
+function basicAuthorizer(username, password) {
+    console.log("username: " + username + " ==? " + DF_USER);
+    console.log("password: " + password + " ==? " + DF_PASS);
+    return username == DF_USER && password == DF_PASS;
+}
+
+app.use(basicAuth({authorizer: basicAuthorizer}));
 
 app.route('/dialogflow').post(function (req: any, res: any) {
 
