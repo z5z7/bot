@@ -194,8 +194,14 @@ function handleRequest(req: express.Request): Promise<FulfillmentResponse> {
                 });
                 break;
 
-            case Actions.SEARCH_WHAT_MORTGAGE_CALCULATOR_PAYMENT_LEFT :
-                Calculator.handleSearchWhatMortgageCalculatorPaymentLeft(req).then(response => {
+            case Actions.FIND_HOW_MONTHLY_PAYMENT :
+                Calculator.handleSearchWhatMortgageCalculatorMonthlyPayment(req).then(response => {
+                    resolve(response);
+                });
+                break;
+
+            case Actions.FIND_HOW_REMAINING_LOAN_PAYMENT :
+                Calculator.handleSearchWhatMortgageCalculatorRemainingPayment(req).then(response => {
                     resolve(response);
                 });
                 break;

@@ -13,6 +13,7 @@ export namespace Actions {
     export const SEARCH_WHERE_ATM = "search.where.atm";
     export const SEARCH_WHAT_EXCHANGERATE = "search.what.exchangeRate";
     export const SEARCH_WHAT_MORTGAGETYPE = "search.what.mortgageType";
-    export const SEARCH_WHAT_MORTGAGE_CALCULATOR_PAYMENT_LEFT = "search.what.mortgageCalculator.paymentsLeft";
+    export const FIND_HOW_MONTHLY_PAYMENT = "find.how.mortgages.calculate.monthlyPayment";
+    export const FIND_HOW_REMAINING_LOAN_PAYMENT = "find.how.mortgages.calculate.remainingLoan";
     export const BOOKING = "book.appointment";
 }
