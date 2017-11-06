@@ -1,4 +1,6 @@
-FROM node:6-alpine
+# Target Google App Engine
+FROM gcr.io/google-appengine/nodejs
+
 WORKDIR /app
 COPY ["package.json", "package-lock.json", "./"]
 RUN npm install
