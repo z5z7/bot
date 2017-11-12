@@ -23,7 +23,6 @@ function basicAuthorizer(username, password) {
 app.use(basicAuth({authorizer: basicAuthorizer}));
 
 app.route('/dialogflow').post(function (req: any, res: any) {
-
     Actions.handleRequest(req).then(response => {
         res.json(response);
     }).catch(err => {
@@ -32,12 +31,5 @@ app.route('/dialogflow').post(function (req: any, res: any) {
     });
 
 });
-
-
-
-
-
-
-
 
 export default app;
