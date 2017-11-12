@@ -38,17 +38,14 @@ export namespace Actions {
             if(typeof currentAction === "undefined") {
                 reject("invalid request");
             }
+            //call the appropriate function according to its action
+            actionToFuncMap[currentAction](req).then(response =>{
+                resolve(response);
+            })
 
-            for(let actionInMap in actionToFuncMap){
-                if(currentAction == actionInMap){
-                    actionToFuncMap[actionInMap](req).then(response =>{
-                       resolve(response);
-                   })
-                }
-            }
 
             //TODO
-            //take care of sitch where action is not found in map
+            //error handling
         });
     }
 }

@@ -17,7 +17,7 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-import {Components} from "./speechComponents";
+import {Components} from "./conversationComponents";
 
 export namespace Welcome {
 
