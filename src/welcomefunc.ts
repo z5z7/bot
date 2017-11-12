@@ -17,26 +17,15 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
+import {Components} from "./speechComponents";
+
 export namespace Welcome {
 
     export function handleInputWelcome(req: any): Promise<FulfillmentResponse> {
 
-
+        //console.log("incoming request is: " + JSON.stringify(req.body).toString());
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
-
-            const result: FulfillmentResponse = {
-                speech: "Welcome to HSBC from within where we need to be",
-                displayText: "Welcome to HSBC from within my sweet little bitches",
-                data: {},
-                contextOut: [],
-                source: ""
-            };
-
+            let result:Promise<FulfillmentResponse> = Components.returnSimpleResponse("And yet more gnats in my pants   \n", "and snakes in my pancakes");
             resolve(result);
 
         });
