@@ -1,7 +1,5 @@
 export namespace Actions {
-
-    export const MY_ACTION = "my.action.trial";
-    export const WELCOME = "input.welcome.trial";
+    export const WELCOME = "welcome";
     export const MORTGAGERATE_SPECIALOFFER_ADVANCE = "mortgageRate.specialOffer.advance";
     export const MORTGAGERATE_SPECIALOFFER_PREMIER = "mortgageRate.specialOffer.premier";
     export const MORTGAGERATE_SPECIALOFFER_PERSONALRATES = "mortgageRate.specialOffer.personalRates";
