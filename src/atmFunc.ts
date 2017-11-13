@@ -1,40 +1,40 @@
 
-import {FulfillmentResponse, ComplexComboContent} from './contracts';
+import {FulfillmentResponse, SimpleCardContent, SimpleCardSuggestionsContent} from './contracts';
 import {Google_Components} from './google_ConversationComponents';
-
-const GOOGLE_MAPS_API_KEY : string = process.env.GOOGLE_MAPS_API_KEY;
+import {Images} from './imageLibrary';
+//const GOOGLE_MAPS_API_KEY : string = process.env.GOOGLE_MAPS_API_KEY;
 
 
 
 export namespace AtmFunc {
-    //cities that are type-checked in dialogFlow and which we are currently supporting
-    const cities = ["Vancouver", "West Van", "North Van", "New Westminster", "Burnaby", "Coquitlam"];
+
 
     export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
+
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
                 reject("invalid request");
 
             }
+            //atmMapWestVancouverImage
+            let city = JSON.stringify(req.body.result.parameters["local_cities"]);
+            let image:string = Images.getCityImage(city);
+            let link: string = "https://www.google.ca/maps/search/hsbc+" + city;
+            //console.log("city is: " + city + "  image is: " + image + "  link is: " + link);
 
-            let city = JSON.stringify(req.body.result["parameters"]["local_cities"]).toString();
 
-            console.log("city is: " + city);
-
-
-            let contentObj : ComplexComboContent = {
+            let contentObj : SimpleCardContent = {
                 simpleResponse : "Here are the ATMs for your city. Click on the link to open the map",
-                title : "HSBC ATMs in your city",
-                cardBlurb : "",
+                cardTitle : "HSBC ATMs in your city",
+                cardBlurb : "Click 'Map' to go to googleMaps for more detail.",
                 subTitle : city,
-                image : "",
-                suggestions : cities,
-                buttonTitle : "Click for map",
-                buttonUrl : "https://www.google.ca/maps/search/hsbc+Vancouver"
+                image : image,
+                buttonTitle : "Map",
+                buttonUrl : link
             }
 
 
-            let result:Promise<FulfillmentResponse> = Google_Components.returnComplexCombo(contentObj);
+            let result:Promise<FulfillmentResponse> = Google_Components.returnSimpleCard(contentObj);
 
             resolve(result);
 
@@ -48,17 +48,24 @@ export namespace AtmFunc {
                 reject("invalid request");
 
             }
+            //atmMapWestVancouverImage
+            let image:string = Images.getCityImage("Vancouver");
+            let link: string = "https://www.google.ca/maps/search/hsbc+Vancouver";
+            let suggestions = [{"title":"Vancouver"}, {"title" : "West Van"}, {"title" : "North Van"}, {"title":"New Westminster"}, {"title":"Burnaby"}, {"title":"Coquitlam"}, {"title" : "Richmond"}];
 
-            let city = "Vancouver";
+            let contentObj : SimpleCardSuggestionsContent = {
+                simpleResponse : "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city? ",
+                cardTitle : "HSBC ATMs in your city",
+                cardBlurb : "Click 'Map' to go to googleMaps for more detail.",
+                subTitle : "Lower Mainland",
+                image : image,
+                suggestions : suggestions,
+                buttonTitle : "Map",
+                buttonUrl : link
+            }
 
 
-            let speak = "Would you like to find an ATM in Richmond, New West, North Van, West Van, or Burnaby?\n" +
-                "Or would you like to find the closest one to you?";
-
-            let image = "" ;
-
-            let link ;
-            let result: FulfillmentResponse;
+            let result:Promise<FulfillmentResponse> = Google_Components.returnSimpleCardSuggestions(contentObj);
 
             resolve(result);
 

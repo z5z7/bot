@@ -3,7 +3,7 @@
  */
 
 
-import {FulfillmentResponse, ComplexComboContent, SimpleCardContent} from './contracts';
+import {FulfillmentResponse, SimpleCardSuggestionsContent, SimpleCardContent} from './contracts';
 
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 /*const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
@@ -33,23 +33,23 @@ export namespace Welcome {
             let result: Promise<FulfillmentResponse>;
             if(surface.includes(Google_Components.voice) || surface.includes(Google_Components.audio)){
 
-                result = Google_Components.returnSimpleResponse("Welcome to HSBC, and all of its greatness");
+                result = Google_Components.returnSimple("Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM?");
 
             }else if (surface.includes(Google_Components.text)){
 
-                //TODO ALl of this should be populated by library which is populated by api
-                let contentObj: ComplexComboContent = {
+                //TODO ALl of this should be populated by api: getWelcomeDetails
+                let contentObj: SimpleCardSuggestionsContent = {
                     simpleResponse : "Welcome to HSBC",
-                    title : "How can we help you today?",
+                    cardTitle : "How can we help you today?",
                     subTitle : "Find out more",
                     cardBlurb : "We could talk about many things from mortgages to RRSPs",
-                    image : Images.getImage("welcomeImage"),
+                    image : Images.welcomeImage,
                     suggestions : [{"title":"Find ATM"}, {"title" : "Exchange Rates"}, {"title" : "Mortgages"}, {"title":"RRSPs"}, {"title":"World Selection Fund"}, {"title":"Premier Customer"}],
                     buttonTitle : "Visit HSBC",
                     buttonUrl : "http://www.hsbc.com"
                 }
 
-                result = Google_Components.returnComplexCombo(contentObj);
+                result = Google_Components.returnSimpleCardSuggestions(contentObj);
 
             }else{
 
@@ -59,11 +59,12 @@ export namespace Welcome {
                     cardTitle : "This is a title",
                     subTitle: "This is a subtitle",
                     cardBlurb : "And here we talk extensively about HSBC",
-                    image: Images.getImage("welcomeImage"),
-                    imageAltText : "Welcoming you to HSBC"
+                    image: Images.welcomeImage,
+                    buttonTitle : "Visit HSBC",
+                    buttonUrl : "http://www.hsbc.com"
                 }
 
-                 result = Google_Components.returnSimpleResponseCard(contentObj);
+                 result = Google_Components.returnSimpleCard(contentObj);
 
             }
             resolve(result);

@@ -4,10 +4,10 @@ import * as bodyParser from 'body-parser';
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {Calculator} from "./calculator";
 import {Fxfunc} from "./fxfunc";
-import {AtmFunc} from "./atmfunc";
+import {AtmFunc} from "./atmFunc";
 import {Mortfunc} from "./mortgagefunc";
 import {Bookfunc} from "./bookfunc";
-import {Welcome} from "./welcomefunc";
+import {Welcome} from "./welcomeFunc";
 import {Google_Components} from "./google_ConversationComponents";
 
 'use strict';
@@ -53,7 +53,7 @@ export namespace Actions {
                     resolve(response);
                 })
             }else{
-                resolve(Google_Components.returnSimpleResponse("I'm sorry. My mind skipped. What was that?   \n I didn't catch: " + currentAction))
+                resolve(Google_Components.returnSimple("I'm sorry. My mind skipped. What was that?   \n I didn't catch: " + currentAction))
             }
         });
     }

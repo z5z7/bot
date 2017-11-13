@@ -2,7 +2,7 @@
  * Created by valeriewyns on 2017-11-11.
  */
 
-import {FulfillmentResponse, FulfillmentRequest, SimpleCardContent, ComplexComboContent} from './contracts';
+import {FulfillmentResponse, FulfillmentRequest, SimpleCardContent, SimpleCardSuggestionsContent} from './contracts';
 
 
 export namespace Google_Components {
@@ -11,11 +11,8 @@ export namespace Google_Components {
     export const text = "google_assistant_input_type_keyboard";
 
     export function returnSurfaceType(req : any) : string {
-        //console.log(JSON.stringify(req.body["originalRequest"][3]));
-        //console.log("originalRequest: " + JSON.stringify(req.body["originalRequest"]["data"]["inputs"]).toString());
-        //if(req.body.result["contexts"][2]["name"]){
         try{
-            if(typeof req.body.result["contexts"][2]["name"] != "undefined"){
+           if(typeof req.body.result["contexts"][2]["name"] != "undefined"){
                 return JSON.stringify(req.body.result["contexts"][2]["name"]).toString();
             }
         }
@@ -38,7 +35,7 @@ export namespace Google_Components {
     }
     //only returns one text/speech utterance
     //good for error messaging
-    export function returnSimpleResponse(speech: string): Promise<FulfillmentResponse> {
+    export function returnSimple(speech: string): Promise<FulfillmentResponse> {
         //remember: speech in this context can also mean the text surface
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: FulfillmentResponse;
@@ -53,7 +50,18 @@ export namespace Google_Components {
 
         });
     }
-    export function returnSimpleResponseCard(contentObj: SimpleCardContent): Promise<FulfillmentResponse> {
+    export function returnSimpleCard(contentObj: SimpleCardContent): Promise<FulfillmentResponse> {
+        let buttons;
+        if (contentObj.buttonTitle != ""){
+            buttons = [{
+                "title": contentObj.buttonTitle,
+                "openUrlAction": {
+                    "url": contentObj.buttonUrl
+                }
+            }];
+        }else{
+            buttons = "";
+        }
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: FulfillmentResponse = {
                 speech: "",
@@ -75,8 +83,9 @@ export namespace Google_Components {
                                         "subtitle": contentObj.subTitle,
                                         "image": {
                                             "url": contentObj.image,
-                                            "accessibilityText": contentObj.imageAltText
+                                            "accessibilityText": "image"
                                         },
+                                        buttons
                                     }
                                 }
                             ]
@@ -91,14 +100,18 @@ export namespace Google_Components {
     }
 
 
-    export function returnComplexCombo(contentObj: ComplexComboContent) : Promise<FulfillmentResponse>{
-       let buttons = [{
+    export function returnSimpleCardSuggestions(contentObj: SimpleCardSuggestionsContent) : Promise<FulfillmentResponse>{
+        let buttons;
+        if (contentObj.buttonTitle != ""){
+            buttons = [{
                 "title": contentObj.buttonTitle,
                 "openUrlAction": {
                     "url": contentObj.buttonUrl
                 }
-            }
-        ]
+            }];
+        }else{
+            buttons = "";
+        }
         return new Promise<FulfillmentResponse>((resolve, reject) => {
            // sample to return a basic card response to Google Assistant
             let result : FulfillmentResponse = {
@@ -116,7 +129,7 @@ export namespace Google_Components {
                                 },
                                 {
                                     "basicCard": {
-                                        "title": contentObj.title,
+                                        "title": contentObj.cardTitle,
                                         "formattedText": contentObj.cardBlurb,
                                         "subtitle": contentObj.subTitle,
                                         "image": {

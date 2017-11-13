@@ -31,20 +31,21 @@ export interface SimpleCardContent{
     cardBlurb: string,
     subTitle: string,
     image: string,
-    imageAltText: string
+    buttonTitle: string,
+    buttonUrl: string
 }
 
 
 /**
  * Content Object for ComplexCombo component input
  */
-export interface ComplexComboContent{
+export interface SimpleCardSuggestionsContent{
     simpleResponse : string,
-    title : string,
+    cardTitle : string,
     cardBlurb : string,
     subTitle : string,
     image : string,
-    suggestions : Array<any>,
     buttonTitle : string,
-    buttonUrl : string
+    buttonUrl : string,
+    suggestions : Array<any>
 }
