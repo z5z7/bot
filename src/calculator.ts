@@ -118,7 +118,7 @@ export namespace Calculator {
 
             }
 
-            client.calculateProductIdGet("loans",arg).then(result => {
+            client.calculateProductIdGet("loans", arg).then(result => {
                 //console.log(result.body);
                 let pay = result.body.result;
                 // console.log(pay);
