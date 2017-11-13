@@ -2,11 +2,11 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
-import {Calculator} from "./calculator";
-import {Fxfunc} from "./fxfunc";
+import {Calculator} from "./mortgageCalculator";
+import {Fxfunc} from "./fxFunc";
 import {AtmFunc} from "./atmFunc";
-import {Mortfunc} from "./mortgagefunc";
-import {Bookfunc} from "./bookfunc";
+import {Mortfunc} from "./mortgageFunc";
+import {Bookfunc} from "./appointmentFunc";
 import {Welcome} from "./welcomeFunc";
 import {Google_Components} from "./google_ConversationComponents";
 
