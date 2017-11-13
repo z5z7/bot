@@ -3,10 +3,10 @@
  */
 
 
-import {FulfillmentResponse, FulfillmentRequest} from './contracts';
-import {DefaultApi, HttpBasicAuth} from './hsbc-api';
+import {FulfillmentResponse, ComplexComboContent, SimpleCardContent} from './contracts';
 
-const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
+import {DefaultApi, HttpBasicAuth} from './hsbc-api';
+/*const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
 
 const HSBC_USER = process.env.HSBC_USER;
@@ -15,8 +15,11 @@ let auth = new HttpBasicAuth();
 auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
+*/
+
 
 import {Google_Components} from "./google_ConversationComponents";
+import {Images} from "./imageLibrary";
 
 export namespace Welcome {
     //global since once on google will not switch to FB
@@ -34,11 +37,33 @@ export namespace Welcome {
 
             }else if (surface.includes(Google_Components.text)){
 
-                result = Google_Components.returnComplexCombo("Welcome to HSBC", "How can we help you today?", "We could talk about many things from mortgages to RRSPs", "Find out more",  "https://storage.googleapis.com/hello_init/chat_trial_images/welcome_image_2.png", [{"title":"Find ATM"}, {"title" : "Exchange Rates"}, {"title" : "Mortgages"}, {"title":"RRSPs"}, {"title":"World Selection Fund"}, {"title":"Premier Customer"}], "Title", "http://google.com");
+                //TODO ALl of this should be populated by library which is populated by api
+                let contentObj: ComplexComboContent = {
+                    simpleResponse : "Welcome to HSBC",
+                    title : "How can we help you today?",
+                    subTitle : "Find out more",
+                    cardBlurb : "We could talk about many things from mortgages to RRSPs",
+                    image : Images.getImage("welcomeImage"),
+                    suggestions : [{"title":"Find ATM"}, {"title" : "Exchange Rates"}, {"title" : "Mortgages"}, {"title":"RRSPs"}, {"title":"World Selection Fund"}, {"title":"Premier Customer"}],
+                    buttonTitle : "Visit HSBC",
+                    buttonUrl : "http://www.hsbc.com"
+                }
+
+                result = Google_Components.returnComplexCombo(contentObj);
 
             }else{
 
-                 result = Google_Components.returnSimpleResponseCard("My surface is: " + surface, "This is a title", "And here we talk extensiely about HSBC bollucks", "This is a subtitle", "https://storage.googleapis.com/hello_init/chat_trial_images/welcome_image_2.png", "Here we see all of the happiness that comes with HSBC");
+                //TODO ALl of this should be populated by API
+                let contentObj : SimpleCardContent = {
+                    simpleResponse : "My surface is: " + surface,
+                    cardTitle : "This is a title",
+                    subTitle: "This is a subtitle",
+                    cardBlurb : "And here we talk extensively about HSBC",
+                    image: Images.getImage("welcomeImage"),
+                    imageAltText : "Welcoming you to HSBC"
+                }
+
+                 result = Google_Components.returnSimpleResponseCard(contentObj);
 
             }
             resolve(result);

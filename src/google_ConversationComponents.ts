@@ -2,7 +2,7 @@
  * Created by valeriewyns on 2017-11-11.
  */
 
-import {FulfillmentResponse, FulfillmentRequest} from './contracts';
+import {FulfillmentResponse, FulfillmentRequest, SimpleCardContent, ComplexComboContent} from './contracts';
 
 
 export namespace Google_Components {
@@ -53,7 +53,7 @@ export namespace Google_Components {
 
         });
     }
-    export function returnSimpleResponseCard(simpleResponse: string, cardTitle: string, cardBlurb: string, subTitle: string, image: string, imageAltText: string): Promise<FulfillmentResponse> {
+    export function returnSimpleResponseCard(contentObj: SimpleCardContent): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: FulfillmentResponse = {
                 speech: "",
@@ -65,17 +65,17 @@ export namespace Google_Components {
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": simpleResponse
+                                        "textToSpeech": contentObj.simpleResponse
                                     }
                                 },
                                 {
                                     "basicCard": {
-                                        "title": cardTitle,
-                                        "formattedText": cardBlurb,
-                                        "subtitle": subTitle,
+                                        "title": contentObj.cardTitle,
+                                        "formattedText": contentObj.cardBlurb,
+                                        "subtitle": contentObj.subTitle,
                                         "image": {
-                                            "url": image,
-                                            "accessibilityText": imageAltText
+                                            "url": contentObj.image,
+                                            "accessibilityText": contentObj.imageAltText
                                         },
                                     }
                                 }
@@ -91,11 +91,11 @@ export namespace Google_Components {
     }
 
 
-    export function returnComplexCombo(simpleResponse : string, title : string, cardBlurb : string, subtitle : string, image : string, suggestions : Array<any>, buttonTitle : string, buttonUrl : string) : Promise<FulfillmentResponse>{
+    export function returnComplexCombo(contentObj: ComplexComboContent) : Promise<FulfillmentResponse>{
        let buttons = [{
-                "title": buttonTitle,
+                "title": contentObj.buttonTitle,
                 "openUrlAction": {
-                    "url": buttonUrl
+                    "url": contentObj.buttonUrl
                 }
             }
         ]
@@ -111,23 +111,23 @@ export namespace Google_Components {
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": simpleResponse
+                                        "textToSpeech": contentObj.simpleResponse
                                     }
                                 },
                                 {
                                     "basicCard": {
-                                        "title": title,
-                                        "formattedText": cardBlurb,
-                                        "subtitle": subtitle,
+                                        "title": contentObj.title,
+                                        "formattedText": contentObj.cardBlurb,
+                                        "subtitle": contentObj.subTitle,
                                         "image": {
-                                            "url": image,
+                                            "url": contentObj.image,
                                             "accessibilityText": "Image"
                                         },
                                         buttons
                                     }
                                 },
                             ],
-                            "suggestions": suggestions
+                            "suggestions": contentObj.suggestions
                         }
                     },
                 },

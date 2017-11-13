@@ -4,7 +4,7 @@ import * as bodyParser from 'body-parser';
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {Calculator} from "./calculator";
 import {Fxfunc} from "./fxfunc";
-import {Atmfunc} from "./atmfunc";
+import {AtmFunc} from "./atmfunc";
 import {Mortfunc} from "./mortgagefunc";
 import {Bookfunc} from "./bookfunc";
 import {Welcome} from "./welcomefunc";
@@ -25,8 +25,8 @@ let actionToFuncMap = {
                     "GOOGLE_ASSISTANT_WELCOME " : Welcome.handleInputWelcome,
                     "smalltalk.agent.talk_to_me" : Welcome.handleInputWelcome,
                     //
-                    "find.where.atm" : Atmfunc.handleFindAtm,
-                    "search.where.atm" : Atmfunc.handleSearchWhereAtm,
+                    "find.where.atm" : AtmFunc.handleFindAtm,
+                    "search.where.atm" : AtmFunc.handleSearchWhereAtm,
                     //
                     "find.what.exchangeRate" : Fxfunc.handleFindWhatExchangeRate,
                     "search.what.exchangeRate" : Fxfunc.handleSearchWhatExchangeRate,
