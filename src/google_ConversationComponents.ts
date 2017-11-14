@@ -12,7 +12,7 @@ export namespace Google_Components {
 
     export function returnSurfaceType(req : any) : string {
         //TODO: this needs to be sorted out once Firebase is approved
-        console.log("surf: " + req.body.result);
+        console.log("surf: " + JSON.stringify(req.body.result).toString());
         try{
            if(typeof req.body.result["contexts"][2]["name"] != "undefined"){
                 console.log("inside surface type: " + req.body.result["contexts"][2]["name"]);
