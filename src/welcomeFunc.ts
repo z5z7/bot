@@ -28,7 +28,7 @@ export namespace Welcome {
         //good place to set as this is the first intent to trigger (voice || text)
          isGoogle = Google_Components.isGoogle(req);
         let surface = Google_Components.returnSurfaceType(req);
-
+        console.log("surface is: " + surface);
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
             if(surface.includes(Google_Components.voice) || surface.includes(Google_Components.audio)){

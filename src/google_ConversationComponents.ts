@@ -11,8 +11,11 @@ export namespace Google_Components {
     export const text = "google_assistant_input_type_keyboard";
 
     export function returnSurfaceType(req : any) : string {
+        //TODO: this needs to be sorted out once Firebase is approved
+        console.log("surf: " + req.body.result);
         try{
            if(typeof req.body.result["contexts"][2]["name"] != "undefined"){
+                console.log("inside surface type: " + req.body.result["contexts"][2]["name"]);
                 return JSON.stringify(req.body.result["contexts"][2]["name"]).toString();
             }
         }
