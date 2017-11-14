@@ -31,21 +31,21 @@ export namespace Calculator {
 
             let arg = "0001/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString();
             console.log("arg: " + arg);
-            let result: Promise<FulfillmentResponse>;
+
 
             client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = result.body.result;
+                let pay = req.body.result.body.result;
 
                 let answer = "Your monthly payment should be " + pay.toString();
 
-                result = Google_Components.returnSimple(answer);
-                resolve(result);
+                let response: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
+                resolve(response);
 
             }).catch(err => {
 
                 let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
-                result = Google_Components.returnSimple(answer + " : error " + err);
-                resolve(result);
+                let response = Google_Components.returnSimple(answer + " : error " + err);
+                resolve(response);
             });
 
         });
@@ -69,17 +69,17 @@ export namespace Calculator {
 
             let arg = "0002/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString() + "&monthsRemaining=" + pRemaining.toString();
             console.log("arg: " + arg);
-            let result: Promise<FulfillmentResponse>;
+
 
             client.calculateProductIdGet("loans", arg).then(result => {
                 let pay = result.body.result;
-                let answer = "total amount remaining to pay is " + pay.toString();
-                result = Google_Components.returnSimple(answer);
-                resolve(result);
+                let message = "total amount remaining to pay is " + pay.toString();
+                let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(message);
+                resolve(answer);
             }).catch(err => {
-                let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
-                result = Google_Components.returnSimple(answer + " : error " + err);
-                resolve(result);
+                let error = "I'm sorry, there was an error with our calculation. Shall we try again?";
+                let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(error + " : error " + err);
+                resolve(answer);
             });
 
         });

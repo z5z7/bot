@@ -8,12 +8,11 @@ import {Images} from './imageLibrary';
 
 export namespace AtmFunc {
 
-
     export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
-                result = Google_Components.returnSimple("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
+                let result = Google_Components.returnSimple("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
                 resolve(result);
 
             }
@@ -53,7 +52,7 @@ export namespace AtmFunc {
         //TODO: api returns list of addresses for speech: getATMFuncAll
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-
+            let result : Promise<FulfillmentResponse>;
             if (!req.body.result) {
                 result = Google_Components.returnSimple("I'm sorry. That is not something I can help you with.");
                 resolve(result);
@@ -68,7 +67,6 @@ export namespace AtmFunc {
 
 
             let surface = Google_Components.returnSurfaceType(req);
-            let result: Promise<FulfillmentResponse>;
             console.log("surface: " + surface);
 
             if(surface.includes(Google_Components.text)){

@@ -79,20 +79,20 @@ export namespace FxFunc {
                     //console.log(Rarray);
                     let text = Rarray.join('\n');
 
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
-                    resolve(result);
+                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    resolve(answer);
 
 
 
                 }).catch(reason => {
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error Reason: " + reason);
-                    resolve(result);
+                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error Reason: " + reason);
+                    resolve(error);
 
                 });
 
             }).catch(err => {
-                let result: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
-                resolve(result);
+                let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                resolve(error);
 
             });
 
@@ -140,13 +140,13 @@ export namespace FxFunc {
 
                     let text = Rarray.join('\n');
 
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
-                    resolve(result);
+                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    resolve(answer);
 
 
                 }).catch(err => {
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error retrieving: " + err);
-                    resolve(result);
+                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error retrieving: " + err);
+                    resolve(error);
                 });
             }
 
@@ -170,15 +170,15 @@ export namespace FxFunc {
                     }
                     //console.log(body);
 
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimple(conversion.toString());
-                    resolve(result);
+                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(conversion.toString());
+                    resolve(answer);
 
 
                 }).catch(err => {
                     //console.log(err.response);
                     //console.log(err.body);
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
-                    resolve(result);
+                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                    resolve(error);
                 });
             }
         });

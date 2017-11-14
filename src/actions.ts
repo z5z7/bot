@@ -3,11 +3,12 @@ import * as bodyParser from 'body-parser';
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {Calculator} from "./mortgageCalculator";
-import {Fxfunc} from "./fxFunc";
+import {FxFunc} from "./fxFunc";
 import {AtmFunc} from "./atmFunc";
 import {Mortfunc} from "./mortgageFunc";
 import {Bookfunc} from "./appointmentFunc";
 import {Welcome} from "./welcomeFunc";
+import {RrspFunc} from "./rrspFunc";
 import {Google_Components} from "./google_ConversationComponents";
 
 'use strict';
@@ -28,12 +29,15 @@ let actionToFuncMap = {
                     "find.where.atm" : AtmFunc.handleFindAtm,
                     "search.where.atm" : AtmFunc.handleSearchWhereAtm,
                     //
-                    "find.what.exchangeRate" : Fxfunc.handleFindWhatExchangeRate,
-                    "search.what.exchangeRate" : Fxfunc.handleSearchWhatExchangeRate,
+                    "find.what.exchangeRate" : FxFunc.handleFindWhatExchangeRate,
+                    "search.what.exchangeRate" : FxFunc.handleSearchWhatExchangeRate,
                     //
                     "search.what.mortgageType": Mortfunc.handleSearchWhatMortgageType,
                     "find.how.mortgages.calculate.monthlyPayment" : Calculator.handleSearchWhatMortgageCalculatorMonthlyPayment,
                     "find.how.mortgages.calculate.remainingLoan" : Calculator.handleSearchWhatMortgageCalculatorRemainingPayment,
+                    //
+                    "direct.rrsp" : RrspFunc.handleDirectRRSP,
+
                     //
                     "book.appointment": Bookfunc.handleBooking
                     };
@@ -53,7 +57,7 @@ export namespace Actions {
                     resolve(response);
                 })
             }else{
-                resolve(Google_Components.returnSimple("I'm sorry. My mind skipped. What was that?   \n I didn't catch: " + currentAction))
+                resolve(Google_Components.returnSimple("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
             }
         });
     }
