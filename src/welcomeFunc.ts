@@ -22,53 +22,44 @@ import {Google_Components} from "./google_ConversationComponents";
 import {Images} from "./imageLibrary";
 
 export namespace Welcome {
-    //global since once on google will not switch to FB
-    export let isGoogle: boolean;
     export function handleInputWelcome(req: any): Promise<FulfillmentResponse> {
-        //good place to set as this is the first intent to trigger (voice || text)
-         isGoogle = Google_Components.isGoogle(req);
-        let surface = Google_Components.returnSurfaceType(req);
-        console.log("surface is: " + surface);
+
+        let isGoogle = Google_Components.isGoogle(req);
+        let isText = Google_Components.isTextSurface(req);
+
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
-            if(surface.includes(Google_Components.voice) || surface.includes(Google_Components.audio)){
+            //TODO ALl of this should be populated by api: getWelcomeDetails
+            let text: string = "We could talk about many things from mortgages to RRSPs";
+            let speech : string = "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM?"
+            let simpleResponse: string = "Welcome to HSBC";
+            let title : string = "How can we help you today?";
+            let subtitle : string = "Find out more";
+            let suggestions = [{"title":"Find ATM"}, {"title" : "Exchange Rates"}, {"title" : "Mortgages"}, {"title":"RRSPs"}, {"title":"World Selection Fund"}, {"title":"Premier Customer"}];
+            let buttonTitle : string = "Visit HSBC";
+            let buttonURL : string = "http://www.hsbc.com";
 
-                result = Google_Components.returnSimple("Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM?");
+            if(isGoogle){
+                if(isText){
+                    let contentObj: SimpleCardSuggestionsContent = {
+                        simpleResponse : simpleResponse,
+                        cardTitle : title,
+                        subTitle : subtitle,
+                        cardBlurb : text,
+                        image : Images.welcomeImage,
+                        suggestions : suggestions,
+                        buttonTitle : buttonTitle,
+                        buttonUrl : buttonURL
+                    }
+                    result = Google_Components.returnSimpleCardSuggestions(contentObj);
 
-            }else if (surface.includes(Google_Components.text)){
+                }else {
+                    result = Google_Components.returnSimple(speech);
 
-                //TODO ALl of this should be populated by api: getWelcomeDetails
-                let contentObj: SimpleCardSuggestionsContent = {
-                    simpleResponse : "Welcome to HSBC",
-                    cardTitle : "How can we help you today?",
-                    subTitle : "Find out more",
-                    cardBlurb : "We could talk about many things from mortgages to RRSPs",
-                    image : Images.welcomeImage,
-                    suggestions : [{"title":"Find ATM"}, {"title" : "Exchange Rates"}, {"title" : "Mortgages"}, {"title":"RRSPs"}, {"title":"World Selection Fund"}, {"title":"Premier Customer"}],
-                    buttonTitle : "Visit HSBC",
-                    buttonUrl : "http://www.hsbc.com"
                 }
-
-                result = Google_Components.returnSimpleCardSuggestions(contentObj);
-
-            }else{
-
-                //TODO ALl of this should be populated by API
-                let contentObj : SimpleCardContent = {
-                    simpleResponse : "My surface is: " + surface,
-                    cardTitle : "This is a title",
-                    subTitle: "This is a subtitle",
-                    cardBlurb : "And here we talk extensively about HSBC",
-                    image: Images.welcomeImage,
-                    buttonTitle : "Visit HSBC",
-                    buttonUrl : "http://www.hsbc.com"
-                }
-
-                 result = Google_Components.returnSimpleCard(contentObj);
-
+                resolve(result);
             }
-            resolve(result);
         });
     }
 }

@@ -29,6 +29,8 @@ export namespace Images {
     export let premierCustomerImage: string = url + "premierCustomer.png";
     //
     export let rrspImage: string =  url + "RRSP.png";
+    export let rrspApplyImage: string = url + "rrspApply.png";
+    export let rrspBenefitsImage: string = url + "rrspBenefits.png"
     //
     export let wsfImage: string = url + "worldSelectionFund.png";
 

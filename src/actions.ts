@@ -37,7 +37,8 @@ let actionToFuncMap = {
                     "find.how.mortgages.calculate.remainingLoan" : Calculator.handleSearchWhatMortgageCalculatorRemainingPayment,
                     //
                     "direct.rrsp" : RrspFunc.handleDirectRRSP,
-
+                    "find.how.apply.rrsp" : RrspFunc.handleApplyRRSP,
+                    "find.what.rrsp.benefits" : RrspFunc.handleRRSPBenefits,
                     //
                     "book.appointment": Bookfunc.handleBooking
                     };

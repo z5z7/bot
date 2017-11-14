@@ -20,32 +20,34 @@ export namespace AtmFunc {
             let city = JSON.stringify(req.body.result.parameters["local_cities"]);
             let simpleResponseText: string = "Here are the ATMs for " + city + ". Click on the link to open the map";
             let simpleResponseSpeech: string = "Here is a list of addresses of ATMS in " + city;
-
+            let title: string = "HSBC ATMs in your city";
             let image:string = Images.getCityImage(city);
-            let link: string = "https://www.google.ca/maps/search/hsbc+" + city;
+            let buttonTitle : string = "Map";
+            let buttonURL: string = "https://www.google.ca/maps/search/hsbc+" + city;
 
-            let surface = Google_Components.returnSurfaceType(req);
+            let isText = Google_Components.isTextSurface(req);
+            let isGoogle = Google_Components.isGoogle(req);
             let result: Promise<FulfillmentResponse>;
-            console.log("surface: " + surface);
-            if(surface.includes(Google_Components.text)){
-                let contentObj : SimpleCardContent = {
-                    simpleResponse : simpleResponseText,
-                    cardTitle : "HSBC ATMs in your city",
-                    cardBlurb : "Click 'Map' to go to googleMaps for more detail.",
-                    subTitle : city,
-                    image : image,
-                    buttonTitle : "Map",
-                    buttonUrl : link
+            if(isGoogle){
+                if(isText){
+                    let contentObj : SimpleCardContent = {
+                        simpleResponse : simpleResponseText,
+                        cardTitle : title,
+                        cardBlurb : simpleResponseText,
+                        subTitle : city,
+                        image : image,
+                        buttonTitle : buttonTitle,
+                        buttonUrl : buttonURL
+                    }
+
+                    result = Google_Components.returnSimpleCard(contentObj);
+                    resolve(result);
+                }else{
+                    //this covers voice, audio, and unknown
+                    result = Google_Components.returnSimple(simpleResponseSpeech);
+                    resolve(result);
                 }
-
-                result = Google_Components.returnSimpleCard(contentObj);
-                resolve(result);
-            }else{
-                //this covers voice, audio, and unknown
-                result = Google_Components.returnSimple(simpleResponseSpeech);
-                resolve(result);
             }
-
         });
     }
     export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
@@ -59,35 +61,38 @@ export namespace AtmFunc {
 
             }
             //atmMapWestVancouverImage
-            let simpleResponseText: string = "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city? "
-            let simpleResponseSpeech: string = "Here is a list of the ATMs in the Lower Mainland. This will soon be connected to api"; //TODO: api returns list of addresses
+            let simpleResponseText: string = "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city? ";
+            let simpleResponseSpeech: string = "Here is a list of the ATMs in the Lower Mainland. This will soon be connected to api";
+            let title:string = "HSBC ATMs in your city";
+            let subtitle:string = "Lower Mainland";
             let image:string = Images.getCityImage("Vancouver");
-            let link: string = "https://www.google.ca/maps/search/hsbc+Vancouver";
+            let buttonTitle: string = "Map";
+            let buttonURL: string = "https://www.google.ca/maps/search/hsbc+Vancouver";
             let suggestions = [{"title":"Vancouver"}, {"title" : "West Van"}, {"title" : "North Van"}, {"title":"New Westminster"}, {"title":"Burnaby"}, {"title":"Coquitlam"}, {"title" : "Richmond"}];
 
 
-            let surface = Google_Components.returnSurfaceType(req);
-            console.log("surface: " + surface);
+            let isText = Google_Components.isTextSurface(req);
+            let isGoogle = Google_Components.isGoogle(req);
 
-            if(surface.includes(Google_Components.text)){
-                let contentObj : SimpleCardSuggestionsContent = {
-                    simpleResponse : simpleResponseText,
-                    cardTitle : "HSBC ATMs in your city",
-                    cardBlurb : "Click 'Map' to go to googleMaps for more detail.",
-                    subTitle : "Lower Mainland",
-                    image : image,
-                    suggestions : suggestions,
-                    buttonTitle : "Map",
-                    buttonUrl : link
+            if(isGoogle){
+                if(isText){
+                    let contentObj : SimpleCardSuggestionsContent = {
+                        simpleResponse : simpleResponseText,
+                        cardTitle : title,
+                        cardBlurb : simpleResponseText,
+                        subTitle : subtitle,
+                        image : image,
+                        suggestions : suggestions,
+                        buttonTitle : buttonTitle,
+                        buttonUrl : buttonURL
+                    }
+                    result = Google_Components.returnSimpleCardSuggestions(contentObj);
+                    resolve(result);
+                }else {
+                    result = Google_Components.returnSimple(simpleResponseSpeech);
+                    resolve(result);
                 }
-                result = Google_Components.returnSimpleCardSuggestions(contentObj);
-                resolve(result);
-            }else{
-                //this covers voice, audio, and unknown
-                result = Google_Components.returnSimple(simpleResponseSpeech);
-                resolve(result);
             }
-
         });
     }
 
@@ -97,7 +102,7 @@ export namespace AtmFunc {
 
 
 
-    //TODO make this work!!!
+    //TODO make this work guys!!!
 
 
 

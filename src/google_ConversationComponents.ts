@@ -10,17 +10,21 @@ export namespace Google_Components {
     export const audio = "actions_capability_audio_output";
     export const text = "google_assistant_input_type_keyboard";
 
-    export function returnSurfaceType(req : any) : string {
-        //TODO: this needs to be sorted out once Firebase is approved
-        console.log("surf: " + JSON.stringify(req.body.result).toString());
+    export function isTextSurface(req : any) : boolean {
         try{
-           if(typeof req.body.result["contexts"][2]["name"] != "undefined"){
-                console.log("inside surface type: " + req.body.result["contexts"][2]["name"]);
-                return JSON.stringify(req.body.result["contexts"][2]["name"]).toString();
+           if(typeof JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"] != "undefined")){
+               let inputs = JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"]).toString();
+               if(inputs.includes("KEYBOARD")){
+                   return true;
+               }else{
+                   return false;
+               }
+
             }
         }
         catch(err){
-            return text;
+            //err on the side of caution and go for voice
+            return false;
         }
 
     }
