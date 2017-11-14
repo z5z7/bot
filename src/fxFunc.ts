@@ -17,7 +17,7 @@ export namespace FxFunc {
     export function handleFindWhatExchangeRate(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-
+            let isGoogle = Google_Components.isGoogle(req);
             if (!req.body.result) {
                 reject("invalid request");
 
@@ -85,15 +85,17 @@ export namespace FxFunc {
 
 
                 }).catch(reason => {
-                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error Reason: " + reason);
-                    resolve(error);
-
+                    if(isGoogle){
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error Reason: " + reason);
+                        resolve(error);
+                    }
                 });
 
             }).catch(err => {
-                let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
-                resolve(error);
-
+                if(isGoogle){
+                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                    resolve(error);
+                }
             });
 
         });
@@ -107,6 +109,7 @@ export namespace FxFunc {
                 reject("invalid request");
 
             }
+            let isGoogle = Google_Components.isGoogle(req);
 
             let currency_from = req.body.result.parameters.currency_from;
             let currency_into = req.body.result.parameters.currency_into;
@@ -139,14 +142,18 @@ export namespace FxFunc {
                     Rarray.push(str2);
 
                     let text = Rarray.join('\n');
+                    if(isGoogle){
+                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                        resolve(answer);
+                    }
 
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
-                    resolve(answer);
 
 
                 }).catch(err => {
-                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error retrieving: " + err);
-                    resolve(error);
+                    if(isGoogle) {
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error retrieving: " + err);
+                        resolve(error);
+                    }
                 });
             }
 
@@ -169,16 +176,19 @@ export namespace FxFunc {
                         conversion = 100;
                     }
                     //console.log(body);
-
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(conversion.toString());
-                    resolve(answer);
+                    if(isGoogle) {
+                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(conversion.toString());
+                        resolve(answer);
+                    }
 
 
                 }).catch(err => {
                     //console.log(err.response);
                     //console.log(err.body);
-                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
-                    resolve(error);
+                    if(isGoogle) {
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                        resolve(error);
+                    }
                 });
             }
         });

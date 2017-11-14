@@ -37,15 +37,19 @@ export namespace Calculator {
                 let pay = req.body.result.body.result;
 
                 let answer = "Your monthly payment should be " + pay.toString();
-
-                let response: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
-                resolve(response);
+                if(Google_Components.isGoogle(req)) {
+                    let response: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
+                    resolve(response);
+                }
 
             }).catch(err => {
 
                 let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
-                let response = Google_Components.returnSimple(answer + " : error " + err);
-                resolve(response);
+                if(Google_Components.isGoogle(req)){
+                    let response = Google_Components.returnSimple(answer + " : error " + err);
+                    resolve(response);
+                }
+
             });
 
         });
@@ -74,12 +78,16 @@ export namespace Calculator {
             client.calculateProductIdGet("loans", arg).then(result => {
                 let pay = result.body.result;
                 let message = "total amount remaining to pay is " + pay.toString();
-                let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(message);
-                resolve(answer);
+                if(Google_Components.isGoogle(req)) {
+                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(message);
+                    resolve(answer);
+                }
             }).catch(err => {
                 let error = "I'm sorry, there was an error with our calculation. Shall we try again?";
-                let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(error + " : error " + err);
-                resolve(answer);
+                if(Google_Components.isGoogle(req)) {
+                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(error + " : error " + err);
+                    resolve(answer);
+                }
             });
 
         });
