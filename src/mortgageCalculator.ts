@@ -3,7 +3,6 @@ import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 import {Google_Components} from './google_ConversationComponents';
 import {Images} from './imageLibrary';
 //
-
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
 
