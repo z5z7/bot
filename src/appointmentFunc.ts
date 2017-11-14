@@ -1,5 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
+import {Google_Components} from './google_ConversationComponents';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -31,45 +32,28 @@ export namespace Bookfunc {
             let phonenum : string = req.body.result.parameters.phone_number.toString();
             let other : string = req.body.result.parameters.further_detail.toString();
 
-            //console.log(fname);
-            //console.log(lname);
-            //console.log(mail);
-            //console.log(method);
-            //console.log(phonenum);
-            //console.log(other);
-
             let contact = {firstName : fname, lastName: lname, email:mail, phone: phonenum};
             let AppBook = {contactInfo: contact, details:other};
 
             client.appointmentsPost(AppBook).then(result => {
-
+                //TODO does ref return a status from the request (as in success vs error)
                 let ref = result.body.reference;
                 let date = result.body.date;
 
                 //console.log(ref);
                 //console.log(date);
+                let answer = "Thanks! An agent will contact you soon by " + method;
+                let returnResult: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
 
-                const result1: FulfillmentResponse = {
-                    speech: "Thanks! An agent will contact you soon by " + method,
-                    displayText: "Thanks! An agent will contact you soon by " + method,
-                    data: {},
-                    contextOut: [],
-                    source: ""
-                };
 
-                resolve(result1);
+                resolve(returnResult);
 
             }).catch(err => {
+                let answer = "I'm sorry. We were not able to reconcile your request. Please try again.";
+                let returnResult: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
 
-                const result2: FulfillmentResponse = {
-                    speech: "Something went wrong at our Backend",
-                    displayText: "Something went wrong at our Backend",
-                    data: {},
-                    contextOut: [],
-                    source: ""
-                };
 
-                resolve(result2);
+                resolve(returnResult);
 
             });
         });

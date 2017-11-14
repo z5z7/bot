@@ -1,5 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
+import {Google_Components} from './google_ConversationComponents';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -11,15 +12,12 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-export namespace Fxfunc {
+export namespace FxFunc {
 
     export function handleFindWhatExchangeRate(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-
-            // todo: stub
-            // call backend to get all the FX rates name available
-
+            let isGoogle = Google_Components.isGoogle(req);
             if (!req.body.result) {
                 reject("invalid request");
 
@@ -32,15 +30,6 @@ export namespace Fxfunc {
 
                 let currencies = result.body.currencies;
 
-                //console.log(currencies);
-
-                //let i;
-                //let len = currencies.length;
-                //let Rarray = [];
-
-                //for (i = 0; i < len; i++) {
-                //    Rarray.push(currencies[i].code);
-                //}
 
                 function ratehelper (cur: any) : Promise<any> { // do the data adding here then use prom.all with answers inside then? adress+shortname
                     return new Promise(function (fulfill, reject) {
@@ -89,47 +78,24 @@ export namespace Fxfunc {
                     Rarray.push(values)
                     //console.log(Rarray);
                     let text = Rarray.join('\n');
-                    //text = text.replace(/\\n/g, '\n');
-                    //console.log(text);
-                    const result1: FulfillmentResponse = {
-                        speech:text,
-                        //"Returns list of rates.        currency : rates     \n" +
-                        //"no parameters as this is a find, rather than a search, function and so you are returning ALL rates as a list",
-                        displayText:text,
-                        //"Returns list of rates.        currency : rates     \n" +
-                        //"no parameters as this is a find, rather than a search, function and so you are returning ALL rates as a list",
-                        data: {},
-                        contextOut: [],
-                        source: ""
-                    };
 
-                    resolve(result1);
+                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    resolve(answer);
+
 
 
                 }).catch(reason => {
-                    const return2: FulfillmentResponse = {
-                        speech: "Something went wrong at our backend",
-                        displayText: "Something went wrong at our backend",
-                        data: {},
-                        contextOut: [],
-                        source: ""
-                    };
-
-                    resolve(return2);
+                    if(isGoogle){
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error Reason: " + reason);
+                        resolve(error);
+                    }
                 });
 
             }).catch(err => {
-                //console.log(err.response);
-                //console.log(err.body);
-                const return2: FulfillmentResponse = {
-                    speech: "Something went wrong at our backend",
-                    displayText: "Something went wrong at our backend",
-                    data: {},
-                    contextOut: [],
-                    source: ""
-                };
-
-                resolve(return2);
+                if(isGoogle){
+                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                    resolve(error);
+                }
             });
 
         });
@@ -139,13 +105,11 @@ export namespace Fxfunc {
     export function handleSearchWhatExchangeRate(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-
-            // todo: stub
-
             if (!req.body.result) {
                 reject("invalid request");
 
             }
+            let isGoogle = Google_Components.isGoogle(req);
 
             let currency_from = req.body.result.parameters.currency_from;
             let currency_into = req.body.result.parameters.currency_into;
@@ -163,10 +127,10 @@ export namespace Fxfunc {
                 client.xratesFromToGet(currency_from,currency_into).then(result => {
                     // console.log(result.body);
                     let Rarray =[];
-                    let response = result.response;
+                    let response = req.body.result.response;
 
-                    let bprice = result.body.buy;
-                    let sprice = result.body.sell;
+                    let bprice = req.body.result.body.buy;
+                    let sprice = req.body.result.body.sell;
 
                     let str0 = currency_from;
                     // "to" + result.body.ExchangeRateInfo.rates[j].code +
@@ -178,83 +142,55 @@ export namespace Fxfunc {
                     Rarray.push(str2);
 
                     let text = Rarray.join('\n');
+                    if(isGoogle){
+                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                        resolve(answer);
+                    }
 
-                    const result1: FulfillmentResponse = {
-                        speech:text,
-                        displayText:text,
-                        data: {},
-                        contextOut: [],
-                        source: ""
-                    };
-
-                    resolve(result1);
 
 
                 }).catch(err => {
-                    const return2: FulfillmentResponse = {
-                        speech: "Something went wrong at our backend",
-                        displayText: "Something went wrong at our backend",
-                        data: {},
-                        contextOut: [],
-                        source: ""
-                    };
-
-                    resolve(return2);
+                    if(isGoogle) {
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error retrieving: " + err);
+                        resolve(error);
+                    }
                 });
             }
 
             else {
 
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
-                    let response = result.response;
+                    let response = req.body.result.response;
 
-                    let body = result.body;
+                    let body = req.body.result.body;
 
                     // body now just return from and rates???
                     // shoud return FROM TO AMOUNT CONVERSION
                     // conversion {from :currency,to:currency, amount:number,conversion:number)
 
 
-                    let conversion = result.body.conversion;
+                    let conversion = req.body.result.body.conversion;
                     //console.log(result.body.conversion);
                     // putting in 80 as stub for now
                     if (typeof conversion == 'undefined') {
                         conversion = 100;
                     }
                     //console.log(body);
-
-                    const return1: FulfillmentResponse = {
-                        speech: conversion.toString(),
-                        displayText: conversion.toString(),
-                        data: {},
-                        contextOut: [],
-                        source: ""
-                    };
-
-                    resolve(return1);
-
+                    if(isGoogle) {
+                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(conversion.toString());
+                        resolve(answer);
+                    }
 
 
                 }).catch(err => {
                     //console.log(err.response);
                     //console.log(err.body);
-                    const return2: FulfillmentResponse = {
-                        speech: "Something went wrong at our backend",
-                        displayText: "Something went wrong at our backend",
-                        data: {},
-                        contextOut: [],
-                        source: ""
-                    };
-
-                    resolve(return2);
+                    if(isGoogle) {
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                        resolve(error);
+                    }
                 });
-
-
             }
-
-
-
         });
-
     }
 }
