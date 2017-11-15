@@ -18,46 +18,7 @@ export namespace Calculator {
     export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let isGoogle = Google_Components.isGoogle;
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
-
-            let loanAmount = req.body.result.parameters.loanAmount;
-            let interestRate = req.body.result.parameters.interestRate;
-            let loanDuration = req.body.result.parameters.loanDuration;
-
-
-            let arg = "0001/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString();
-            console.log("arg: " + arg);
-
-
-            client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = req.body.result.body.result;
-
-                let conversion = result.body.conversion;
-                resolve(Google_Components.returnSimple(`converted amount is ${conversion}`));
-
-
-                let answer = "Your monthly payment should be " + pay.toString();
-                if(isGoogle) {
-                    let response: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
-                    resolve(response);
-                }
-
-
-
-            }).catch(err => {
-
-                let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
-                if(isGoogle){
-                    let response = Google_Components.returnSimple(answer + " : error " + err);
-                    resolve(response);
-                }
-
-            });
-
+            resolve();
         });
 
     }
@@ -65,34 +26,7 @@ export namespace Calculator {
     export function handleSearchWhatMortgageCalculatorRemainingPayment(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
-            let isGoogle = Google_Components.isGoogle;
-            let loanDuration = req.body.result.parameters.loanDuration;
-            let numberPayments = req.body.result.parameters.numberPayments;
-            //let premain = (loanDuration*12) - pmade;
-            let pRemaining = loanDuration - numberPayments;
-
-            let arg = "0002/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString() + "&monthsRemaining=" + pRemaining.toString();
-            console.log("arg: " + arg);
-
-
-            client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = result.body.result;
-                let message = "total amount remaining to pay is " + pay.toString();
-                if(isGoogle) {
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(message);
-                    resolve(answer);
-                }
-            }).catch(err => {
-                let error = "I'm sorry, there was an error with our calculation. Shall we try again?";
-                if(isGoogle) {
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(error + " : error " + err);
-                    resolve(answer);
-                }
-            });
+            resolve();
 
         });
 

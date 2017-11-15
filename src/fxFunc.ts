@@ -17,7 +17,7 @@ export namespace FxFunc {
     export function handleFindWhatExchangeRate(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let isGoogle = Google_Components.isGoogle(req);
+            //let isGoogle = Google_Components.isGoogle(req);
             if (!req.body.result) {
                 reject("invalid request");
 
@@ -79,23 +79,23 @@ export namespace FxFunc {
                     //console.log(Rarray);
                     let text = Rarray.join('\n');
 
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(text);
                     resolve(answer);
 
 
 
                 }).catch(reason => {
-                    if(isGoogle){
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error Reason: " + reason);
+                    //if(isGoogle){
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error Reason: " + reason);
                         resolve(error);
-                    }
+                    //}
                 });
 
             }).catch(err => {
-                if(isGoogle){
-                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                //if(isGoogle){
+                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error: " + err);
                     resolve(error);
-                }
+                //}
             });
 
         });
@@ -109,7 +109,7 @@ export namespace FxFunc {
                 reject("invalid request");
 
             }
-            let isGoogle = Google_Components.isGoogle(req);
+            //let isGoogle = Google_Components.isGoogle(req);
 
             let currency_from = req.body.result.parameters.currency_from;
             let currency_into = req.body.result.parameters.currency_into;
@@ -142,18 +142,18 @@ export namespace FxFunc {
                     Rarray.push(str2);
 
                     let text = Rarray.join('\n');
-                    if(isGoogle){
-                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    //if(isGoogle){
+                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(text);
                         resolve(answer);
-                    }
+                    //}
 
 
 
                 }).catch(err => {
-                    if(isGoogle) {
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error retrieving: " + err);
+                    //if(isGoogle) {
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error retrieving: " + err);
                         resolve(error);
-                    }
+                    //}
                 });
             }
 
@@ -176,19 +176,19 @@ export namespace FxFunc {
                         conversion = 100;
                     }
                     //console.log(body);
-                    if(isGoogle) {
-                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(conversion.toString());
+                    //if(isGoogle) {
+                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(conversion.toString());
                         resolve(answer);
-                    }
+                    //}
 
 
                 }).catch(err => {
                     //console.log(err.response);
                     //console.log(err.body);
-                    if(isGoogle) {
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                    //if(isGoogle) {
+                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error: " + err);
                         resolve(error);
-                    }
+                    //}
                 });
             }
         });

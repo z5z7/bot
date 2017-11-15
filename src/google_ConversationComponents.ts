@@ -1,16 +1,11 @@
 /**
  * Created by valeriewyns on 2017-11-11.
  */
-
-import {FulfillmentResponse, FulfillmentRequest, SimpleCardContent, SimpleCardSuggestionsContent} from './contracts';
-
+import {FulfillmentResponse} from './contracts';
+import {ContentObject} from './contracts';
 
 export namespace Google_Components {
-    export const voice = "google_assistant_input_type_voice";
-    export const audio = "actions_capability_audio_output";
-    export const text = "google_assistant_input_type_keyboard";
-
-    export function isTextSurface(req : any) : boolean {
+    function isTextSurface(req : any) : boolean {
         try{
            if(typeof JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"] != "undefined")){
                let inputs = JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"]).toString();
@@ -28,11 +23,12 @@ export namespace Google_Components {
         }
 
     }
-    export function isGoogle(req: any) : boolean {
+    function Google(req: any) : boolean {
         try{
             if(req.body["originalRequest"]["source"]){
                 if( JSON.stringify(req.body["originalRequest"]["source"]).toString().includes("google")){
-                    return true
+                    //isGoogle = true;
+                    return true;
                 }
             }
         }
@@ -40,87 +36,85 @@ export namespace Google_Components {
             return false;
         }
     }
+    //create and return an utterance
+    export function createUtterance(req : any, contentObj : any): Promise<FulfillmentResponse>{
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let isText = isTextSurface(req);
+            let isGoogle = Google(req);
+            //for simple string responses that are not coming from the contents api
+            if(typeof contentObj == "string"){
+                let result: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(contentObj);
+                resolve(result);
+                return;
+            }
+            //is contentObj is not a string then it is a ContentObject
+            if(isGoogle){
+                if(isText) {
+                    let result: Promise<FulfillmentResponse> = Google_Components.returnComplexResponse(contentObj);
+                    resolve(result);
+
+                }else{
+                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(contentObj.speech);
+                    resolve(result);
+                }
+            }else{
+                let result: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(contentObj.speech);
+                resolve(result);
+            }
+        })
+    }
+
+
     //only returns one text/speech utterance
     //good for error messaging
-    export function returnSimple(speech: string): Promise<FulfillmentResponse> {
+    export function returnSimpleResponse(response: string): Promise<FulfillmentResponse> {
         //remember: speech in this context can also mean the text surface
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: FulfillmentResponse;
             result = {
-                speech: speech,
-                displayText: speech,
+                speech: response,
+                displayText: response,
                 data: {},
                 contextOut: [],
                 source: ""
             }
             resolve(result);
-
         });
     }
-    export function returnSimpleCard(contentObj: SimpleCardContent): Promise<FulfillmentResponse> {
-        let buttons;
-        if (contentObj.buttonTitle != ""){
-            buttons = [{
-                "title": contentObj.buttonTitle,
-                "openUrlAction": {
-                    "url": contentObj.buttonUrl
-                }
-            }];
-        }else{
-            buttons = "";
-        }
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: FulfillmentResponse = {
-                speech: "",
-                displayText: "",
-                data: {
-                    "google": {
-                        "expect_user_response": true,
-                        "rich_response": {
-                            "items": [
-                                {
-                                    "simpleResponse": {
-                                        "textToSpeech": contentObj.simpleResponse
-                                    }
-                                },
-                                {
-                                    "basicCard": {
-                                        "title": contentObj.cardTitle,
-                                        "formattedText": contentObj.cardBlurb,
-                                        "subtitle": contentObj.subTitle,
-                                        "image": {
-                                            "url": contentObj.image,
-                                            "accessibilityText": "image"
-                                        },
-                                        buttons
-                                    }
-                                }
-                            ]
-                        }
+
+
+    //creates simpleResponse and Card with content
+    //allows for optional suggestions and buttons
+    export function returnComplexResponse(contentObj: ContentObject) : Promise<FulfillmentResponse>{
+        let buttons = [];
+        if (contentObj.buttonTitle.length > 0){
+            for(let i = 0; i < contentObj.buttonTitle.length; i++){
+                buttons.push({
+                    "title": contentObj.buttonTitle[i],
+                    "openUrlAction": {
+                        "url": contentObj.buttonURL[i]
                     }
-                },
-                contextOut: [],
-                source: ""
-            };
-            resolve(result);
-        });
-    }
+                })
+            }
 
-
-    export function returnSimpleCardSuggestions(contentObj: SimpleCardSuggestionsContent) : Promise<FulfillmentResponse>{
-        let buttons;
-        if (contentObj.buttonTitle != ""){
-            buttons = [{
-                "title": contentObj.buttonTitle,
-                "openUrlAction": {
-                    "url": contentObj.buttonUrl
-                }
-            }];
         }else{
-            buttons = "";
+            buttons = [{
+                "title": "More",
+                "openUrlAction": {
+                    "url": "http://www.hsbc.ca"
+                }
+            }]
+        }
+        let suggestions = [];
+        if (contentObj.suggestions.length > 0){
+            for(let i = 0; i < contentObj.suggestions.length; i++){
+                suggestions.push(contentObj.suggestions[i]);
+            }
+
+        }else{
+            suggestions = ["Main Menu"];
         }
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-           // sample to return a basic card response to Google Assistant
             let result : FulfillmentResponse = {
                 speech: "",
                 displayText: "",
@@ -131,23 +125,23 @@ export namespace Google_Components {
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": contentObj.simpleResponse
+                                        "textToSpeech": contentObj.speech
                                     }
                                 },
                                 {
                                     "basicCard": {
-                                        "title": contentObj.cardTitle,
-                                        "formattedText": contentObj.cardBlurb,
-                                        "subtitle": contentObj.subTitle,
+                                        "title": contentObj.title,
+                                        "formattedText": contentObj.text,
+                                        "subtitle": contentObj.subtitle,
                                         "image": {
-                                            "url": contentObj.image,
+                                            "url": contentObj.imageURL,
                                             "accessibilityText": "Image"
                                         },
                                         buttons
                                     }
                                 },
                             ],
-                            "suggestions": contentObj.suggestions
+                            "suggestions": suggestions
                         }
                     },
                 },
@@ -155,7 +149,6 @@ export namespace Google_Components {
                 source: ""
 
             };
-
             resolve(result);
 
         });

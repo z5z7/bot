@@ -43,16 +43,12 @@ export namespace Bookfunc {
                 //console.log(ref);
                 //console.log(date);
                 let answer = "Thanks! An agent will contact you soon by " + method;
-                let returnResult: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
-
-
+                let returnResult: Promise<FulfillmentResponse> = Google_Components.createUtterance(req, answer);
                 resolve(returnResult);
 
             }).catch(err => {
                 let answer = "I'm sorry. We were not able to reconcile your request. Please try again.";
-                let returnResult: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
-
-
+                let returnResult: Promise<FulfillmentResponse> = Google_Components.createUtterance(req, answer);
                 resolve(returnResult);
 
             });
