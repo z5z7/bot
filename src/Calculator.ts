@@ -18,7 +18,7 @@ export namespace Calculator {
     export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let isGoogle = Google_Components.isGoogle(req);
+            let isGoogle = Google_Components.isGoogle;
             if (!req.body.result) {
                 reject("invalid request");
 
@@ -36,11 +36,17 @@ export namespace Calculator {
             client.calculateProductIdGet("loans", arg).then(result => {
                 let pay = req.body.result.body.result;
 
+                let conversion = result.body.conversion;
+                resolve(Google_Components.returnSimple(`converted amount is ${conversion}`));
+
+
                 let answer = "Your monthly payment should be " + pay.toString();
                 if(isGoogle) {
                     let response: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
                     resolve(response);
                 }
+
+
 
             }).catch(err => {
 
@@ -63,9 +69,7 @@ export namespace Calculator {
                 reject("invalid request");
 
             }
-            let isGoogle = Google_Components.isGoogle(req)
-            let loanAmount = req.body.result.parameters.loanAmount;
-            let interestRate = req.body.result.parameters.interestRate;
+            let isGoogle = Google_Components.isGoogle;
             let loanDuration = req.body.result.parameters.loanDuration;
             let numberPayments = req.body.result.parameters.numberPayments;
             //let premain = (loanDuration*12) - pmade;
