@@ -2,6 +2,7 @@ import * as http from 'http';
 import * as debugModule from 'debug';
 import app from './app';
 
+require('dotenv').config();
 const debug = debugModule('hscb-api:server');
 
 // Set port KV in express
