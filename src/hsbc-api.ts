@@ -318,6 +318,7 @@ export class DefaultApi {
                 requestOptions.form = formParams;
             }
         }
+
         return new Promise<{ response: http.ClientResponse; body: AppointmentInfo;  }>((resolve, reject) => {
             request(requestOptions, (error, response, body) => {
                 if (error) {
@@ -332,6 +333,7 @@ export class DefaultApi {
             });
         });
     }
+
     /**
      * Returns all ATMs
      * @summary ATMs
