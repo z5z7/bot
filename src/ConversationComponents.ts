@@ -4,7 +4,7 @@
 import {FulfillmentResponse} from './contracts';
 import {ContentObject} from './contracts';
 
-export namespace Google_Components {
+export namespace Convo_Components {
     function isTextSurface(req : any) : boolean {
         try{
            if(typeof JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"] != "undefined")){
@@ -43,29 +43,29 @@ export namespace Google_Components {
             let isGoogle = Google(req);
             //for simple string responses that are not coming from the contents api
             if(typeof contentObj == "string"){
-                let result: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(contentObj);
+                let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj);
                 resolve(result);
                 return;
             }
             //is contentObj is not a string then it is a ContentObject
             if(isGoogle){
                 if(isText) {
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnComplexResponse(contentObj);
+                    let result: Promise<FulfillmentResponse> = returnComplexResponse(contentObj);
                     resolve(result);
 
                 }else{
-                    let result: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(contentObj.speech);
+                    let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj.speech);
                     resolve(result);
                 }
             }else{
-                //this is going to check else if(isFacebook)
-                let result: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(contentObj.speech);
+                //then isFacebook (as we are not supporting any other integration
+                let result: Promise<FulfillmentResponse> = returnComplexResponseFB(contentObj.speech);
                 resolve(result);
             }
         })
     }
 
-
+    //GOOGLE COMPONENTS
     //only returns one text/speech utterance
     //good for error messaging
     export function returnSimpleResponse(response: string): Promise<FulfillmentResponse> {
@@ -153,6 +153,51 @@ export namespace Google_Components {
             resolve(result);
 
         });
+    }
+
+
+
+
+
+    //FACEBOOK COMPONENTS
+    export function returnComplexResponseFB(contentObj : ContentObject): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let result: FulfillmentResponse = {
+                speech: "",
+                displayText: "",
+                data: {
+                    'facebook': {
+                        'attachment': {
+                            'type': 'template',
+                            'payload': {
+                                'template_type': 'generic',
+                                'elements': [
+                                    {
+                                        'title': contentObj.title,
+                                        'image_url': contentObj.imageURL,
+                                        'subtitle': contentObj.subtitle,
+                                        'default_action': {
+                                            'type': 'web_url',
+                                            'url': 'https://assistant.google.com/'
+                                        },
+                                        'buttons': [
+                                            {
+                                                'type': 'web_url',
+                                                'url': 'https://assistant.google.com/',
+                                                'title': 'This is a button'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                contextOut: [],
+                source: ""
+            };
+            resolve(result);
+        })
     }
 }
 

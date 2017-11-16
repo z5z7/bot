@@ -1,6 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Google_Components} from './ConversationComponents';
+import {Convo_Components} from './ConversationComponents';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -86,21 +86,21 @@ export namespace FxFunc {
                     //console.log(Rarray);
                     let text = Rarray.join('\n');
 
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(text);
+                    let answer: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(text);
                     resolve(answer);
 
 
 
                 }).catch(reason => {
                     //if(isGoogle){
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error Reason: " + reason);
+                        let error: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("Error Reason: " + reason);
                         resolve(error);
                     //}
                 });
 
             }).catch(err => {
                 //if(isGoogle){
-                    let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error: " + err);
+                    let error: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("Error: " + err);
                     resolve(error);
                 //}
             });
@@ -150,7 +150,7 @@ export namespace FxFunc {
 
                     let text = Rarray.join('\n');
                     //if(isGoogle){
-                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(text);
+                        let answer: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(text);
                         resolve(answer);
                     //}
 
@@ -158,7 +158,7 @@ export namespace FxFunc {
 
                 }).catch(err => {
                     //if(isGoogle) {
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error retrieving: " + err);
+                        let error: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("Error retrieving: " + err);
                         resolve(error);
                     //}
                 });
@@ -184,7 +184,7 @@ export namespace FxFunc {
                     }
                     //console.log(body);
                     //if(isGoogle) {
-                        let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(conversion.toString());
+                        let answer: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(conversion.toString());
                         resolve(answer);
                     //}
 
@@ -193,7 +193,7 @@ export namespace FxFunc {
                     //console.log(err.response);
                     //console.log(err.body);
                     //if(isGoogle) {
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse("Error: " + err);
+                        let error: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("Error: " + err);
                         resolve(error);
                     //}
                 });

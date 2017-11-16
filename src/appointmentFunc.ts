@@ -1,6 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Google_Components} from './ConversationComponents';
+import {Convo_Components} from './ConversationComponents';
 import {Content} from './contentObject';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
@@ -18,7 +18,7 @@ export namespace Bookfunc {
     export function handleDirectBookAppointment(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
-            result = Google_Components.createUtterance(req, Content.directApply);
+            result = Convo_Components.createUtterance(req, Content.directApply);
             resolve(result);
 
         });
@@ -54,12 +54,12 @@ export namespace Bookfunc {
                 //console.log(ref);
                 //console.log(date);
                 let answer = "Thanks! An agent will contact you soon by " + method;
-                let returnResult: Promise<FulfillmentResponse> = Google_Components.createUtterance(req, answer);
+                let returnResult: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, answer);
                 resolve(returnResult);
 
             }).catch(err => {
                 let answer = "I'm sorry. We were not able to reconcile your request. Please try again.";
-                let returnResult: Promise<FulfillmentResponse> = Google_Components.createUtterance(req, answer);
+                let returnResult: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, answer);
                 resolve(returnResult);
 
             });

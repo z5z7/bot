@@ -10,7 +10,7 @@ import {Bookfunc} from "./appointmentFunc";
 import {Welcome} from "./welcomeFunc";
 import {RrspFunc} from "./rrspFunc";
 import {WsfFunc} from "./wsfFunc";
-import {Google_Components} from "./ConversationComponents";
+import {Convo_Components} from "./ConversationComponents";
 
 'use strict';
 import {MortgageFunc} from "./mortgageCalculator";
@@ -67,7 +67,7 @@ export namespace Actions {
                     resolve(response);
                 })
             }else{
-                resolve(Google_Components.returnSimpleResponse("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
+                resolve(Convo_Components.returnSimpleResponse("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
             }
         });
     }

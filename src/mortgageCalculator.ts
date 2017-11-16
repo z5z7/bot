@@ -1,6 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Google_Components} from './ConversationComponents';
+import {Convo_Components} from './ConversationComponents';
 import {Content} from './contentObject';
 //
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
@@ -17,7 +17,7 @@ export namespace MortgageFunc {
     export function handleDirectMortgage(req): Promise<FulfillmentResponse> {
         return new Promise((resolve, reject) => {
         let result: Promise<FulfillmentResponse>;
-        result = Google_Components.createUtterance(req, Content.directMortgages);
+        result = Convo_Components.createUtterance(req, Content.directMortgages);
         resolve(result);
         })
     }
@@ -43,7 +43,7 @@ export namespace MortgageFunc {
 
                 let answer = "Your monthly payment should be " + pay.toString();
 
-                    let response: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(answer);
+                    let response: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(answer);
                     resolve(response);
 
 
@@ -51,7 +51,7 @@ export namespace MortgageFunc {
 
                 let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
 
-                    let response = Google_Components.returnSimpleResponse(answer + " : error " + err);
+                    let response = Convo_Components.returnSimpleResponse(answer + " : error " + err);
                     resolve(response);
 
 
@@ -83,13 +83,13 @@ export namespace MortgageFunc {
                 let pay = result.body.result;
                 let message = "total amount remaining to pay is " + pay.toString();
 
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(message);
+                    let answer: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(message);
                     resolve(answer);
 
             }).catch(err => {
                 let error = "I'm sorry, there was an error with our calculation. Shall we try again?";
 
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(error + " : error " + err);
+                    let answer: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(error + " : error " + err);
                     resolve(answer);
 
             });

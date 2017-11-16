@@ -1,13 +1,13 @@
 
 import {FulfillmentResponse, SimpleCardContent, SimpleCardSuggestionsContent, ContentObject} from './contracts';
-import {Google_Components} from './ConversationComponents';
+import {Convo_Components} from './ConversationComponents';
 import {Images} from './imageLibrary';
 import {Content} from './contentObject';
 export namespace AtmFunc {
     export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
-                let result = Google_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
+                let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
                 resolve(result);
 
             }
@@ -19,7 +19,7 @@ export namespace AtmFunc {
             contentObj.speech = Content.searchATM.speech.concat(city);
             contentObj.simpleResponse = Content.searchATM.simpleResponse.concat(city);
             contentObj.imageURL = Images.getCityImage(city);
-            result = Google_Components.createUtterance(req, Content.searchATM);
+            result = Convo_Components.createUtterance(req, Content.searchATM);
             resolve(result);
 
         });
@@ -28,11 +28,11 @@ export namespace AtmFunc {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result : Promise<FulfillmentResponse>;
             if (!req.body.result) {
-                result = Google_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
+                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
                 resolve(result);
 
             }
-            result = Google_Components.createUtterance(req, Content.findATM);
+            result = Convo_Components.createUtterance(req, Content.findATM);
             resolve(result);
         });
     }
