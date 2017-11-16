@@ -17,7 +17,7 @@ export namespace FxFunc {
     //input : Currency you want the list of exchanges for, or blank for all
     //output: lPromise response of currencies
 
-        export function handleFindWhatExchangeRate(req: any): Promise<FulfillmentResponse> {
+        export function handleFindWhatExchangeRate(req: any): Promise<string> {
                 console.log(req.body);
             if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
 
@@ -30,9 +30,9 @@ export namespace FxFunc {
             }
 
         }
-        export function exchangeHelperAll(req: any): Promise<FulfillmentResponse> {
+        export function exchangeHelperAll(req: any): Promise<string> {
 
-            return new Promise<FulfillmentResponse>((resolve, reject) => {
+            return new Promise<string>((resolve, reject) => {
 
              if (!req.body.result) reject("invalid request");
 
@@ -50,22 +50,21 @@ export namespace FxFunc {
 
                 Promise.all(rateProm).then(values => {
                     Rarray.push(values);
-                    let text = Rarray.join('\n');
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    let answer: string = Rarray.join('\n');
                     resolve(answer);
                 })
             })
              .catch(reason => { // catch for promise loop
-                let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + reason);
+                let error: string = reason;
                 resolve(error);
             });
         });
     }
 
 
-    export function exchangeHelperFrom(req: any): Promise<FulfillmentResponse> {
+    export function exchangeHelperFrom(req: any): Promise<string> {
 
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
             let currency_from = req.body.result.parameters.currency_from;
             if (!req.body.result) reject("invalid request");
 
@@ -83,25 +82,22 @@ export namespace FxFunc {
                     Rarray.push(str1);
                 }
 
-                    let text = Rarray.join('\n');
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    let answer = Rarray.join('\n');
                     resolve(answer);
 
             }).catch(reason => { // catch for promise loop
-                let error: Promise<FulfillmentResponse> = Google_Components.returnSimple(reason);
+                let error: string = reason;
                 resolve(error);
             });
         });
     }
 
-    export function handleSearchWhatExchangeRate(req: any): Promise<FulfillmentResponse> {
+    export function handleSearchWhatExchangeRate(req: any): Promise<string> {
 
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
 
             if (!req.body.result) reject("invalid request");
 
-
-            let isGoogle = Google_Components.isGoogle(req);
             let currency_from = req.body.result.parameters.currency_from;
             let currency_into = req.body.result.parameters.currency_into;
             let amount = req.body.result.parameters.amount;
@@ -124,12 +120,11 @@ export namespace FxFunc {
                     Rarray.push(str1);
                     Rarray.push(str2);
 
-                    let text = Rarray.join('\n');
-                    let answer: Promise<FulfillmentResponse> = Google_Components.returnSimple(text);
+                    let answer : string = Rarray.join('\n');
                     resolve(answer);
 
                 }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                        let error: string = err;
                         resolve(error);
 
                 });
@@ -138,14 +133,11 @@ export namespace FxFunc {
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
 
                     console.log(result);
-                    resolve(Google_Components.returnSimple(`The converted amount is ${result.body.conversion}`))
+                    resolve(`The converted amount is ${result.body.conversion}`);
                 }).catch(err => {
-                    //console.log(err.response);
-                    //console.log(err.body);
-                    if(isGoogle) {
-                        let error: Promise<FulfillmentResponse> = Google_Components.returnSimple("Error: " + err);
+                        let error: string = err;
                         resolve(error);
-                    }
+
                 });
             }
         });

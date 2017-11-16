@@ -15,14 +15,10 @@ client.setDefaultAuthentication(auth);
 
 export namespace Calculator {
 
-    export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<FulfillmentResponse> {
+    export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<string> {
 
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let isGoogle = Google_Components.isGoogle(req);
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
+        return new Promise<string>((resolve, reject) => {
+            if (!req.body.result) reject("invalid request");
 
             let loanAmount = req.body.result.parameters.loanAmount;
             let interestRate = req.body.result.parameters.interestRate;
@@ -36,19 +32,14 @@ export namespace Calculator {
             client.calculateProductIdGet("loans", arg).then(result => {
                 let pay = req.body.result.body.result;
 
-                let answer = "Your monthly payment should be " + pay.toString();
-                if(isGoogle) {
-                    let response: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
-                    resolve(response);
-                }
+                let answer : string = "Your monthly payment should be " + pay.toString();
+                resolve(answer);
+
 
             }).catch(err => {
 
-                let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
-                if(isGoogle){
-                    let response = Google_Components.returnSimple(answer + " : error " + err);
-                    resolve(response);
-                }
+                let err : string = err;
+                    resolve("Error in Calc: "+ err);
 
             });
 
