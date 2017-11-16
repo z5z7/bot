@@ -14,46 +14,44 @@ client.setDefaultAuthentication(auth);
 
 export namespace Bookfunc {
 
-
-    export function handleBooking(req: any): Promise<FulfillmentResponse> {
+    // Input: Booking Function req from DF
+    // Output: Requested booking information, Confirmation of email sent
+    // NOTE: This is not a verified request return from HSBC - it only returns the details requested
+    // by the customer (Still needs to be confirmed and contacted by HSBC based on inputed info).
+    export function handleBooking(req: any): Promise<string> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
 
+            if (!req.body.result) reject("invalid request");
 
-            if (!req.body.result) {
-                reject("invalid request");
+            let params = req.body.result.parameters;
 
-            }
+            let fName : string = params.first_name.toString();
+            let lName : string = params.last_name.toString();
+            let cEmail : string = params.contact_email.toString();
+            let method = params.contact_method.toString();
+            let phoneNum : string = params.phone_number.toString();
+            let detail : string = params.further_detail.toString();
 
-            let fname : string = req.body.result.parameters.first_name.toString();
-            let lname : string = req.body.result.parameters.last_name.toString();
-            let mail : string = req.body.result.parameters.email.toString();
-            let method = req.body.result.parameters.contact_method.toString();
-            let phonenum : string = req.body.result.parameters.phone_number.toString();
-            let other : string = req.body.result.parameters.further_detail.toString();
+            let contact = {firstName : fName, lastName: lName, email: cEmail, phone: phoneNum};
 
-            let contact = {firstName : fname, lastName: lname, email:mail, phone: phonenum};
-            let AppBook = {contactInfo: contact, details:other};
+            let booking = {contactInfo: contact, details:detail};
 
-            client.appointmentsPost(AppBook).then(result => {
+            client.appointmentsPost(booking).then(result => {
+
                 //TODO does ref return a status from the request (as in success vs error)
                 let ref = result.body.reference;
                 let date = result.body.date;
 
-                //console.log(ref);
-                //console.log(date);
-                let answer = "Thanks! An agent will contact you soon by " + method;
-                let returnResult: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
-
-
-                resolve(returnResult);
+                let a1 : string = "Thanks for chosing HSBC!\n An agent will contact you soon by " + method;
+                let a2 : string = "\nYour reference string is" + ref;
+                let a3 : string = "\nAn agent will contact you to book an apointment based on the details included";
+                let ans : string = a1+a2+a3;
+                resolve(ans);
 
             }).catch(err => {
-                let answer = "I'm sorry. We were not able to reconcile your request. Please try again.";
-                let returnResult: Promise<FulfillmentResponse> = Google_Components.returnSimple(answer);
-
-
-                resolve(returnResult);
+                let error: string = "Error: " + err;
+                resolve(error);
 
             });
         });
