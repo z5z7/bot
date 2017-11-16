@@ -35,8 +35,7 @@ export namespace Calculator {
                 resolve(answer);
 
             }).catch(err => {
-                let err : string = err;
-                    resolve("Error in Calc: " + err);
+                resolve(`Error in Calc: ${err}`);
             });
 
         });
