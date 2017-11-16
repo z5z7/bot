@@ -2,11 +2,11 @@ import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 import {Google_Components} from './google_ConversationComponents';
 
-const HSBC_SERVICE_HOST = "http://localhost:8080" + "/v1";
+const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
 
-const HSBC_USER = "hsbc-bot-webhook-dev";
-const HSBC_PASS = "chattingwithumans";
+const HSBC_USER = process.env.HSBC_USER;
+const HSBC_PASS = process.env.HSBC_PASS;
 let auth = new HttpBasicAuth();
 auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
@@ -19,7 +19,7 @@ export namespace FxFunc {
 
         export function handleFindWhatExchangeRate(req: any): Promise<FulfillmentResponse> {
                 console.log(req.body);
-            if (!req.body) return exchangeHelperAll(req); // Check invalid Param
+            if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
 
             let fromCheck = req.body.result.parameters.currency_from;
             if (fromCheck =="" ){ //return all
