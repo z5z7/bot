@@ -2,16 +2,19 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
-import {Calculator} from "./mortgageCalculator";
+import {Calculator} from "./Calculator";
 import {FxFunc} from "./fxFunc";
 import {AtmFunc} from "./atmFunc";
 import {Mortfunc} from "./mortgageFunc";
 import {Bookfunc} from "./appointmentFunc";
 import {Welcome} from "./welcomeFunc";
 import {RrspFunc} from "./rrspFunc";
-import {Google_Components} from "./google_ConversationComponents";
+import {WsfFunc} from "./wsfFunc";
+import {Convo_Components} from "./ConversationComponents";
 
 'use strict';
+import {MortgageFunc} from "./mortgageCalculator";
+
 
 const app: express.Express = express();
 
@@ -40,7 +43,13 @@ let actionToFuncMap = {
                     "find.how.apply.rrsp" : RrspFunc.handleApplyRRSP,
                     "find.what.rrsp.benefits" : RrspFunc.handleRRSPBenefits,
                     //
-                    "book.appointment": Bookfunc.handleBooking
+                    "direct.wsf" : WsfFunc.handleDirectWsf,
+                    "find.what.wsf.eligible" : WsfFunc.handleEligibilityWSF,
+                    "find.what.wsf.more" : WsfFunc.handleWsfMore,
+                    //
+                    "direct.mortgages" : MortgageFunc.handleDirectMortgage,
+                    "direct.apply" : Bookfunc.handleDirectBookAppointment,
+                    "book.appointment" : Bookfunc.handleBooking
                     };
 
 export namespace Actions {
@@ -58,7 +67,7 @@ export namespace Actions {
                     resolve(response);
                 })
             }else{
-                resolve(Google_Components.returnSimple("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
+                resolve(Convo_Components.returnSimpleResponse("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
             }
         });
     }
