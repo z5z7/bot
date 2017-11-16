@@ -1,6 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Google_Components} from './google_ConversationComponents';
+import {Convo_Components} from './ConversationComponents';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -12,7 +12,7 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-export namespace Bookfunc {
+export namespace Appointments {
 
     // Input: Booking Function req from DF
     // Output: Requested booking information, Confirmation of email sent
@@ -20,7 +20,7 @@ export namespace Bookfunc {
     // by the customer (Still needs to be confirmed and contacted by HSBC based on inputed info).
     export function handleBooking(req: any): Promise<string> {
 
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
 
             if (!req.body.result) reject("invalid request");
 

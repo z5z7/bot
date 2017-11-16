@@ -3,17 +3,17 @@ import * as bodyParser from 'body-parser';
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {Calculator} from "./Calculator";
-import {FxFunc} from "./fxFunc";
+import {Exchange} from "./Exchange";
 import {AtmFunc} from "./atmFunc";
-import {Mortfunc} from "./mortgageFunc";
-import {Bookfunc} from "./appointmentFunc";
+import {MortFunc} from "./mortgageFunc";
+import {Appointments} from "./Appointments";
 import {Welcome} from "./welcomeFunc";
 import {RrspFunc} from "./rrspFunc";
 import {WsfFunc} from "./wsfFunc";
 import {Convo_Components} from "./ConversationComponents";
 
 'use strict';
-import {MortgageFunc} from "./mortgageCalculator";
+
 
 
 const app: express.Express = express();
@@ -32,10 +32,10 @@ let actionToFuncMap = {
                     "find.where.atm" : AtmFunc.handleFindAtm,
                     "search.where.atm" : AtmFunc.handleSearchWhereAtm,
                     //
-                    "find.what.exchangeRate" : FxFunc.handleFindWhatExchangeRate,
-                    "search.what.exchangeRate" : FxFunc.handleSearchWhatExchangeRate,
+                    "find.what.exchangeRate" : Exchange.handleFindWhatExchangeRate,
+                    "search.what.exchangeRate" : Exchange.handleSearchWhatExchangeRate,
                     //
-                    "search.what.mortgageType": Mortfunc.handleSearchWhatMortgageType,
+                    "search.what.mortgageType": MortFunc.handleSearchWhatMortgageType,
                     "find.how.mortgages.calculate.monthlyPayment" : Calculator.handleSearchWhatMortgageCalculatorMonthlyPayment,
                     "find.how.mortgages.calculate.remainingLoan" : Calculator.handleSearchWhatMortgageCalculatorRemainingPayment,
                     //
@@ -47,9 +47,9 @@ let actionToFuncMap = {
                     "find.what.wsf.eligible" : WsfFunc.handleEligibilityWSF,
                     "find.what.wsf.more" : WsfFunc.handleWsfMore,
                     //
-                    "direct.mortgages" : MortgageFunc.handleDirectMortgage,
-                    "direct.apply" : Bookfunc.handleDirectBookAppointment,
-                    "book.appointment" : Bookfunc.handleBooking
+                    "direct.mortgages" : MortFunc.handleDirectMortgage,
+                    "direct.apply" : Appointments.handleBooking,
+                    "book.appointment" : Appointments.handleBooking
                     };
 
 export namespace Actions {

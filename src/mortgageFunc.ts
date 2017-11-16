@@ -1,5 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
-
+import {Convo_Components} from './ConversationComponents';
+import {Content} from './contentObject';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
@@ -12,7 +13,53 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-export namespace Mortfunc {
+export namespace MortFunc {
+    export function handleDirectMortgage(req): Promise<FulfillmentResponse> {
+        return new Promise((resolve, reject) => {
+            let result: Promise<FulfillmentResponse>;
+            result = Convo_Components.createUtterance(req, Content.directMortgages);
+            resolve(result);
+        })
+    }
+    export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<FulfillmentResponse> {
+
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            if (!req.body.result) {
+                reject("invalid request");
+
+            }
+
+            let loanAmount = req.body.result.parameters.loanAmount;
+            let interestRate = req.body.result.parameters.interestRate;
+            let loanDuration = req.body.result.parameters.loanDuration;
+
+
+            let arg = "0001/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString();
+            console.log("arg: " + arg);
+
+
+            client.calculateProductIdGet("loans", arg).then(result => {
+                let pay = req.body.result.body.result;
+
+                let answer = "Your monthly payment should be " + pay.toString();
+
+                let response: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(answer);
+                resolve(response);
+
+
+            }).catch(err => {
+
+                let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
+
+                let response = Convo_Components.returnSimpleResponse(answer + " : error " + err);
+                resolve(response);
+
+
+            });
+
+        });
+
+    }
 
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
 
@@ -88,7 +135,7 @@ export namespace Mortfunc {
 
     }
 
-
+    //TODO: export out to database
     export function handleMortgageRateSpecialOfferPersonalRates(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
@@ -124,13 +171,11 @@ export namespace Mortfunc {
         });
 
     }
-
+    //TODO: export this response out to database
     export function handleMortgageRateSpecialOfferSmartSaver(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
 
-            // todo: stub
-            // get mortgage rate from backend for SmartSaver Customer
 
             if (!req.body.result) {
                 reject("invalid request");
@@ -161,7 +206,7 @@ export namespace Mortfunc {
 
     }
 
-
+    //TODO: this should NOT be returning a FulfillmentResponse
     export function handleSearchWhatMortgageType(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
