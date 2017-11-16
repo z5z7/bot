@@ -1,7 +1,7 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Google_Components} from './google_ConversationComponents';
-import {Images} from './imageLibrary';
+import {Google_Components} from './ConversationComponents';
+import {Content} from './contentObject';
 //
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -13,8 +13,14 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-export namespace Calculator {
-
+export namespace MortgageFunc {
+    export function handleDirectMortgage(req): Promise<FulfillmentResponse> {
+        return new Promise((resolve, reject) => {
+        let result: Promise<FulfillmentResponse>;
+        result = Google_Components.createUtterance(req, Content.directMortgages);
+        resolve(result);
+        })
+    }
     export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {

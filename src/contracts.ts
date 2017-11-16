@@ -26,6 +26,7 @@ export interface FulfillmentResponse {
  * Content Object for SimpleCard component input
  */
 export interface ContentObject{
+    simpleResponse : string,
     speech : string,
     text : string,
     title : string,

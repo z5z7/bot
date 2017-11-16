@@ -58,6 +58,7 @@ export namespace Google_Components {
                     resolve(result);
                 }
             }else{
+                //this is going to check else if(isFacebook)
                 let result: Promise<FulfillmentResponse> = Google_Components.returnSimpleResponse(contentObj.speech);
                 resolve(result);
             }
@@ -99,7 +100,7 @@ export namespace Google_Components {
 
         }else{
             buttons = [{
-                "title": "More",
+                "title": "HSBC",
                 "openUrlAction": {
                     "url": "http://www.hsbc.ca"
                 }

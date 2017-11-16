@@ -1,6 +1,7 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Google_Components} from './google_ConversationComponents';
+import {Google_Components} from './ConversationComponents';
+import {Content} from './contentObject';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -13,18 +14,28 @@ auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
 export namespace Bookfunc {
+    //directs to type of apply page   (what do they want to apply for?)
+    export function handleDirectBookAppointment(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let result: Promise<FulfillmentResponse>;
+            result = Google_Components.createUtterance(req, Content.directApply);
+            resolve(result);
+
+        });
+    }
+
+
+
+
 
 
     export function handleBooking(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-
-
             if (!req.body.result) {
                 reject("invalid request");
 
             }
-
             let fname : string = req.body.result.parameters.first_name.toString();
             let lname : string = req.body.result.parameters.last_name.toString();
             let mail : string = req.body.result.parameters.email.toString();

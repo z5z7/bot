@@ -1,6 +1,6 @@
 
 import {FulfillmentResponse, SimpleCardContent, SimpleCardSuggestionsContent, ContentObject} from './contracts';
-import {Google_Components} from './google_ConversationComponents';
+import {Google_Components} from './ConversationComponents';
 import {Images} from './imageLibrary';
 import {Content} from './contentObject';
 export namespace AtmFunc {
@@ -12,7 +12,14 @@ export namespace AtmFunc {
 
             }
             let result: Promise<FulfillmentResponse>;
-            result = Google_Components.createUtterance(req, Content.atmSearchContent);
+            let contentObj: ContentObject = Content.searchATM;
+            //insert the city of choice into our contentObject
+            let city = JSON.stringify(req.body.result.parameters["local_cities"]);
+            contentObj.text = Content.searchATM.text.concat(city);
+            contentObj.speech = Content.searchATM.speech.concat(city);
+            contentObj.simpleResponse = Content.searchATM.simpleResponse.concat(city);
+            contentObj.imageURL = Images.getCityImage(city);
+            result = Google_Components.createUtterance(req, Content.searchATM);
             resolve(result);
 
         });
@@ -25,7 +32,7 @@ export namespace AtmFunc {
                 resolve(result);
 
             }
-            result = Google_Components.createUtterance(req, Content.atmFindContent);
+            result = Google_Components.createUtterance(req, Content.findATM);
             resolve(result);
         });
     }

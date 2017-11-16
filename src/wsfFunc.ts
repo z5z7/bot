@@ -4,7 +4,7 @@
 /**
  * Created by valeriewyns on 2017-11-13.
  */
-import {Google_Components} from "./google_ConversationComponents";
+import {Google_Components} from "./ConversationComponents";
 import {Images} from "./imageLibrary";
 import {FulfillmentResponse, SimpleCardContent, SimpleCardSuggestionsContent, ContentObject} from "./contracts";
 import {Content} from './contentObject';

@@ -2,10 +2,12 @@
  * Created by valeriewyns on 2017-11-15.
  */
 import {ContentObject} from './contracts';
-
+//TODO: this should all be retrieved from the database
+//name of function is the same as the key to call
 export namespace Content {
 //all of these will be populated from api instead
-    export let welcomeContent: ContentObject = {
+    export let welcome: ContentObject = {
+        simpleResponse: "Welcome to our lair",
         speech: "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM?",
         text: "We could talk about many things from mortgages to RRSPs",
         title: "How can we help you today?",
@@ -16,7 +18,8 @@ export namespace Content {
         buttonURL: ["http://www.hsbc.ca"]
     }
 
-    export let atmFindContent: ContentObject = {
+    export let findATM: ContentObject = {
+        simpleResponse: "Find some ATMs",
         speech: "Find me all ATMs YO!",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
@@ -26,89 +29,119 @@ export namespace Content {
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
-    export let atmSearchContent: ContentObject = {
+    export let searchATM: ContentObject = {
+        simpleResponse : "Find a specific ATM",
         speech: "Find a certain ATM yo",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
-    export let rrspDirectContent: ContentObject = {
+    export let directRRSP: ContentObject = {
+        simpleResponse : "Direct to RRPS",
         speech: "RRSP Direct",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
-    export let rrspApply: ContentObject = {
+    export let applyRRSP: ContentObject = {
+        simpleResponse : "Apply for a RRSP",
         speech: "RRSP Apply",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
-    export let rrspBenefits: ContentObject = {
+    export let benefitsRRSP: ContentObject = {
+        simpleResponse : "The Benefits of a RRSP",
         speech: "RRSP Benefits",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: "More",
         buttonURL: "http://www.hsbc.ca/1/2/world-selection"
     }
     export let wsfDirect: ContentObject = {
+        simpleResponse : "Direct to World Selection Fund",
         speech: "World Selection Direct",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
     export let wsfEligibility: ContentObject = {
+        simpleResponse : "WSF Eligibility",
         speech: "The World Selection Eligibility",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
     export let wsfMore: ContentObject = {
+        simpleResponse : "More about the World Selection Fund",
         speech: "The World Selection More",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
     export let wsfAdvantages: ContentObject = {
-        speech: "The World Selection Adcantages",
+        simpleResponse : "More about the advantages of the World Selection Fund",
+        speech: "The World Selection Advantages",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "welcomeImage.png",
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
+        buttonTitle: ["Visit HSBC"],
+        buttonURL: ["http://www.hsbc.ca"]
+    }
+    export let directApply: ContentObject = {
+        simpleResponse : "Directly Apply",
+        speech: "Direct Apply",
+        text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
+        title: "Prepare for your financial future",
+        subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
+        suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
+        buttonTitle: ["Visit HSBC"],
+        buttonURL: ["http://www.hsbc.ca"]
+    }
+    export let directMortgages: ContentObject = {
+        simpleResponse : "Direct to Mortgages",
+        speech: "Direct Apply",
+        text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
+        title: "Prepare for your financial future",
+        subtitle: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
+        suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
 }
 /*
-//welcomeContent
+//TODO: welcome
  /*let text: string = "We could talk about many things from mortgages to RRSPs";
  let speech : string = "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM?"
  let simpleResponse: string = "Welcome to HSBC";
@@ -120,7 +153,7 @@ export namespace Content {
 
 
 //atmContent
-//TODO: atmFind
+//TODO: findATM
  let simpleResponseText: string = "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city? ";
  let simpleResponseSpeech: string = "Here is a list of the ATMs in the Lower Mainland. This will soon be connected to api";
  let title:string = "HSBC ATMs";
@@ -130,7 +163,7 @@ export namespace Content {
  let buttonURL: string = "https://www.google.ca/maps/search/hsbc+Vancouver";
  let suggestions = [{"title":"Vancouver"}, {"title" : "West Van"}, {"title" : "North Van"}, {"title":"New Westminster"}, {"title":"Burnaby"}, {"title":"Coquitlam"}, {"title" : "Richmond"}];
 
-//TODO: atmSearch
+//TODO: searchATM
  let city = JSON.stringify(req.body.result.parameters["local_cities"]);
  let simpleResponseText: string = "Here are the ATMs in your city. Click on the link to open the map";
  let simpleResponseSpeech: string = "Here is a list of addresses of ATMS in your city";

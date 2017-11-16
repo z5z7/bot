@@ -3,14 +3,14 @@
  */
 
 import {FulfillmentResponse} from './contracts';
-import {Google_Components} from "./google_ConversationComponents";
+import {Google_Components} from "./ConversationComponents";
 import {Content} from './contentObject';
 
 export namespace Welcome {
     export function handleInputWelcome(req: any): Promise<FulfillmentResponse> {
        return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
-            result = Google_Components.createUtterance(req, Content.welcomeContent);
+            result = Google_Components.createUtterance(req, Content.welcome);
             resolve(result);
 
         });

@@ -10,9 +10,10 @@ import {Bookfunc} from "./appointmentFunc";
 import {Welcome} from "./welcomeFunc";
 import {RrspFunc} from "./rrspFunc";
 import {WsfFunc} from "./wsfFunc";
-import {Google_Components} from "./google_ConversationComponents";
+import {Google_Components} from "./ConversationComponents";
 
 'use strict';
+import {MortgageFunc} from "./mortgageCalculator";
 
 
 const app: express.Express = express();
@@ -46,6 +47,8 @@ let actionToFuncMap = {
                     "find.what.wsf.eligible" : WsfFunc.handleEligibilityWSF,
                     "find.what.wsf.more" : WsfFunc.handleWsfMore,
                     //
+                    "direct.mortgages" : MortgageFunc.handleDirectMortgage,
+                    "direct.apply" : Bookfunc.handleDirectBookAppointment,
                     "book.appointment" : Bookfunc.handleBooking
                     };
 
