@@ -6,10 +6,8 @@
 const url: string = "https://storage.googleapis.com/hello_init/chat_trial_images/";
 
 export namespace Images {
-    //TODO: export this out to api
 
-    //
-    export let welcomeImage: string = url + "welcomeImage.png";
+    //TODO this should also be externalized.. right?
     export let atmMapAllImage: string = url + "atmMapAll.png";
     export let atmMapWestVancouverImage: string = url + "atmMapWestVan.png";
     export let atmMapRichmondImage: string = url + "atmMapRichmond.png";
@@ -19,20 +17,13 @@ export namespace Images {
     export let atmMapCoquitlamImage: string =   url + "atmMapCoquitlam.png";
     export let atmMapNewWestminsterImage: string =  url + "atmMapNewWest.png";
     //
-    export let bookAppointmentImage: string = url + "bookAppointment.png";
-    //
     export let fxRatesImage: string = url + "fxRates.png";
     //
     export let mortgageImage0: string = url + "mortgage_00.png";
     export let mortgageImage1: string =  url + "mortgage_01.png";
     //
     export let premierCustomerImage: string = url + "premierCustomer.png";
-    //
-    export let rrspImage: string =  url + "RRSP.png";
-    export let rrspApplyImage: string = url + "rrspApply.png";
-    export let rrspBenefitsImage: string = url + "rrspBenefits.png"
-    //
-    export let wsfImage: string = url + "worldSelectionFund.png";
+
 
     export function getCityImage(city : string){
         if(city.includes("Vancouver")){

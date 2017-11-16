@@ -1,6 +1,6 @@
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Google_Components} from './google_ConversationComponents';
+import {Convo_Components} from './ConversationComponents';
 import {Images} from './imageLibrary';
 //
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
@@ -62,8 +62,8 @@ export namespace Calculator {
                 resolve(retval);
 
             }).catch(err => {
-                    let error : string = err;
-                    resolve("Error in Calc 2 :" + err);
+                let error : string = err;
+                resolve("Error in Calc 2 :" + err);
             });
 
         });

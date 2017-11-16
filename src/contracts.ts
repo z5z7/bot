@@ -25,6 +25,19 @@ export interface FulfillmentResponse {
 /**
  * Content Object for SimpleCard component input
  */
+export interface ContentObject{
+    simpleResponse : string,
+    speech : string,
+    text : string,
+    title : string,
+    subtitle : string,
+    imageURL : string,
+    suggestions : any,
+    buttonTitle : any,
+    buttonURL : any
+}
+
+
 export interface SimpleCardContent{
     simpleResponse: string,
     cardTitle: string,
@@ -32,7 +45,7 @@ export interface SimpleCardContent{
     subTitle: string,
     image: string,
     buttonTitle: string,
-    buttonUrl: string
+    buttonURL: string
 }
 
 
@@ -46,6 +59,6 @@ export interface SimpleCardSuggestionsContent{
     subTitle : string,
     image : string,
     buttonTitle : string,
-    buttonUrl : string,
+    buttonURL : string,
     suggestions : Array<any>
 }

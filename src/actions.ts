@@ -2,16 +2,19 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
-import {Calculator} from "./mortgageCalculator";
-import {FxFunc} from "./fxFunc";
+import {Calculator} from "./Calculator";
+import {Exchange} from "./Exchange";
 import {AtmFunc} from "./atmFunc";
-import {Mortfunc} from "./mortgageFunc";
-import {Bookfunc} from "./appointmentFunc";
+import {MortFunc} from "./mortgageFunc";
+import {Appointments} from "./Appointments";
 import {Welcome} from "./welcomeFunc";
 import {RrspFunc} from "./rrspFunc";
-import {Google_Components} from "./google_ConversationComponents";
+import {WsfFunc} from "./wsfFunc";
+import {Convo_Components} from "./ConversationComponents";
 
 'use strict';
+
+
 
 const app: express.Express = express();
 
@@ -29,10 +32,10 @@ let actionToFuncMap = {
                     "find.where.atm" : AtmFunc.handleFindAtm,
                     "search.where.atm" : AtmFunc.handleSearchWhereAtm,
                     //
-                    "find.what.exchangeRate" : FxFunc.handleFindWhatExchangeRate,
-                    "search.what.exchangeRate" : FxFunc.handleSearchWhatExchangeRate,
+                    "find.what.exchangeRate" : Exchange.handleFindWhatExchangeRate,
+                    "search.what.exchangeRate" : Exchange.handleSearchWhatExchangeRate,
                     //
-                    "search.what.mortgageType": Mortfunc.handleSearchWhatMortgageType,
+                    "search.what.mortgageType": MortFunc.handleSearchWhatMortgageType,
                     "find.how.mortgages.calculate.monthlyPayment" : Calculator.handleSearchWhatMortgageCalculatorMonthlyPayment,
                     "find.how.mortgages.calculate.remainingLoan" : Calculator.handleSearchWhatMortgageCalculatorRemainingPayment,
                     //
@@ -40,7 +43,13 @@ let actionToFuncMap = {
                     "find.how.apply.rrsp" : RrspFunc.handleApplyRRSP,
                     "find.what.rrsp.benefits" : RrspFunc.handleRRSPBenefits,
                     //
-                    "book.appointment": Bookfunc.handleBooking
+                    "direct.wsf" : WsfFunc.handleDirectWsf,
+                    "find.what.wsf.eligible" : WsfFunc.handleEligibilityWSF,
+                    "find.what.wsf.more" : WsfFunc.handleWsfMore,
+                    //
+                    "direct.mortgages" : MortFunc.handleDirectMortgage,
+                    "direct.apply" : Appointments.handleBooking,
+                    "book.appointment" : Appointments.handleBooking
                     };
 
 export namespace Actions {
@@ -58,7 +67,7 @@ export namespace Actions {
                     resolve(response);
                 })
             }else{
-                resolve(Google_Components.returnSimple("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
+                resolve(Convo_Components.returnSimpleResponse("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
             }
         });
     }
