@@ -15,7 +15,9 @@ let pass = process.env.DIALOGFLOW_PASS;
 describe('Test Script', () => {
 
     describe('Specific Test Script (White Box) need to be modifed', () => {
-        describe('POST/dialogflow ATM func', () => {
+
+       /*
+       describe('POST/dialogflow ATM func', () => {
             it('PASS: handleSearchWhereAtmLocation ', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
@@ -606,6 +608,8 @@ describe('Test Script', () => {
             });
 
         });
+        */
+
 
         describe('POST/dialogflow fxfunc', () => {
             it('PASS: handleFindWhatExchangeRate ', (done) => {
@@ -1396,6 +1400,7 @@ describe('Test Script', () => {
 
     describe('General Test Script (Black Box)', () => {
 
+        /*
         describe('POST/dialogflow ATM func', () => {
             it('PASS: handleSearchWhereAtmLocation ', (done) => {
                 let sendval: {} = {
@@ -1986,7 +1991,7 @@ describe('Test Script', () => {
         });
 
         });
-
+        */
         describe('POST/dialogflow fxfunc', () => {
             it('PASS: handleFindWhatExchangeRate ', (done) => {
                 let sendval: {} = {
