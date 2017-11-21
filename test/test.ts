@@ -1400,7 +1400,7 @@ describe('Test Script', () => {
 
     describe('General Test Script (Black Box)', () => {
 
-        /*
+
         describe('POST/dialogflow ATM func', () => {
             it('PASS: handleSearchWhereAtmLocation ', (done) => {
                 let sendval: {} = {
@@ -1991,7 +1991,7 @@ describe('Test Script', () => {
         });
 
         });
-        */
+
         describe('POST/dialogflow fxfunc', () => {
             it('PASS: handleFindWhatExchangeRate ', (done) => {
                 let sendval: {} = {
