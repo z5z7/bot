@@ -9,18 +9,10 @@ import * as http from 'http';
 import * as https from 'https';
 //const gmKEY : any = process.env.GOOGLE_MAPS_API_KEY;
 const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
-var config = {
-    key : 'AIzaSyB8N-s8PeqJLd0bLKwnwOVC9hSykizM9Os'
-}
-
-
-var map;
-var service;
-var infowindow;
 
 export namespace AtmFunc {
 
-    // INPUT: LAT AN LON OF USER LOCATION
+    //  Input: Lat and Lon of user location
     //  OUTPUT: the 10 closest HSBC atm locations
     export function handleSearchWhereAtmlocation(latIn,lonIn): Promise<any> {
 
@@ -32,10 +24,7 @@ export namespace AtmFunc {
 
                 for (let i = 0; i < retval.results.length && i<10; i++){ // can adjust max i to give more return values
                     retarray.push(retval.results[i].vicinity);
-                    console.log(retval.results[i].vicinity);
                 }
-
-                console.log(retarray);
                 resolve(retarray);
             }).catch(error => {
                 reject(error);
@@ -45,13 +34,13 @@ export namespace AtmFunc {
 
     //INPUT: Keyword of some location passed by diagflow (this can be a google search string, postal code, ETC)
     //OUTPUT: 10 closest ATMS based off of keyword passed
-    export function handleSearchWhereAtm(keyword: any): Promise<any> {
-        let temp_in = "burnaby";
+    export function handleSearchWhereAtmKeyword(keyword: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            findLocbyKeyword(temp_in).then( locval => {
+            findLocbyKeyword(keyword).then( locval => {
                 let placeid : string = locval.results[0].place_id;
 
                 getGeoDetails(placeid).then ( location => {
+
                     let lat  = location.result.geometry.location.lat;
                     let long  = location.result.geometry.location.lng;
                     //we will have to see what search is more acurate - rankby and radius are slightly different
@@ -72,10 +61,23 @@ export namespace AtmFunc {
         });
     }
 
+    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let result : Promise<FulfillmentResponse>;
+            if (!req.body.result) {
+                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
+                resolve(result);
+
+            }
+            result = Convo_Components.createUtterance(req, Content.findATM);
+            resolve(result);
+        });
+    }
+
 
     //INPUT: Req for local cities
     //OUTPUT:
-    export function handleSearchWhereAtm1(req: any): Promise<FulfillmentResponse> {
+    export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
                 let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
@@ -130,20 +132,10 @@ export namespace AtmFunc {
     }
 
 
-    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result : Promise<FulfillmentResponse>;
-            if (!req.body.result) {
-                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
-                resolve(result);
 
-            }
-            result = Convo_Components.createUtterance(req, Content.findATM);
-            resolve(result);
-        });
-    }
-
-
+    //Winson Permission Function
+    //INPUT:
+    //OUTPUT:
     export function handlePermissionAtm(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
@@ -214,6 +206,9 @@ export namespace AtmFunc {
             });
         });
     }
+
+    //todo delete this when done
+
     /*
      export function handleSearchWhereAtmLocationFallback(req: any): Promise<FulfillmentResponse> {
 
