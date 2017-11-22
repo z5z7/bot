@@ -1,16 +1,53 @@
-/// <reference path="../node_modules/@types/googlemaps/index.d.ts" />
+// <reference path="../node_modules/@types/googlemaps/index.d.ts" />
 
 import {FulfillmentResponse, ContentObject} from './contracts';
 import {Convo_Components} from './ConversationComponents';
 import {Images} from './imageLibrary';
 import {Content} from './contentObject';
-import {} from '@types/googlemaps';
+//import {} from '@types/googlemaps';
 import * as http from 'http';
 import * as https from 'https';
 //const gmKEY : any = process.env.GOOGLE_MAPS_API_KEY;
 const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
 
 export namespace AtmFunc {
+    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let result : Promise<FulfillmentResponse>;
+            if (!req.body.result) {
+                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
+                resolve(result);
+
+            }
+            result = Convo_Components.createUtterance(req, Content.findATM);
+            resolve(result);
+        });
+    }
+    //INPUT: Req for local cities
+    export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            if (!req.body.result) {
+                let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
+                resolve(result);
+
+            }
+            let result: Promise<FulfillmentResponse>;
+            let contentObj: ContentObject = Content.searchATM;
+            //insert the city of choice into our contentObject
+            let city = JSON.stringify(req.body.result.parameters["local_cities"]);
+            contentObj.text = Content.searchATM.text.concat(city);
+            contentObj.speech = Content.searchATM.speech.concat(city);
+            contentObj.simpleResponse = Content.searchATM.simpleResponse.concat(city);
+            contentObj.imageURL = Images.getCityImage(city);
+            result = Convo_Components.createUtterance(req, Content.searchATM);
+            resolve(result);
+
+        });
+    }
+
+
+
+
 
     //  Input: Lat and Lon of user location
     //  OUTPUT: the 10 closest HSBC atm locations
@@ -61,42 +98,10 @@ export namespace AtmFunc {
         });
     }
 
-    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result : Promise<FulfillmentResponse>;
-            if (!req.body.result) {
-                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
-                resolve(result);
-
-            }
-            result = Convo_Components.createUtterance(req, Content.findATM);
-            resolve(result);
-        });
-    }
 
 
-    //INPUT: Req for local cities
-    //OUTPUT:
-    export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
-                resolve(result);
 
-            }
-            let result: Promise<FulfillmentResponse>;
-            let contentObj: ContentObject = Content.searchATM;
-            //insert the city of choice into our contentObject
-            let city = JSON.stringify(req.body.result.parameters["local_cities"]);
-            contentObj.text = Content.searchATM.text.concat(city);
-            contentObj.speech = Content.searchATM.speech.concat(city);
-            contentObj.simpleResponse = Content.searchATM.simpleResponse.concat(city);
-            contentObj.imageURL = Images.getCityImage(city);
-            result = Convo_Components.createUtterance(req, Content.searchATM);
-            resolve(result);
 
-        });
-    }
 
 
     //INPUT: Keyword you want helper to find
