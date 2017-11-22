@@ -4,6 +4,7 @@ import {Content} from './contentObject';
 import {Calculator} from './Calculator';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 
+
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
 
@@ -25,7 +26,7 @@ export namespace MortFunc {
     export function handleCalculateMortgageMonthly(req): Promise<FulfillmentResponse>{
         return new Promise((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
-            let monthlyPayment = handleSearchWhatMortgageCalculatorMonthlyPayment(req);
+            let monthlyPayment = Calculator.handleSearchWhatMortgageCalculatorMonthlyPayment(req);
             result = Convo_Components.createUtterance(req, Content.calculateMortgageRemaining.simpleResponse + monthlyPayment);
             resolve(result);
             return
@@ -51,45 +52,7 @@ export namespace MortFunc {
     }
 
 
-    export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<FulfillmentResponse> {
 
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
-
-            let loanAmount = req.body.result.parameters.loanAmount;
-            let interestRate = req.body.result.parameters.interestRate;
-            let loanDuration = req.body.result.parameters.loanDuration;
-
-
-            let arg = "0001/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString();
-            console.log("arg: " + arg);
-
-
-            client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = req.body.result.body.result;
-
-                let answer = "Your monthly payment should be " + pay.toString();
-
-                let response: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse(answer);
-                resolve(response);
-
-
-            }).catch(err => {
-
-                let answer = "I'm sorry, there was an error with our calculation. Shall we try again?";
-
-                let response = Convo_Components.returnSimpleResponse(answer + " : error " + err);
-                resolve(response);
-
-
-            });
-
-        });
-
-    }
 
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
 
