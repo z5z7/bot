@@ -18,7 +18,7 @@ export namespace Appointments {
     // Output: Requested booking information, Confirmation of email sent
     // NOTE: This is not a verified request return from HSBC - it only returns the details requested
     // by the customer (Still needs to be confirmed and contacted by HSBC based on inputed info).
-    export function handleBooking(req: any): Promise<string> {
+    export function createBooking(req: any): Promise<string> {
 
         return new Promise<string>((resolve, reject) => {
 

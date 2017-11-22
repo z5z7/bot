@@ -12,10 +12,35 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);*/
 import {ContentObject} from './contracts';
+
+
 //TODO: this should all be retrieved from the database
 //name of function is the same as the key to call
 export namespace Content {
 //all of these will be populated from api instead
+    //MISCELLANEOUS
+    export let directApply: ContentObject = {
+        simpleResponse : "Directly Apply",
+        speech: "Direct Apply",
+        text: "Sure, what is it you want to apply for?",
+        title: "",
+        subtitle: "",
+        suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
+        buttonTitle: ["Visit HSBC"],
+        buttonURL: ["http://www.hsbc.ca"]
+    }
+    export let aboutUs: ContentObject = {
+        simpleResponse: "HSBC",
+        speech: "INFO",
+        text: "Founded in 1865 to finance trade between Asia and the West, today HSBC is one of the world’s largest banking and financial services organizations serving around 38 million customers worldwide. Our aim is to be acknowledged as the world’s leading and most respected international bank.   \n Throughout our history we have been where the growth is, connecting customers to opportunities.    \n We enable businesses to thrive and economies to prosper, helping people fulfil their hopes and dreams and realize their ambitions.   \n This is our role and purpose.",
+        title: "Fast access and control of your money whenever you need it, wherever you are",
+        subtitle: "HSBC is one of the world’s largest banking and financial services organisations.",
+        suggestions: [{"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/building.png",
+        buttonTitle: ["More"],
+        buttonURL: "http://www.about.hsbc.ca"
+    }
     export let welcome: ContentObject = {
         simpleResponse: "Welcome to our lair",
         speech: "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM?",
@@ -27,6 +52,10 @@ export namespace Content {
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
     }
+
+
+
+    //ATM
     export let findATM: ContentObject = {
         simpleResponse: "Find some ATMs",
         speech: "Find me all ATMs YO!",
@@ -60,6 +89,12 @@ export namespace Content {
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"]
     }
+
+
+
+
+
+    //RRSP
     export let applyRRSP: ContentObject = {
         simpleResponse : "Apply for a RRSP",
         speech: "RRSP Apply",
@@ -82,6 +117,33 @@ export namespace Content {
         buttonTitle: ["More"],
         buttonURL: "http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"
     }
+    export let rrspBrokerageAccountNo: ContentObject = {
+        simpleResponse: "All righty then.",
+        speech: "What should we talk about next? Mortgages, World Selection Funds, Find an ATM, How to become Premier customer, The benefits of RRSPs?",
+        text: "What should we talk about next?   \n Mortgages,  \n World Selection Funds,  \n Find an ATM,   \n How to become Premier customer,  \n  The benefits of RRSPs?",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let rrspBrokerageAccountYes: ContentObject = {
+        simpleResponse: "Apply for Brokerage Account.",
+        speech: "Thanks. An agent will get in touch with you soon.",
+        text: "Thanks. An agent will get in touch with you soon.",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+
+
+
+
+    //WSF
     export let wsfDirect: ContentObject = {
         simpleResponse : "Direct to World Selection Fund",
         speech: "World Selection Direct",
@@ -126,17 +188,22 @@ export namespace Content {
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"]
     }
-    export let directApply: ContentObject = {
-        simpleResponse : "Directly Apply",
-        speech: "Direct Apply",
-        text: "Sure, what is it you want to apply for?",
+    export let wsfNo: ContentObject = {
+        simpleResponse : "Ok. What would you like to ask about next? Or would you just like to return to the main menu?",
+        speech: "Ok. What would you like to ask about next? Or would you just like to return to the main menu?",
+        text: "Ok. What would you like to ask about next? Or would you just like to return to the main menu?",
         title: "",
         subtitle: "",
-        suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
-        buttonTitle: ["Visit HSBC"],
-        buttonURL: ["http://www.hsbc.ca"]
+        suggestions: [],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
+        buttonTitle: ["More"],
+        buttonURL: ["http://www.hsbc.ca/1/2/world-selection"]
     }
+
+
+
+
+    //MORTGAGE STUFF
     export let directMortgages: ContentObject = {
         simpleResponse : "Direct to Mortgages",
         speech: "mortgages",
@@ -148,71 +215,28 @@ export namespace Content {
         buttonTitle: [],
         buttonURL: []
     }
-    export let traditionalMortgage: ContentObject = {
-        simpleResponse: "HSBC Traditional Mortgage",
-        speech: "Tell me more about first time buyer mortgage",
-        text: "Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or by increasing the payment amount up to a total of 20% each year.   \n You can also make a match a payment and miss one later.   \n Already enrolled in the Rewards Program with your HSBC MasterCard? Redeem Reward Points to reduce your mortgage amount.   \n Enjoy preferential interest rates as a HSBC Premier or HSBC Advance Client.",
-        title: "Become a homeowner sooner than you think",
-        subtitle: "The HSBC Traditional Mortgage is an ideal choice if you are a first-time homebuyer, have limited down payment options and want to build equity in your home.",
-        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
-        buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/traditional-mortgage/right-for-you"
-    }
-    export let equityPowerMortgage: ContentObject = {
-        simpleResponse: "HSBC Equity Power Mortgage",
-        speech: "Tell me more about the equity power mortgage",
-        text: "Renovate, travel or make a major purchase: Access up to 80% of the value of your home.   \n Flexible rate options: Benefit from a combination of fixed and variable terms.   \n Save money: Consolidate high-interest debt and reduce the amount of interest you pay.   \n Exclusive savings: Reduced interest rates for HSBC Premier and HSBC Advance clients.",
-        title: "Make the equity in your home work for you",
-        subtitle: "The HSBC Equity Power Mortgage is an ideal choice if you want to use the equity you’ve built up in your home for important goals or want to consolidate high-interest loans to reduce the impact of interest rate fluctuations.",
-        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/equity.png",
-        buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/equity-power-mortgage/right-for-you"
-    }
-    export let smartSaversMortgage: ContentObject = {
-        simpleResponse: "HSBC Smart Savers Mortgage",
-        speech: "Tell me more about the smart savers mortgage",
-        text: "Pay a lower interest rate on your mortgage based on the amount in your eligible linked HSBC account Continue to earn interest on that linked account.   \n Access the money from your linked account when you need it.   \n Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or increasing the payment amount up to a total of 20% each year.    \n You can also make a match a payment and miss one later.",
-        title: "Pay off your mortgage faster",
-        subtitle: "The HSBC Smart Savers Mortgage is an ideal choice if you want to keep your savings accessible.",
-        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/sisters.png",
-        buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/smart-savers-mortgage/right-for-you"
-    }
-    export let premierCustomerBenefits: ContentObject = {
-        simpleResponse: "Premier customer benefits",
-        speech: "What are the benefits of being a premier customer?",
-        text: "Your Relationship Manager: A dedicated Premier Relationship Manager identifies a wealth strategy designed just for you.   \n Meeting your needs: Our Relationship Managers are recognized based on how well they provide their service and how well they meet your needs.   \n Anytime, anywhere: Your personal economy is always with you. So are we, providing support and services whenever and wherever you need us.     \n Preferential Access: Access some of the most prestigious banking products, services and rewards that we have to offer.",
-        title: "HSBC Premier focuses on the most important economy in the world. Yours.",
+    export let mortgageCatalogue: ContentObject = {
+        simpleResponse: "",
+        speech: "",
+        text: "",
+        title: "",
         subtitle: "",
-        suggestions: [{"title" : "HSBC Premier Eligibility"}, {"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_needs.png",
-        buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/banking/hsbc-premier/benefits"
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
     }
-    export let advanceCustomerBenefits: ContentObject = {
-        simpleResponse: "Advance Benefits",
-        speech: "Benefits of Advance",
-        text: "Everyone is different, which is why we make the effort to understand your needs and how you like to bank.   \n We offer you preferential rates with unique rewards and benefits to help you with your everyday banking, borrowing and investment needs - because we want to help you reach your individual goals.   \n Speak to a mortgage specialist at 1-866-609-4722. ",
-        title: "HSBC",
-        subtitle: "Welcome to a whole new way of banking with HSBC Advance",
-        suggestions: [{"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
-        buttonTitle: ["More"],
-        buttonURL: "https://www.us.hsbc.com/1/2/home/advance"
-    }
-    export let aboutUs: ContentObject = {
-        simpleResponse: "HSBC",
-        speech: "INFO",
-        text: "Founded in 1865 to finance trade between Asia and the West, today HSBC is one of the world’s largest banking and financial services organizations serving around 38 million customers worldwide. Our aim is to be acknowledged as the world’s leading and most respected international bank.   \n Throughout our history we have been where the growth is, connecting customers to opportunities.    \n We enable businesses to thrive and economies to prosper, helping people fulfil their hopes and dreams and realize their ambitions.   \n This is our role and purpose.",
-        title: "Fast access and control of your money whenever you need it, wherever you are",
-        subtitle: "HSBC is one of the world’s largest banking and financial services organisations.",
-        suggestions: [{"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/building.png",
-        buttonTitle: ["More"],
-        buttonURL: "http://www.about.hsbc.ca"
+
+    export let mortgagePreApproval: ContentObject = {
+        simpleResponse: "",
+        speech: "",
+        text: "",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
     }
     export let calculateMortgageRemaining: ContentObject ={
         simpleResponse: "Your remaining mortgage balance is: ",
@@ -236,4 +260,166 @@ export namespace Content {
         buttonTitle: [""],
         buttonURL: [""]
     }
+    export let specialOfferAdvance: ContentObject = {
+        simpleResponse: "Advance Mortgage Special Offer",
+        speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
+        text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let specialOfferPremier: ContentObject = {
+        simpleResponse: "Premier Mortgage Special Offer",
+        speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
+        text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let specialOfferPersonalRates: ContentObject = {
+        simpleResponse: "Personal Rates Mortgage Special Offer",
+        speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
+        text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let specialOfferSmartSaver: ContentObject = {
+        simpleResponse: "Smart Saver Special Offer",
+        speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
+        text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let traditionalMortgage: ContentObject = {
+        simpleResponse: "HSBC Traditional Mortgage",
+        speech: "Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or by increasing the payment amount up to a total of 20% each year.   \n You can also make a match a payment and miss one later.   \n Already enrolled in the Rewards Program with your HSBC MasterCard? Redeem Reward Points to reduce your mortgage amount.   \n Enjoy preferential interest rates as a HSBC Premier or HSBC Advance Client.",
+        text: "Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or by increasing the payment amount up to a total of 20% each year.   \n You can also make a match a payment and miss one later.   \n Already enrolled in the Rewards Program with your HSBC MasterCard? Redeem Reward Points to reduce your mortgage amount.   \n Enjoy preferential interest rates as a HSBC Premier or HSBC Advance Client.",
+        title: "Become a homeowner sooner than you think",
+        subtitle: "The HSBC Traditional Mortgage is an ideal choice if you are a first-time homebuyer, have limited down payment options and want to build equity in your home.",
+        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
+        buttonTitle: ["More"],
+        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/traditional-mortgage/right-for-you"
+    }
+    export let equityPowerMortgage: ContentObject = {
+        simpleResponse: "HSBC Equity Power Mortgage",
+        speech: "Renovate, travel or make a major purchase: Access up to 80% of the value of your home.    Flexible rate options: Benefit from a combination of fixed and variable terms.   Save money: Consolidate high-interest debt and reduce the amount of interest you pay.  Exclusive savings: Reduced interest rates for HSBC Premier and HSBC Advance clients.",
+        text: "Renovate, travel or make a major purchase: Access up to 80% of the value of your home.   \n Flexible rate options: Benefit from a combination of fixed and variable terms.   \n Save money: Consolidate high-interest debt and reduce the amount of interest you pay.   \n Exclusive savings: Reduced interest rates for HSBC Premier and HSBC Advance clients.",
+        title: "Make the equity in your home work for you",
+        subtitle: "The HSBC Equity Power Mortgage is an ideal choice if you want to use the equity you’ve built up in your home for important goals or want to consolidate high-interest loans to reduce the impact of interest rate fluctuations.",
+        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/equity.png",
+        buttonTitle: ["More"],
+        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/equity-power-mortgage/right-for-you"
+    }
+    export let smartSaversMortgage: ContentObject = {
+        simpleResponse: "HSBC Smart Savers Mortgage",
+        speech: "Tell me more about the smart savers mortgage",
+        text: "Pay a lower interest rate on your mortgage based on the amount in your eligible linked HSBC account Continue to earn interest on that linked account.   \n Access the money from your linked account when you need it.   \n Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or increasing the payment amount up to a total of 20% each year.    \n You can also make a match a payment and miss one later.",
+        title: "Pay off your mortgage faster",
+        subtitle: "The HSBC Smart Savers Mortgage is an ideal choice if you want to keep your savings accessible.",
+        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/sisters.png",
+        buttonTitle: ["More"],
+        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/smart-savers-mortgage/right-for-you"
+    }
+
+
+
+    //CUSTOMER STUFF
+   export let directPremier: ContentObject = {
+        simpleResponse: "Become a Premier Customer.",
+        speech: "HSBC Premier offers comprehensive banking and investment services tailored to your financial needs. Would you like to find out more about: The benefits of being a Premier Customer? Of How to apply? Of eligibility requirements? About Premier customer mortgage rates?",
+        text: "HSBC Premier offers comprehensive banking and investment services tailored to your financial needs.   \n  Would you like to find out more about:   \n   The benefits of being a Premier Customer?    \n Of How to apply?   \n  Of eligibility requirements?   \n  About Premier customer mortgage rates?",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let premierCustomerBenefits: ContentObject = {
+        simpleResponse: "Premier customer benefits",
+        speech: "What are the benefits of being a premier customer?",
+        text: "Your Relationship Manager: A dedicated Premier Relationship Manager identifies a wealth strategy designed just for you.   \n Meeting your needs: Our Relationship Managers are recognized based on how well they provide their service and how well they meet your needs.   \n Anytime, anywhere: Your personal economy is always with you. So are we, providing support and services whenever and wherever you need us.     \n Preferential Access: Access some of the most prestigious banking products, services and rewards that we have to offer.",
+        title: "HSBC Premier focuses on the most important economy in the world. Yours.",
+        subtitle: "",
+        suggestions: [{"title" : "HSBC Premier Eligibility"}, {"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_needs.png",
+        buttonTitle: ["More"],
+        buttonURL: "https://www.hsbc.ca/1/2/personal/banking/hsbc-premier/benefits"
+    }
+    export let premierCustomerApplication = {
+        simpleResponse: "Thanks for contacting us!",
+        speech: "Thanks for contacting us! We will get an agent to contact you soon.",
+        text: "We will get an agent to contact you soon.",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let premierCustomerEligibility: ContentObject = {
+        simpleResponse: "Advance Benefits",
+        speech: "Benefits of Advance",
+        text: "Everyone is different, which is why we make the effort to understand your needs and how you like to bank.   \n We offer you preferential rates with unique rewards and benefits to help you with your everyday banking, borrowing and investment needs - because we want to help you reach your individual goals.   \n Speak to a mortgage specialist at 1-866-609-4722. ",
+        title: "HSBC",
+        subtitle: "Welcome to a whole new way of banking with HSBC Advance",
+        suggestions: [{"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
+        buttonTitle: ["More"],
+        buttonURL: "https://www.us.hsbc.com/1/2/home/advance"
+    }
+
+    export let directAdvance: ContentObject = {
+        simpleResponse: "Become an Advance Customer",
+        speech: "HSBC Advance offers comprehensive banking and investment services tailored to your financial needs. Would you like to find out more about: The benefits of being an Advance Customer? Of How to apply? Of eligibility requirements? About Advance customer mortgage rates?",
+        text: "HSBC Advance offers comprehensive banking and investment services tailored to your financial needs.   \n  Would you like to find out more about:   \n   The benefits of being an Advance Customer?    \n Of How to apply?   \n  Of eligibility requirements?   \n  About Advance customer mortgage rates?",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let advanceCustomerBenefits: ContentObject = {
+        simpleResponse: "Advance Benefits",
+        speech: "Benefits of Advance",
+        text: "Everyone is different, which is why we make the effort to understand your needs and how you like to bank.   \n We offer you preferential rates with unique rewards and benefits to help you with your everyday banking, borrowing and investment needs - because we want to help you reach your individual goals.   \n Speak to a mortgage specialist at 1-866-609-4722. ",
+        title: "HSBC",
+        subtitle: "Welcome to a whole new way of banking with HSBC Advance",
+        suggestions: [{"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
+        buttonTitle: ["More"],
+        buttonURL: "https://www.us.hsbc.com/1/2/home/advance"
+    }
+
 }
+/*
+ export let calculateMortgage0: ContentObject = {
+ simpleResponse: "",
+ speech: "",
+ text: "",
+ title: "",
+ subtitle: "",
+ suggestions: [],
+ imageURL: "",
+ buttonTitle: [""],
+ buttonURL: [""]
+ }
+ */

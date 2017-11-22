@@ -17,7 +17,7 @@ export namespace Calculator {
 
     //input : Req node with proper loanamount, rate, and Duration parameters
     //output: Promise<String> with return value for calc # 1
-    export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<string> {
+    export function mortgageCalculatorMonthlyPayment(req: any): Promise<string> {
 
         return new Promise<string>((resolve, reject) => {
 
@@ -42,7 +42,7 @@ export namespace Calculator {
 
     }
 
-    export function handleSearchWhatMortgageCalculatorRemainingPayment(req: any): Promise<string> {
+    export function mortgageCalculatorRemainingPayment(req: any): Promise<string> {
 
         return new Promise<string>((resolve, reject) => {
 

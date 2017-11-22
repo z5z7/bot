@@ -17,7 +17,7 @@ export namespace Exchange {
     //input : Currency you want the list of exchanges for, or blank for all
     //output: lPromise response of currencies
 
-        export function handleFindWhatExchangeRate(req: any): Promise<string> {
+        export function findExchangeRate(req: any): Promise<string> {
                 console.log(req.body);
             if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
 
@@ -92,7 +92,7 @@ export namespace Exchange {
         });
     }
 
-    export function handleSearchWhatExchangeRate(req: any): Promise<string> {
+    export function searchWhatExchangeRate(req: any): Promise<string> {
 
         return new Promise<string>((resolve, reject) => {
 
