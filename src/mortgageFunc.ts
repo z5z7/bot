@@ -1,6 +1,7 @@
-import {FulfillmentResponse, FulfillmentRequest} from './contracts';
+import {FulfillmentResponse} from './contracts';
 import {Convo_Components} from './ConversationComponents';
 import {Content} from './contentObject';
+import {Calculator} from './Calculator';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
@@ -21,6 +22,35 @@ export namespace MortFunc {
             resolve(result);
         })
     }
+    export function handleCalculateMortgageMonthly(req): Promise<FulfillmentResponse>{
+        return new Promise((resolve, reject) => {
+            let result: Promise<FulfillmentResponse>;
+            let monthlyPayment = handleSearchWhatMortgageCalculatorMonthlyPayment(req);
+            result = Convo_Components.createUtterance(req, Content.calculateMortgageRemaining.simpleResponse + monthlyPayment);
+            resolve(result);
+            return
+        })
+    }
+    export function handleCalculateMortgage0(req): Promise<FulfillmentResponse>{
+        return new Promise<FulfillmentResponse> ((resolve, reject) =>{
+            let result: Promise<FulfillmentResponse>;
+            result = Convo_Components.createUtterance(req, Content.calculateMortgage0.simpleResponse);
+            resolve(result);
+            return
+        })
+    }
+    export function handleCalculateRemaining(req) : Promise<FulfillmentResponse>{
+        return new Promise((resolve, reject)=> {
+            let result: Promise<FulfillmentResponse>;
+            let remainingAmount = Calculator.handleSearchWhatMortgageCalculatorRemainingPayment(req);
+            result = Convo_Components.createUtterance(req, Content.calculateMortgageRemaining.simpleResponse);
+            resolve(result);
+            return
+
+        })
+    }
+
+
     export function handleSearchWhatMortgageCalculatorMonthlyPayment(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
@@ -171,7 +201,6 @@ export namespace MortFunc {
         });
 
     }
-    //TODO: export this response out to database
     export function handleMortgageRateSpecialOfferSmartSaver(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
@@ -206,40 +235,5 @@ export namespace MortFunc {
 
     }
 
-    //TODO: this should NOT be returning a FulfillmentResponse
-    export function handleSearchWhatMortgageType(req: any): Promise<FulfillmentResponse> {
 
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-
-            // todo: stub
-            // Param 1 = Currency from
-            // Param 2 = Corrency To (optional) set default to CAD
-            // Param 3 = Amount (optional) set default to 1
-            // Call the backend with all the param passed
-
-            // getting the param
-
-            // var cur1 = req.body.result.parameters.currency;
-            // var cur2 = req.body.result.parameters.currency;
-            // var Amt = req.body.result.parameters.amount;
-
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
-
-            const result: FulfillmentResponse = {
-                speech: "This will calculate the rate depending on stuff... this will be a dialogue\n" +
-                "I need to work on this one as I need to let you know about incoming parameters and outgoing expected result. Just put in a stub for this guy please",
-                displayText: "This will calculate the rate depending on stuff... this will be a dialogue\n" +
-                "I need to work on this one as I need to let you know about incoming parameters and outgoing expected result. Just put in a stub for this guy please",
-                data: {},
-                contextOut: [],
-                source: ""
-            };
-
-            resolve(result);
-
-        });
-    }
 }

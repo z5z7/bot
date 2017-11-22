@@ -3,7 +3,7 @@
  */
 import {Convo_Components} from "./ConversationComponents";
 import {Images} from "./imageLibrary";
-import {FulfillmentResponse, SimpleCardContent, SimpleCardSuggestionsContent, ContentObject} from "./contracts";
+import {FulfillmentResponse} from "./contracts";
 import {Content} from './contentObject';
 
 

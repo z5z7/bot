@@ -35,9 +35,7 @@ let actionToFuncMap = {
                     "find.what.exchangeRate" : Exchange.handleFindWhatExchangeRate,
                     "search.what.exchangeRate" : Exchange.handleSearchWhatExchangeRate,
                     //
-                    "search.what.mortgageType": MortFunc.handleSearchWhatMortgageType,
-                    "find.how.mortgages.calculate.monthlyPayment" : Calculator.handleSearchWhatMortgageCalculatorMonthlyPayment,
-                    "find.how.mortgages.calculate.remainingLoan" : Calculator.handleSearchWhatMortgageCalculatorRemainingPayment,
+
                     //
                     "direct.rrsp" : RrspFunc.handleDirectRRSP,
                     "find.how.apply.rrsp" : RrspFunc.handleApplyRRSP,
@@ -48,6 +46,10 @@ let actionToFuncMap = {
                     "find.what.wsf.more" : WsfFunc.handleWsfMore,
                     //
                     "direct.mortgages" : MortFunc.handleDirectMortgage,
+                    "find.how.mortgages.calculate.monthlyPayment" : MortFunc.handleCalculateMortgageMonthly,
+                    "find.how.mortgages.calculate.mortgage0" : MortFunc.handleCalculateMortgage0,
+                    "find.how.mortgages.calculate.remainingLoan" : MortFunc.handleCalculateRemaining,
+
                     "direct.apply" : Appointments.handleBooking,
                     "book.appointment" : Appointments.handleBooking
                     };
