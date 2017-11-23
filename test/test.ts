@@ -18,7 +18,7 @@ describe('Test Script', () => {
 
        /*
        describe('POST/dialogflow ATM func', () => {
-            it('PASS: handleSearchWhereAtmLocation ', (done) => {
+            it('PASS: returnSearchWhereAtmLocation ', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
                         "source": "google",
@@ -1402,7 +1402,7 @@ describe('Test Script', () => {
 
 
         describe('POST/dialogflow ATM func', () => {
-            it('PASS: handleSearchWhereAtmLocation ', (done) => {
+            it('PASS: returnSearchWhereAtmLocation ', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
                         "source": "google",
