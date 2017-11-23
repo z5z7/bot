@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {CustomerFunc} from '../src/customerFunc'
+import {CustomerFunc} from '../../src/customerFunc'
 
 
 var chai = require('chai');
