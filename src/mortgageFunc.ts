@@ -15,7 +15,11 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
+
+// todo: get rid of all this code duplication
+
 export namespace MortFunc {
+
     export function handleDirectMortgage(req): Promise<FulfillmentResponse> {
         return new Promise((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
@@ -64,6 +68,7 @@ export namespace MortFunc {
 
         })
     }
+
     export function handleMortgageTypeTraditional(req) : Promise<FulfillmentResponse>{
         return new Promise((resolve, reject)=> {
             let result: Promise<FulfillmentResponse>;
@@ -74,6 +79,7 @@ export namespace MortFunc {
 
         })
     }
+
     export function handleMortgageTypeEquityPower(req) : Promise<FulfillmentResponse>{
         return new Promise((resolve, reject)=> {
             let result: Promise<FulfillmentResponse>;
@@ -84,6 +90,7 @@ export namespace MortFunc {
 
         })
     }
+
     export function handleMortgageTypeSmartSaver(req) : Promise<FulfillmentResponse>{
         return new Promise((resolve, reject)=> {
             let result: Promise<FulfillmentResponse>;
@@ -95,71 +102,49 @@ export namespace MortFunc {
         })
     }
 
-
-
-
-
-
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            if (!req.body.result) {
+                reject("invalid request");
+            }
+            let result: Promise<FulfillmentResponse>;
+            result = Convo_Components.createUtterance(req, Content.specialOfferAdvance);
+            resolve(result);
+        });
+    }
 
+    export function handleMortgageRateSpecialOfferPremier(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
                 reject("invalid request");
 
             }
             let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferAdvance);
+            result = Convo_Components.createUtterance(req, Content.specialOfferPremier);
             resolve(result);
         });
-
-    }
-
-
-    export function handleMortgageRateSpecialOfferPremier(req: any): Promise<FulfillmentResponse> {
-
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-
-            return new Promise<FulfillmentResponse>((resolve, reject) => {
-                if (!req.body.result) {
-                    reject("invalid request");
-
-                }
-                let result: Promise<FulfillmentResponse>;
-                result = Convo_Components.createUtterance(req, Content.specialOfferPremier);
-                resolve(result);
-            });
-
-        });
-
     }
 
     export function handleMortgageRateSpecialOfferPersonalRates(req: any): Promise<FulfillmentResponse> {
-
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-                return new Promise<FulfillmentResponse>((resolve, reject) => {
-                    if (!req.body.result) {
-                        reject("invalid request");
+            if (!req.body.result) {
+                reject("invalid request");
 
-                    }
-                    let result: Promise<FulfillmentResponse>;
-                    result = Convo_Components.createUtterance(req, Content.specialOfferPersonalRates);
-                    resolve(result);
-                });
+            }
+            let result: Promise<FulfillmentResponse>;
+            result = Convo_Components.createUtterance(req, Content.specialOfferPersonalRates);
+            resolve(result);
         });
-
     }
+
     export function handleMortgageRateSpecialOfferSmartSaver(req: any): Promise<FulfillmentResponse> {
-
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            return new Promise<FulfillmentResponse>((resolve, reject) => {
-                if (!req.body.result) {
-                    reject("invalid request");
-
-                }
-                let result: Promise<FulfillmentResponse>;
-                result = Convo_Components.createUtterance(req, Content.specialOfferSmartSaver);
-                resolve(result);
-            });
+            if (!req.body.result) {
+                reject("invalid request");
+            }
+            let result: Promise<FulfillmentResponse>;
+            result = Convo_Components.createUtterance(req, Content.specialOfferSmartSaver);
+            resolve(result);
         });
     }
 }
