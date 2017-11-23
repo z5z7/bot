@@ -108,4 +108,4 @@ crashlytics-build.properties
 fabric.properties
 
 /config
-local.env
+.env
