@@ -21,33 +21,33 @@ export namespace Content {
     //MISCELLANEOUS
     export let directApply: ContentObject = {
         simpleResponse : "Directly Apply",
-        speech: "Direct Apply",
-        text: "Sure, what is it you want to apply for?",
-        title: "",
+        speech: "Sure, what is it you would like to apply for?",
+        text: "Sure, what is it you would like to apply for?   \n To be a Premier Customer?   \n For a Brokerage RRSP Account?   \n For the World Selection Fund?  \n Mortgage PreApproval?",
+        title: "Book an Appointment",
         subtitle: "",
-        suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
+        suggestions: [{"title": "Premier"}, {"title": "RRSP"}, {"title": "WSF"}, {"title" : "mortgage"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
         buttonTitle: ["Visit HSBC"],
-        buttonURL: ["http://www.hsbc.ca"]
+        buttonURL: ["https://www.hsbc.ca/1/2/applications/book-appointment?WABFormEntryCommand=cmd_prefill&HiddenMandatoryFields.ProductId=@PR&HiddenMandatoryFields.IndividualSolutionId=DC&HiddenMandatoryFields.WebTrendSkuId=HBCA_BR_APPOINTMENT&HiddenMandatoryFields.ProductionPromotionCode=HPG"]
     }
     export let aboutUs: ContentObject = {
-        simpleResponse: "HSBC",
-        speech: "INFO",
+        simpleResponse: "About HSBC",
+        speech: "Founded in 1865 to finance trade between Asia and the West, today HSBC is one of the world’s largest banking and financial services organizations serving around 38 million customers worldwide. Our aim is to be acknowledged as the world’s leading and most respected international bank.   Throughout our history we have been where the growth is, connecting customers to opportunities.    We enable businesses to thrive and economies to prosper, helping people fulfil their hopes and dreams and realize their ambitions. This is our role and purpose.",
         text: "Founded in 1865 to finance trade between Asia and the West, today HSBC is one of the world’s largest banking and financial services organizations serving around 38 million customers worldwide. Our aim is to be acknowledged as the world’s leading and most respected international bank.   \n Throughout our history we have been where the growth is, connecting customers to opportunities.    \n We enable businesses to thrive and economies to prosper, helping people fulfil their hopes and dreams and realize their ambitions.   \n This is our role and purpose.",
-        title: "Fast access and control of your money whenever you need it, wherever you are",
-        subtitle: "HSBC is one of the world’s largest banking and financial services organisations.",
+        title: "The World's Local Branch",
+        subtitle: "",
         suggestions: [{"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/building.png",
         buttonTitle: ["More"],
         buttonURL: "http://www.about.hsbc.ca"
     }
     export let welcome: ContentObject = {
-        simpleResponse: "Welcome to our lair",
-        speech: "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM?",
-        text: "We could talk about many things from mortgages to RRSPs",
+        simpleResponse: "Welcome to HSBC",
+        speech: "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM? Exchange Rates? The World Selection Fund?",
+        text: "Welcome to HSBC, what shall we talk about today?  \n Mortgages?  \n RRSPs?,  \n Finding an ATM?  \nExchange Rates?  \n The World Selection Fund?",
         title: "How can we help you today?",
         subtitle: "Find out more",
-        suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
+        suggestions: [{"title": "ATM"}, {"title": "FxRates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title" : "WSF"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
@@ -57,47 +57,44 @@ export namespace Content {
 
     //ATM
     export let findATM: ContentObject = {
-        simpleResponse: "Find some ATMs",
-        speech: "Find me all ATMs YO!",
-        text: "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city?",
+        simpleResponse: "Find ATMs in your city.",
+        speech: "There are many ATMs in the Lower Mainland. Would you like to narrow down your options to just ONE city?  West Vancouver? North Vancouver?  New Westminster? Burnaby?  Coquitlam? Richmond?",
+        text: "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city?  \n  West Vancouver?   \n North Vancouver?  \n  New Westminster?   \n Burnaby?   \n  Coquitlam?  \n Richmond?",
         title: "HSBC ATMs",
         subtitle: "Lower Mainland",
-        suggestions: [{"title": "Vancouver"}, {"title" : "West Van"}, {"title" : "North Van"}, {"title": "New Westminster"}, {"title": "Burnaby"}, {"title": "Coquitlam"}, {"title" : "Richmond"}],
-        imageURL: "https://www.google.ca/maps/search/hsbc+",
+        suggestions: [{"title": "Vancouver"}, {"title" : "West Van"}, {"title" : "North Van"}, {"title": "New West"}, {"title": "Burnaby"}, {"title": "Coquitlam"}, {"title" : "Richmond"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/atmMapAll.png",   //this url is completed in the handleFunc
         buttonTitle: ["Map"],
         buttonURL: ["https://www.google.ca/maps/search/hsbc+Vancouver"]
     }
     export let searchATM: ContentObject = {
         simpleResponse : "Find a specific ATM",
-        speech: "Find a certain ATM yo",
-        text: "Here are the ATMs in your city. Click on the link to open the map.",
-        title: "HSBC ATMs in " /* here add the city from the parameters JSON.stringify(req.body.result.parameters["local_cities"])*/,
+        speech: "Here are the ATMs in your city.",
+        text: "Here are the ATMs in your city.  \n Click on the link to open map.",
+        title: "",          //this title is completed in the handleFunc
         subtitle: "",
-        suggestions: [{"title": "Find ATM"}, {"title": "Exchange Rates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title": "World Selection Fund"}, {"title": "Premier Customer"}],
-        imageURL: "",
+        suggestions: [],    //suggestions created in handleFunc
+        imageURL: "",       //image handled in handleFunc
         buttonTitle: ["Map"],
-        buttonURL: ["https://www.google.ca/maps/search/hsbc+" /* add city here*/]
+        buttonURL: ["https://www.google.ca/maps/search/hsbc+"]    /* add city here in handleFunc*/
     }
+
+
+    //RRSP
     export let directRRSP: ContentObject = {
-        simpleResponse : "RRSP",
-        speech: "RRSPs",
+        simpleResponse : "Find out more about HSBC's RRSPs",
+        speech: "Find out more about HSBC's RRSPs",
         text: "\n  Life is tough.   \n  Retire instead",
-        title: "RRSP's?",
+        title: "Invest in your future",
         subtitle: "What about RRSPs shall we discuss?",
         suggestions: [{"title" : "Benefits"}, {"title" : "Apply"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/RRSP.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"]
     }
-
-
-
-
-
-    //RRSP
     export let applyRRSP: ContentObject = {
-        simpleResponse : "Apply for a RRSP",
-        speech: "RRSP Apply",
+        simpleResponse : "Apply for an RRSP",
+        speech: "Apply for an RRSP",
         text: "Social Insurance Number,   \n Two pieces of valid identification,   \n Bank account information (transit, institution number,   \n account number and bank address), Spouse or common-law partner's employment information",
         title: "What you need before you call: ",
         subtitle: "",

@@ -29,13 +29,16 @@ let actionToFuncMap = {
                     "welcome" : Welcome.handleWelcome,
                     "GOOGLE_ASSISTANT_WELCOME " : Welcome.handleWelcome,
                     "smalltalk.agent.talk_to_me" : Welcome.handleWelcome,
+                    "input.welcome.trial" : Welcome.handleWelcome,
+                    "" : Welcome.handleWelcome,
 
 
 
 
                     //ATM
-                    "find.where.atm" : AtmFunc.handleFindAtm,
+                    "find.atm" : AtmFunc.handleFindAtm,
                     "search.where.atm" : AtmFunc.handleSearchWhereAtm,
+
 
 
 
