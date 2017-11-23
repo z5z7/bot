@@ -1,6 +1,8 @@
 import * as mocha from  'mocha';
 import {Calculator} from "../../src/Calculator";
 
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
