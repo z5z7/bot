@@ -1,4 +1,5 @@
-import * as mocha from  'mocha';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
@@ -100,8 +101,8 @@ describe('Black Box Test Script', () => {
         };
         chai.request(server)
             .post('/dialogflow')
-            .auth(user,pass)
             .send(sendval)
+            .auth(user,pass)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
