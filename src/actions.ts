@@ -11,6 +11,7 @@ import {Welcome} from "./welcomeFunc";
 import {RrspFunc} from "./rrspFunc";
 import {WsfFunc} from "./wsfFunc";
 import {Convo_Components} from "./ConversationComponents";
+import {CustomerFunc} from "./customerFunc";
 
 'use strict';
 
@@ -25,31 +26,81 @@ app.use(bodyParser.urlencoded({extended: false}));
 //so let's map our dialogFlow actions to our webhook functions
 let actionToFuncMap = {
                     //
-                    "welcome" : Welcome.handleInputWelcome,
-                    "GOOGLE_ASSISTANT_WELCOME " : Welcome.handleInputWelcome,
-                    "smalltalk.agent.talk_to_me" : Welcome.handleInputWelcome,
-                    //
-                    "find.where.atm" : AtmFunc.handleFindAtm,
+                    "welcome" : Welcome.handleWelcome,
+                    "GOOGLE_ASSISTANT_WELCOME " : Welcome.handleWelcome,
+                    "smalltalk.agent.talk_to_me" : Welcome.handleWelcome,
+                    "input.welcome.trial" : Welcome.handleWelcome,
+                    "" : Welcome.handleWelcome,
+
+
+
+
+                    //ATM
+                    "find.atm" : AtmFunc.handleFindAtm,
                     "search.where.atm" : AtmFunc.handleSearchWhereAtm,
-                    //
-                    "find.what.exchangeRate" : Exchange.handleFindWhatExchangeRate,
-                    "search.what.exchangeRate" : Exchange.handleSearchWhatExchangeRate,
-                    //
-                    "search.what.mortgageType": MortFunc.handleSearchWhatMortgageType,
-                    "find.how.mortgages.calculate.monthlyPayment" : Calculator.handleSearchWhatMortgageCalculatorMonthlyPayment,
-                    "find.how.mortgages.calculate.remainingLoan" : Calculator.handleSearchWhatMortgageCalculatorRemainingPayment,
-                    //
+
+
+
+
+
+                    //FXRATES
+                    "find.what.exchangeRate" : Exchange.findExchangeRate,
+                    "search.what.exchangeRate" : Exchange.searchWhatExchangeRate,
+
+
+
+
+                    //RRSP
                     "direct.rrsp" : RrspFunc.handleDirectRRSP,
                     "find.how.apply.rrsp" : RrspFunc.handleApplyRRSP,
                     "find.what.rrsp.benefits" : RrspFunc.handleRRSPBenefits,
-                    //
+                    "find.what.rrsp.brokerageAccount.no" : RrspFunc.handleRRSPBrokerageNo,
+                    "find.what.rrsp.brokerageAccount.yes" : RrspFunc.handleRRSPBrokerageYes,
+
+
+
+
+                    //WSF
                     "direct.wsf" : WsfFunc.handleDirectWsf,
                     "find.what.wsf.eligible" : WsfFunc.handleEligibilityWSF,
                     "find.what.wsf.more" : WsfFunc.handleWsfMore,
-                    //
+                    "find.what.wsf.no" : WsfFunc.handleWsfNo,
+                    "find.what.wsf.advantages" : WsfFunc.handleWsfAdvantages,
+
+
+
+                    //MORTGAGES
                     "direct.mortgages" : MortFunc.handleDirectMortgage,
-                    "direct.apply" : Appointments.handleBooking,
-                    "book.appointment" : Appointments.handleBooking
+                    "find.what.mortgages.catalogue" : MortFunc.handleMortgagesCatalogue,
+                    "find.what.mortgages.preApproval" : MortFunc.handleMorgagesPreApproval,
+                    "find.how.mortgages.calculate.monthlyPayment" : MortFunc.handleCalculateMortgageMonthly,
+                    "find.how.mortgages.calculate.mortgage0" : MortFunc.handleCalculateMortgage0,
+                    "find.how.mortgages.calculate.remainingLoan" : MortFunc.handleCalculateRemaining,
+                    "mortgageRate.specialOffer.advance" : MortFunc.handleMortgageRateSpecialOfferAdvance,
+                    "mortgageRate.specialOffer.premier" : MortFunc.handleMortgageRateSpecialOfferPremier,
+                    "mortgageRate.specialOffer.personalRates" : MortFunc.handleMortgageRateSpecialOfferPersonalRates,
+                    "mortgageRate.specialOffer.smartSaver" : MortFunc.handleMortgageRateSpecialOfferSmartSaver,
+                    "mortgage.what.trad" : MortFunc.handleMortgageTypeTraditional,
+                    "mortgage.what.equityPower" : MortFunc.handleMortgageTypeEquityPower,
+                    "mortgage.what.smartSaver" : MortFunc.handleMortgageTypeSmartSaver,
+
+
+
+                    //CUSTOMERS
+                    "direct.advance" : CustomerFunc.handleDirectAdvance,
+                    "search.what.advance.benefits" : CustomerFunc.handleAdvanceBenefits,
+
+                    "direct.premier" : CustomerFunc.handleDirectPremier,
+                    "search.what.premier.application" : CustomerFunc.handlePremierApplication,
+                    "search.what.premier.benefits" : CustomerFunc.handlePremierBenefits,
+                    "search.what.premier.eligible" : CustomerFunc.handlePremierEligibility,
+
+
+
+                    //MISCELLANEOUS
+                    "direct.apply" : Appointments.createBooking,
+                    "book.appointment" : Appointments.createBooking,
+                    "blurb.aboutUs" : Welcome.handleAboutUs,
                     };
 
 export namespace Actions {

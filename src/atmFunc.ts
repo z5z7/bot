@@ -1,23 +1,78 @@
-/// <reference path="../node_modules/@types/googlemaps/index.d.ts" />
+// <reference path="../node_modules/@types/googlemaps/index.d.ts" />
 
-import {FulfillmentResponse, SimpleCardContent, SimpleCardSuggestionsContent, ContentObject} from './contracts';
+import {FulfillmentResponse, ContentObject} from './contracts';
 import {Convo_Components} from './ConversationComponents';
 import {Images} from './imageLibrary';
 import {Content} from './contentObject';
-import {} from '@types/googlemaps';
+//import {} from '@types/googlemaps';
 import * as http from 'http';
 import * as https from 'https';
 //const gmKEY : any = process.env.GOOGLE_MAPS_API_KEY;
 const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
 
 export namespace AtmFunc {
+    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let result : Promise<FulfillmentResponse>;
+            if (!req.body.result) {
+                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
+                resolve(result);
 
+            }
+            result = Convo_Components.createUtterance(req, Content.findATM);
+            resolve(result);
+        });
+    }
+    //INPUT: Req for local cities
+    export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            if (!req.body.result) {
+                let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
+                resolve(result);
+
+            }
+
+            let city = req.body.result.parameters["local_cities"];
+
+            searchWhereAtmKeyword(city).then(cityArray => {
+
+
+                //create suggestions with every city except for current one
+                let allCities: Array<string> = ["Vancouver", "West Van", "North Van", "New West", "Burnaby", "Coquitlam", "Richmond"];
+                let suggestions = [];
+
+                const index = allCities.indexOf(city);
+                allCities.splice(index, 1);
+
+                for (let aCity in allCities) {
+                    suggestions.push({"title": allCities[aCity]});
+                }
+
+
+                let result: Promise<FulfillmentResponse>;
+                let contentObj: ContentObject = Content.searchATM;
+
+
+                contentObj.title = city;
+                contentObj.speech = "Here are the atm's in your city " + cityArray.toString();
+                contentObj.imageURL = Images.getCityImage(city);
+                contentObj.suggestions = suggestions;
+                contentObj.buttonURL = ["https://www.google.ca/maps/search/hsbc+" + city];
+                console.log("my buttonURL is " + contentObj.buttonURL[0]);
+                result = Convo_Components.createUtterance(req, contentObj);
+
+                resolve(result);
+
+            });
+        });
+    }
     //  Input: Lat and Lon of user location
     //  OUTPUT: the 10 closest HSBC atm locations
     export function handleSearchWhereAtmlocation(latIn,lonIn): Promise<any> {
 
         return new Promise((resolve, reject) => {
             let apiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latIn + "," + lonIn + "&radius=10000&keyword=HSBC+atm&key=" + gmKey;
+
 
             getHelper(apiURL).then(retval => {
                 let retarray: string[] = [];
@@ -32,9 +87,12 @@ export namespace AtmFunc {
         })
     }
 
+
+
+
     //INPUT: Keyword of some location passed by diagflow (this can be a google search string, postal code, ETC)
     //OUTPUT: 10 closest ATMS based off of keyword passed
-    export function handleSearchWhereAtmKeyword(keyword: any): Promise<any> {
+    export function searchWhereAtmKeyword(keyword: any): Promise<any> {
         return new Promise((resolve, reject) => {
             findLocbyKeyword(keyword).then( locval => {
                 let placeid : string = locval.results[0].place_id;
@@ -61,42 +119,10 @@ export namespace AtmFunc {
         });
     }
 
-    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result : Promise<FulfillmentResponse>;
-            if (!req.body.result) {
-                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
-                resolve(result);
-
-            }
-            result = Convo_Components.createUtterance(req, Content.findATM);
-            resolve(result);
-        });
-    }
 
 
-    //INPUT: Req for local cities
-    //OUTPUT:
-    export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
-                resolve(result);
 
-            }
-            let result: Promise<FulfillmentResponse>;
-            let contentObj: ContentObject = Content.searchATM;
-            //insert the city of choice into our contentObject
-            let city = JSON.stringify(req.body.result.parameters["local_cities"]);
-            contentObj.text = Content.searchATM.text.concat(city);
-            contentObj.speech = Content.searchATM.speech.concat(city);
-            contentObj.simpleResponse = Content.searchATM.simpleResponse.concat(city);
-            contentObj.imageURL = Images.getCityImage(city);
-            result = Convo_Components.createUtterance(req, Content.searchATM);
-            resolve(result);
 
-        });
-    }
 
 
     //INPUT: Keyword you want helper to find
@@ -136,7 +162,7 @@ export namespace AtmFunc {
     //Winson Permission Function
     //INPUT:
     //OUTPUT:
-    export function handlePermissionAtm(req: any): Promise<FulfillmentResponse> {
+    export function permissionAtm(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
 
@@ -206,152 +232,4 @@ export namespace AtmFunc {
             });
         });
     }
-
-    //todo delete this when done
-
-    /*
-     export function handleSearchWhereAtmLocationFallback(req: any): Promise<FulfillmentResponse> {
-
-     return new Promise<FulfillmentResponse>((resolve, reject) => {
-
-     // DONE: TRIAL FALLBACK
-     // return a map with user location and nearest HSBC ATM marked (EDITED)
-
-
-     if (!req.body.result) {
-     reject("invalid request");
-
-     }
-
-     try {
-     let lat = req.body.originalRequest.data.device.location.coordinates.latitude;
-     let long = req.body.originalRequest.data.device.location.coordinates.longitude;
-     } catch (err) {
-     // Here you get the error when the file was not found,
-     // but you also get any other error
-     const result: FulfillmentResponse = {
-     speech: "Sorry, can't do this without permission given",
-     displayText: "Sorry, can't do this without permission given",
-     data: {},
-     contextOut: [],
-     source: ""
-     };
-
-     resolve(result);
-     }
-
-     let lat = req.body.originalRequest.data.device.location.coordinates.latitude;
-     let long = req.body.originalRequest.data.device.location.coordinates.longitude;
-
-
-     // function to calculate distance between 2 lat long using harversine formula
-     function distance(lat1, lon1, lat2, lon2) {
-     let p = 0.017453292519943295;    // Math.PI / 180
-     let c = Math.cos;
-     let a = 0.5 - c((lat2 - lat1) * p) / 2 +
-     c(lat1 * p) * c(lat2 * p) *
-     (1 - c((lon2 - lon1) * p)) / 2;
-
-     return 12742 * Math.asin(Math.sqrt(a)); // return distance
-     }
-
-     // console.log(ATMloc.length);
-     let closest = null;
-     let cindex = null;
-     let i;
-     let len = ATMloc.length;
-
-     for (i = 0; i < len; i++) {
-     let y = distance(lat, long, ATMloc[i].lat, ATMloc[i].long);
-     if (closest == null || closest > y) {
-     closest = y;
-     cindex = i;
-     }
-     }
-
-     let speak = ATMloc[cindex].address;
-     let clat = ATMloc[cindex].lat;
-     let clong = ATMloc[cindex].long;
-
-
-     const result: FulfillmentResponse = {
-     speech: "",
-     displayText: "",
-     data: {
-     "google": {
-     "expect_user_response": true,
-     "rich_response": {
-     "items": [
-     {
-     "simpleResponse": {
-     "textToSpeech": speak,
-     }
-     },
-     {
-     "basicCard": {
-     "title": "Nearest ATM",
-     "formattedText": speak,
-     "image": {
-     "url": "https://maps.googleapis.com/maps/api/staticmap?center=" +
-     lat + "," + long + "&size=300x250&markers=color:blue%7C" + lat + "," + long +
-     "&markers=color:red%7C" + clat + "," + clong + "&key=" +
-     GOOGLE_MAPS_API_KEY,
-     "accessibilityText": "map"
-     },
-     "buttons": [
-     {
-     "title": "Go to Google Map",
-     "openUrlAction": {
-     "url": "https://assistant.google.com/"
-     }
-     }
-     ]
-     }
-     },
-     ]
-     }
-     },
-     'facebook': {
-     'attachment': {
-     'type': 'template',
-     'payload': {
-     'template_type': 'generic',
-     'elements': [
-     {
-     'title': 'Nearest ATM',
-     'image_url': "https://maps.googleapis.com/maps/api/staticmap?center=" +
-     lat + "," + long + "&size=300x250&markers=color:blue%7C" + lat + "," + long +
-     "&markers=color:red%7C" + clat + "," + clong + "&key=" +
-     gmKEY,
-     'subtitle': 'This is a subtitle',
-     'default_action': {
-     'type': 'web_url',
-     'url': 'https://assistant.google.com/'
-     },
-     'buttons': [
-     {
-     'type': 'web_url',
-     'url': 'https://assistant.google.com/',
-     'title': 'Go to Google Map'
-     }
-     ]
-     }
-     ]
-     }
-     }
-     }
-     },
-     contextOut: [],
-     source: ""
-     };
-
-     resolve(result);
-
-     });
-
-     }
-     */
-
-
-
 }
