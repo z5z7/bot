@@ -9,7 +9,8 @@ export namespace Convo_Components {
         try{
            if(typeof JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"] != "undefined")){
                let inputs = JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"]).toString();
-               if(inputs.includes("KEYBOARD")){
+               console.log("inputs: " + inputs);
+               if((inputs.includes("KEYBOARD")||(inputs.includes("TOUCH")))){
                    return true;
                }else{
                    return false;
@@ -50,18 +51,28 @@ export namespace Convo_Components {
             //is contentObj is not a string then it is a ContentObject
             if(isGoogle){
                 if(isText) {
-                    let result: Promise<FulfillmentResponse> = returnComplexResponse(contentObj);
+                    console.log("isText");
+                    let result: Promise<FulfillmentResponse> = returnComplexResponse(contentObj).catch(error =>{
+                        resolve(returnSimpleResponse("Sorry, there was an error."));
+                    })
                     resolve(result);
-
+                    return;
                 }else{
-                    let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj.speech);
+                    console.log("is not text");
+                    let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj.speech).catch(error =>{
+                        resolve(returnSimpleResponse("Sorry, there was an error."));
+                    })
                     resolve(result);
+                    return;
                 }
             }else{
+                console.log("is Facebook?")
                 //then isFacebook (as we are not supporting any other integration
                 let result: Promise<FulfillmentResponse> = returnComplexResponseFB(contentObj.speech);
                 resolve(result);
+                return;
             }
+
         })
     }
 
@@ -154,6 +165,7 @@ export namespace Convo_Components {
 
         });
     }
+
 
 
 

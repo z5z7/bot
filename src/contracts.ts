@@ -22,8 +22,11 @@ export interface FulfillmentResponse {
     followupEvent?: Object
 }
 
+
+
+
 /**
- * Content Object for SimpleCard component input
+ * Content Object for Complex component input
  */
 export interface ContentObject{
     simpleResponse : string,
@@ -37,28 +40,3 @@ export interface ContentObject{
     buttonURL : any
 }
 
-
-export interface SimpleCardContent{
-    simpleResponse: string,
-    cardTitle: string,
-    cardBlurb: string,
-    subTitle: string,
-    image: string,
-    buttonTitle: string,
-    buttonURL: string
-}
-
-
-/**
- * Content Object for ComplexCombo component input
- */
-export interface SimpleCardSuggestionsContent{
-    simpleResponse : string,
-    cardTitle : string,
-    cardBlurb : string,
-    subTitle : string,
-    image : string,
-    buttonTitle : string,
-    buttonURL : string,
-    suggestions : Array<any>
-}

@@ -101,13 +101,15 @@ export class ContactInfo {
 
 export class Content {
     'key': string;
-    'text': string;
-    'speech': string;
     'simpleResponse': string;
+    'speech': string;
+    'text': string;
     'title': string;
     'subtitle': string;
-    'buttonTitle': string;
-    'buttonUrl': string;
+    'imageURL': string;
+    'suggestions': Array<string>;
+    'buttonTitle': Array<string>;
+    'buttonURL': Array<string>;
 }
 
 /**
@@ -318,7 +320,6 @@ export class DefaultApi {
                 requestOptions.form = formParams;
             }
         }
-
         return new Promise<{ response: http.ClientResponse; body: AppointmentInfo;  }>((resolve, reject) => {
             request(requestOptions, (error, response, body) => {
                 if (error) {
@@ -333,7 +334,6 @@ export class DefaultApi {
             });
         });
     }
-
     /**
      * Returns all ATMs
      * @summary ATMs
@@ -386,7 +386,7 @@ export class DefaultApi {
      */
     public calculateProductGet (product: string) : Promise<{ response: http.ClientResponse; body: CalculatorList;  }> {
         const localVarPath = this.basePath + '/calculate/{product}'
-            .replace('{' + 'product' + '}', String(product));
+                .replace('{' + 'product' + '}', String(product));
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let formParams: any = {};
@@ -439,8 +439,8 @@ export class DefaultApi {
      */
     public calculateProductIdGet (product: string, id: string) : Promise<{ response: http.ClientResponse; body: CalculationResult;  }> {
         const localVarPath = this.basePath + '/calculate/{product}/{id}'
-            .replace('{' + 'product' + '}', String(product))
-            .replace('{' + 'id' + '}', String(id));
+                .replace('{' + 'product' + '}', String(product))
+                .replace('{' + 'id' + '}', String(id));
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let formParams: any = {};
@@ -497,7 +497,7 @@ export class DefaultApi {
      */
     public contentSubjectGet (subject: string) : Promise<{ response: http.ClientResponse; body: Content;  }> {
         const localVarPath = this.basePath + '/content/{subject}'
-            .replace('{' + 'subject' + '}', String(subject));
+                .replace('{' + 'subject' + '}', String(subject));
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let formParams: any = {};
@@ -624,7 +624,7 @@ export class DefaultApi {
      */
     public xratesFromGet (from: string) : Promise<{ response: http.ClientResponse; body: ExchangeRateInfo;  }> {
         const localVarPath = this.basePath + '/xrates/{from}'
-            .replace('{' + 'from' + '}', String(from));
+                .replace('{' + 'from' + '}', String(from));
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let formParams: any = {};
@@ -677,8 +677,8 @@ export class DefaultApi {
      */
     public xratesFromToGet (from: string, to: string) : Promise<{ response: http.ClientResponse; body: DetailedExchangeRate;  }> {
         const localVarPath = this.basePath + '/xrates/{from}/{to}'
-            .replace('{' + 'from' + '}', String(from))
-            .replace('{' + 'to' + '}', String(to));
+                .replace('{' + 'from' + '}', String(from))
+                .replace('{' + 'to' + '}', String(to));
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let formParams: any = {};

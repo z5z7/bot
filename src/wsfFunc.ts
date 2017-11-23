@@ -6,7 +6,7 @@
  */
 import {Convo_Components} from "./ConversationComponents";
 import {Images} from "./imageLibrary";
-import {FulfillmentResponse, SimpleCardContent, SimpleCardSuggestionsContent, ContentObject} from "./contracts";
+import {FulfillmentResponse} from "./contracts";
 import {Content} from './contentObject';
 
 
@@ -37,4 +37,12 @@ export namespace WsfFunc {
             resolve(result);
         });
     }
+    export function handleWsfNo(req): Promise<FulfillmentResponse>{
+        return new Promise<FulfillmentResponse>((resolve, reject) =>{
+            let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfNo);
+            resolve(result);
+        });
+    }
+
+
 }
