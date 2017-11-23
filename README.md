@@ -23,6 +23,9 @@ There is a README under each service for service-specific instructions.
 
 **Running tests**
 
+You must have the following npm modules installed globally to run the tests:
+- ts-node
+
 To run functional tests from command line:
 - `mocha -r ts-node/register test/functional/**Test.ts`
 
