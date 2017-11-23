@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {Appointments} from "../src/Appointments";
+import {Appointments} from "../../src/Appointments";
 
 
 var chai = require('chai');

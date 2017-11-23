@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {Exchange} from "../src/Exchange";
+import {Exchange} from "../../src/Exchange";
 
 
 var chai = require('chai');

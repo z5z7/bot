@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {RrspFunc} from "../src/rrspFunc";
+import {RrspFunc} from "../../src/rrspFunc";
 
 
 var chai = require('chai');

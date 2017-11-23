@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {Calculator} from "../src/Calculator";
+import {Calculator} from "../../src/Calculator";
 
 
 var chai = require('chai');

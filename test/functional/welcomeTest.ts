@@ -1,7 +1,7 @@
 
 
 import * as mocha from  'mocha';
-import {Welcome} from "../src/welcomeFunc";
+import {Welcome} from "../../src/welcomeFunc";
 
 
 var chai = require('chai');

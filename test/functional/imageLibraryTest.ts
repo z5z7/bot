@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {Images} from "../src/imageLibrary";
+import {Images} from "../../src/imageLibrary";
 
 
 

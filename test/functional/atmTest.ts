@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {AtmFunc} from "../src/atmFunc";
+import {AtmFunc} from "../../src/atmFunc";
 
 
 var chai = require('chai');

@@ -1,4 +1,4 @@
-import {WsfFunc} from "../src/wsfFunc";
+import {WsfFunc} from "../../src/wsfFunc";
 
 import * as mocha from  'mocha';
 

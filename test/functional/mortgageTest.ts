@@ -1,5 +1,5 @@
 import * as mocha from  'mocha';
-import {MortFunc} from "../src/mortgageFunc";
+import {MortFunc} from "../../src/mortgageFunc";
 
 
 var chai = require('chai');
