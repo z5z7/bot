@@ -24,6 +24,33 @@ export namespace AtmFunc {
         });
     }
     //INPUT: Req for local cities
+
+    export function handleSearchWhereAtmLocation(req:any): Promise<any> {
+
+        return new Promise<any>((resolve, reject) => {
+            var latIn;
+            var lonIn;
+            try {
+                latIn = req.body.originalRequest.data.device.location.coordinates.latitude;
+                lonIn = req.body.originalRequest.data.device.location.coordinates.longitude;
+            } catch (err) {
+                reject(err);
+            }
+
+
+            searchLocHelper(latIn,lonIn).then(retval => {
+                let retarray: string[] = [];
+
+                for (let i = 0; i < retval.results.length && i<10; i++){ // can adjust max i to give more return values
+                    retarray.push(retval.results[i].vicinity);
+                }
+
+                resolve(retarray);
+            }).catch(error => {
+                reject(error);
+            });
+        })
+    }
     export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
@@ -68,7 +95,7 @@ export namespace AtmFunc {
     }
     //  Input: Lat and Lon of user location
     //  OUTPUT: the 10 closest HSBC atm locations
-    export function handleSearchWhereAtmlocation(latIn,lonIn): Promise<any> {
+    export function searchLocHelper(latIn,lonIn): Promise<any> {
 
         return new Promise((resolve, reject) => {
             let apiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latIn + "," + lonIn + "&radius=10000&keyword=HSBC+atm&key=" + gmKey;

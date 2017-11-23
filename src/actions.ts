@@ -38,7 +38,8 @@ let actionToFuncMap = {
                     //ATM
                     "find.atm" : AtmFunc.handleFindAtm,
                     "search.where.atm" : AtmFunc.handleSearchWhereAtm,
-
+                    "search.where.atm.permission" : AtmFunc.permissionAtm,
+                    "actions.intent.PERMISSION" : AtmFunc.handleSearchWhereAtmLocation,
 
 
 
@@ -46,6 +47,7 @@ let actionToFuncMap = {
                     //FXRATES
                     "find.what.exchangeRate" : Exchange.findExchangeRate,
                     "search.what.exchangeRate" : Exchange.searchWhatExchangeRate,
+
 
 
 
