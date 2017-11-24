@@ -40,6 +40,18 @@ export namespace Convo_Components {
             return false;
         }
     }
+    //handle an utterance
+    //TODO: ERROR CHECKING!!!!!!
+    export function handleUtterance(req, contentObj: any): Promise<FulfillmentResponse> {
+        return new Promise((resolve, reject) => {
+            if (!req.body.result) {
+                reject(rejectMessage);
+            }
+            let result: Promise<FulfillmentResponse>;
+            result = Convo_Components.createUtterance(req, contentObj);
+            resolve(result);
+        })
+    }
     //create and return an utterance
     export function createUtterance(req : any, contentObj : any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) => {

@@ -52,136 +52,56 @@ export namespace MortFunc {
 
 
 
+
+
+
+    //TOP LEVEL DIRECT
     export function handleDirectMortgage(req): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.directMortgages);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.directMortgages);
+
     }
+
+    //CALCULATE FUNCTIONS
     export function handleMortgagesCatalogue(req): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.mortgageCatalogue);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.mortgageCatalogue);
+
     }
-    export function handleMorgagesPreApproval(req): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.mortgagePreApproval);
-            resolve(result);
-        })
+    export function handleMortgagesPreApproval(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.mortgagePreApproval);
     }
 
 
-
-
-
+    //WHAT KIND OF CALCULATION WOULD YOU LIKE TO DO?
     export function handleCalculateMortgage0(req): Promise<FulfillmentResponse>{
-        return new Promise<FulfillmentResponse> ((resolve, reject) =>{
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.calculateMortgage0.simpleResponse);
-            resolve(result);
-            return
-        })
+        return Convo_Components.handleUtterance(req, Content.calculateMortgage0.simpleResponse);
     }
 
 
+    //TYPES
     export function handleMortgageTypeTraditional(req) : Promise<FulfillmentResponse>{
-        return new Promise((resolve, reject)=> {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.traditionalMortgage);
-            resolve(result);
-            return
-
-        })
+        return Convo_Components.handleUtterance(req, Content.traditionalMortgage);
     }
-
     export function handleMortgageTypeEquityPower(req) : Promise<FulfillmentResponse>{
-        return new Promise((resolve, reject)=> {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.equityPowerMortgage);
-            resolve(result);
-            return
-
-        })
+        return Convo_Components.handleUtterance(req, Content.equityPowerMortgage);
     }
-
     export function handleMortgageTypeSmartSaver(req) : Promise<FulfillmentResponse>{
-        return new Promise((resolve, reject)=> {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.smartSaversMortgage);
-            resolve(result);
-            return
-
-        })
+        return Convo_Components.handleUtterance(req, Content.smartSaversMortgage);
     }
 
+    //SPECIAL OFFERS
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferAdvance);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferAdvance);
     }
 
     export function handleMortgageRateSpecialOfferPremier(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferPremier);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferPremier);
     }
 
     export function handleMortgageRateSpecialOfferPersonalRates(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferPersonalRates);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferPersonalRates);
     }
 
     export function handleMortgageRateSpecialOfferSmartSaver(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferSmartSaver);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferSmartSaver);
     }
 }
