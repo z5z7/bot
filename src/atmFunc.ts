@@ -23,34 +23,6 @@ export namespace AtmFunc {
             resolve(result);
         });
     }
-    //INPUT: Req for local cities
-
-    export function handleSearchWhereAtmLocation(req:any): Promise<any> {
-
-        return new Promise<any>((resolve, reject) => {
-            var latIn;
-            var lonIn;
-            try {
-                latIn = req.body.originalRequest.data.device.location.coordinates.latitude;
-                lonIn = req.body.originalRequest.data.device.location.coordinates.longitude;
-            } catch (err) {
-                reject(err);
-            }
-
-
-            searchLocHelper(latIn,lonIn).then(retval => {
-                let retarray: string[] = [];
-
-                for (let i = 0; i < retval.results.length && i<10; i++){ // can adjust max i to give more return values
-                    retarray.push(retval.results[i].vicinity);
-                }
-
-                resolve(retarray);
-            }).catch(error => {
-                reject(error);
-            });
-        })
-    }
     export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
@@ -92,6 +64,54 @@ export namespace AtmFunc {
 
             });
         });
+    }
+    export function handleSearchWhereAtmLocation(req: any): Promise<FulfillmentResponse> {
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            if (!req.body.result) {
+                let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
+                resolve(result);
+
+            }
+
+
+
+            searchWhereAtmLocation(req).then(cityArray => {
+                console.log(req.body);
+
+                let result = Convo_Components.createUtterance(req, cityArray.toString());
+
+                resolve(result);
+
+            });
+        });
+    }
+    //INPUT: Req for local cities
+
+    export function searchWhereAtmLocation(req:any): Promise<any> {
+
+        return new Promise<any>((resolve, reject) => {
+            var latIn;
+            var lonIn;
+            try {
+                latIn = req.body.originalRequest.data.device.location.coordinates.latitude;
+                lonIn = req.body.originalRequest.data.device.location.coordinates.longitude;
+            } catch (err) {
+                resolve(err);
+            }
+
+
+            searchLocHelper(latIn,lonIn).then(retval => {
+                let retarray: string[] = [];
+
+                for (let i = 0; i < retval.results.length && i<10; i++){ // can adjust max i to give more return values
+                    retarray.push(retval.results[i].vicinity);
+                }
+
+                resolve(retarray);
+            }).catch(error => {
+                resolve(error);
+            });
+        })
     }
     //  Input: Lat and Lon of user location
     //  OUTPUT: the 10 closest HSBC atm locations
@@ -183,8 +203,6 @@ export namespace AtmFunc {
             });
         });
     }
-
-
 
     //Winson Permission Function
     //INPUT:
