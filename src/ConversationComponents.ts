@@ -4,6 +4,8 @@
 import {FulfillmentResponse} from './contracts';
 import {ContentObject} from './contracts';
 
+// todo: remove logs (e.g. "is Facebook?")
+
 export namespace Convo_Components {
     function isTextSurface(req : any) : boolean {
         try{
