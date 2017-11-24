@@ -15,9 +15,9 @@ chai.use(chaiHttp);
 
 describe('Appointment Test Script', () => {
 
-    describe('createBooking', () => {
+    describe('createBooking (this connect to an intent but return a string ???)', () => {
 
-        it("function return a fulfillment response with the right request", function () {
+        it("function return a string response with the right request", function () {
 
             let testRequest: Object = {
                 body: {
@@ -46,7 +46,7 @@ describe('Appointment Test Script', () => {
 
             return Appointments.createBooking(testRequest).then(function (response) {
 
-                console.log(response);
+                //console.log(response);
                 response.should.not.eql("");
 
             }).catch(function (err) {
