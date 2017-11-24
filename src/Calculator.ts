@@ -13,6 +13,7 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
+
 export namespace Calculator {
 
     //input : Req node with proper loanamount, rate, and Duration parameters
@@ -30,9 +31,8 @@ export namespace Calculator {
             let arg = "0001/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString();
 
             client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = req.body.result.body.result;
-                let answer : string = "Your monthly payment should be " + pay.toString();
-                resolve(answer);
+                let pay = result.body.result.toString();
+                resolve(pay);
 
             }).catch(err => {
                 resolve(`Error in Calc: ${err}`);
@@ -58,11 +58,10 @@ export namespace Calculator {
 
             client.calculateProductIdGet("loans", arg).then(result => {
                 let pay = result.body.result;
-                let retval : string = "total amount remaining to pay is " + pay.toString();
+                let retval : string = pay.toString();
                 resolve(retval);
 
             }).catch(err => {
-                let error : string = err;
                 resolve("Error in Calc 2 :" + err);
             });
 

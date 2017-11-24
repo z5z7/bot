@@ -4,6 +4,9 @@
 import {FulfillmentResponse} from './contracts';
 import {ContentObject} from './contracts';
 
+const rejectMessage = "I'm sorry, that was an invalid request";
+
+
 export namespace Convo_Components {
     function isTextSurface(req : any) : boolean {
         try{
@@ -40,6 +43,9 @@ export namespace Convo_Components {
     //create and return an utterance
     export function createUtterance(req : any, contentObj : any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) => {
+            if (!req.body.result) {
+                reject(rejectMessage);
+            }
             let isText = isTextSurface(req);
             let isGoogle = Google(req);
             //for simple string responses that are not coming from the contents api
@@ -51,14 +57,14 @@ export namespace Convo_Components {
             //is contentObj is not a string then it is a ContentObject
             if(isGoogle){
                 if(isText) {
-                    console.log("isText");
+                    //console.log("isText");
                     let result: Promise<FulfillmentResponse> = returnComplexResponse(contentObj).catch(error =>{
                         resolve(returnSimpleResponse("Sorry, there was an error."));
                     })
                     resolve(result);
                     return;
                 }else{
-                    console.log("is not text");
+                    //console.log("is not text");
                     let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj.speech).catch(error =>{
                         resolve(returnSimpleResponse("Sorry, there was an error."));
                     })
@@ -66,9 +72,8 @@ export namespace Convo_Components {
                     return;
                 }
             }else{
-                console.log("is Facebook?")
-                //then isFacebook (as we are not supporting any other integration
-                let result: Promise<FulfillmentResponse> = returnComplexResponseFB(contentObj.speech);
+                //console.log("is Facebook?")
+               let result: Promise<FulfillmentResponse> = returnComplexResponseFB(contentObj.speech);
                 resolve(result);
                 return;
             }
