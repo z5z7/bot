@@ -261,7 +261,7 @@ describe('Atm Test Script', () => {
                     "sessionId": "1509893405615"
                 }
             };
-            return AtmFunc.handleFindAtm(sendval).then(function (response) {
+            return AtmFunc.permissionAtm(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 response.should.be.a('object');
@@ -397,7 +397,7 @@ describe('Atm Test Script', () => {
                 "sessionId": "1509893405615"
                 }
             };
-            return AtmFunc.handleINTENT(sendval).then(function (response) {
+            return AtmFunc.handleSearchWhereAtmLocation(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 response.should.be.a('object');

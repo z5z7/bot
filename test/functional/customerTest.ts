@@ -74,6 +74,18 @@ describe('Customer Test Script', () => {
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
                 //console.log(err);
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
                 expect(err).to.be.a('string');
 
             })
@@ -139,6 +151,18 @@ describe('Customer Test Script', () => {
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
                 //console.log(err);
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
                 expect(err).to.be.a('string');
 
             })
@@ -200,7 +224,20 @@ describe('Customer Test Script', () => {
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
                 expect(err).to.be.a('string');
+
             })
         });
     });
@@ -259,6 +296,18 @@ describe('Customer Test Script', () => {
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
                 expect(err).to.be.a('string');
             })
         });
@@ -318,6 +367,18 @@ describe('Customer Test Script', () => {
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
                 expect(err).to.be.a('string');
             })
         });
@@ -381,6 +442,18 @@ describe('Customer Test Script', () => {
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
                 expect(err).to.be.a('string');
             })
         });
