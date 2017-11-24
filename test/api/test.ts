@@ -19,7 +19,7 @@ describe('Test Script', () => {
 
 
        describe('POST/dialogflow ATM func', () => {
-            it('PASS: handleSearchWhereAtmLocation ', (done) => {
+            it('PASS: permissionAtm ', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
                         "source": "google",
@@ -84,7 +84,7 @@ describe('Test Script', () => {
                         "source": "agent",
                         "resolvedQuery": "atm close",
                         "speech": "",
-                        "action": "search.where.atm.location",
+                        "action": "search.where.atm.permission",
                         "actionIncomplete": false,
                         "parameters": {
                             "city": "user-location"
@@ -186,7 +186,7 @@ describe('Test Script', () => {
             });
 
 
-            it('PASS: handleSearchWhereAtmLocationFallback', (done) => {
+            it('PASS: handleSearchWhereAtmLocation', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
                         "source": "google",
@@ -618,7 +618,7 @@ describe('Test Script', () => {
     describe('General Test Script (Black Box)', () => {
 
         describe('POST/dialogflow ATM func', () => {
-            it('PASS: handleSearchWhereAtmLocation ', (done) => {
+            it('PASS: permissionAtm ', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
                         "source": "google",
@@ -683,7 +683,7 @@ describe('Test Script', () => {
                         "source": "agent",
                         "resolvedQuery": "atm close",
                         "speech": "",
-                        "action": "search.where.atm.location",
+                        "action": "search.where.atm.permission",
                         "actionIncomplete": false,
                         "parameters": {
                             "city": "user-location"
@@ -784,7 +784,7 @@ describe('Test Script', () => {
             });
 
 
-            it('PASS: handleSearchWhereAtmLocationFallback', (done) => {
+            it('PASS: handleSearchWhereAtmLocation', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
                         "source": "google",
