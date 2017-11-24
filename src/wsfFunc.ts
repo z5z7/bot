@@ -24,12 +24,10 @@ export namespace WsfFunc {
         })
     }
     export function handleWsfMore(req): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) =>{
-            return new Promise<FulfillmentResponse>((resolve, reject) => {
-                let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfMore);
-                resolve(result);
-            })
-        })
+        return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfMore);
+            resolve(result);
+        });
     }
     export function handleWsfAdvantages(req): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) =>{
