@@ -202,12 +202,12 @@ export namespace Content {
 
     //MORTGAGE STUFF
     export let directMortgages: ContentObject = {
-        simpleResponse : "Direct to Mortgages",
-        speech: "mortgages",
-        text: "What is it about mortgages you would like to check out?",
+        simpleResponse : "HSBC Mortgages",
+        speech: "Would you like to calculate, look at options, apply for pre-approval, or look at special offers?",
+        text: "There are many things we could talk about today.   \n We could do some calculations,  \n  Look into various mortgage options,   \n   Apply for pre-approval,  \n or then look at some special offers.",
         title: "",
         subtitle: "",
-        suggestions: [{"title": "Mortgage Calculator"}, {"title": "Mortgage Catalogue"}, {"title": "Mortgage Pre-approval"}],
+        suggestions: [{"title": "Mortgage Calculator"}, {"title": "Mortgage Catalogue"}, {"title": "Mortgage Pre-approval"}, {"title" : "Special Offers"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
         buttonTitle: [],
         buttonURL: []
@@ -241,7 +241,18 @@ export namespace Content {
         text: "Your remaining mortgage balance is: ",
         title: "",
         subtitle: "",
-        suggestions: [],
+        suggestions: [{"title" : "Mortgages"}, {"title" : "Main Menu"}],
+        imageURL: "",
+        buttonTitle: [""],
+        buttonURL: [""]
+    }
+    export let calculateMortgageMonthly: ContentObject ={
+        simpleResponse: "Your monthly payment would be: ",
+        speech: "Your monthly payment would be: ",
+        text: "Your monthly payment would be: ",
+        title: "",
+        subtitle: "",
+        suggestions: [{"title" : "Mortgages"}, {"title" : "Main Menu"}],
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""]

@@ -337,7 +337,7 @@ describe('Mortgage Test Script', () => {
 
     });
 
-    describe('handleMorgagesPreApproval', () => {
+    describe('handleMortgagesPreApproval', () => {
 
         it("function returns given the right request", function () {
             let sendval: {} = {
@@ -421,7 +421,7 @@ describe('Mortgage Test Script', () => {
                 },
                 "sessionId": "ecd93a31-61cd-4dcc-a62f-758e8103cd80"
             };
-            return MortFunc.handleMorgagesPreApproval(sendval).then(function (response) {
+            return MortFunc.handleMortgagesPreApproval(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 response.should.be.a('object');

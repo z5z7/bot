@@ -19,49 +19,25 @@ auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
 export namespace CustomerFunc {
-    //Advance
-        export function handleDirectAdvance(req): Promise<FulfillmentResponse> {
-            return new Promise((resolve, reject) => {
-                let result: Promise<FulfillmentResponse>;
-                result = Convo_Components.createUtterance(req, Content.directAdvance);
-                resolve(result);
-            })
-        }
-        export function handleAdvanceBenefits(req): Promise<FulfillmentResponse> {
-            return new Promise((resolve, reject) => {
-                let result: Promise<FulfillmentResponse>;
-                result = Convo_Components.createUtterance(req, Content.advanceCustomerBenefits);
-                resolve(result);
-            })
-        }
-        //Premier
-        export function handleDirectPremier(req): Promise<FulfillmentResponse> {
-            return new Promise((resolve, reject) => {
-                let result: Promise<FulfillmentResponse>;
-                result = Convo_Components.createUtterance(req, Content.directPremier);
-                resolve(result);
-            })
-        }
-        export function handlePremierBenefits(req): Promise<FulfillmentResponse> {
-            return new Promise((resolve, reject) => {
-                let result: Promise<FulfillmentResponse>;
-                result = Convo_Components.createUtterance(req, Content.premierCustomerBenefits);
-                resolve(result);
-            })
-        }
+    //ADVANCE CUSTOMER
+    export function handleDirectAdvance(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.directAdvance);
+    }
+    export function handleAdvanceBenefits(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.advanceCustomerBenefits);
+    }
+    //PREMIER CUSTOMER
+    export function handleDirectPremier(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.directPremier);
+    }
+    export function handlePremierBenefits(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.premierCustomerBenefits);
+    }
     export function handlePremierApplication(req): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.premierCustomerApplication);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.premierCustomerApplication);
     }
     export function handlePremierEligibility(req): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.premierCustomerEligibility);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.premierCustomerEligibility);
     }
 }
 

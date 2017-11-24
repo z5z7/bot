@@ -92,7 +92,7 @@ describe('Black Box Test Script', () => {
             });
     });
     //
-    it('handleSearchWhereAtmLocation ', (done) => {
+    it('searchWhereAtmLocation ', (done) => {
         let sendval: {} = {
             "originalRequest": {
                 "source": "google",

@@ -15,140 +15,91 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
+const rejectMessage = "I'm sorry, that was an invalid request";
 
-// todo: get rid of all this code duplication
 
 export namespace MortFunc {
-
-    export function handleDirectMortgage(req: any): Promise<FulfillmentResponse> {
+    //CALCULATE FUNCTIONS
+    export function handleCalculateMortgageMonthly(req): Promise<FulfillmentResponse>{
         return new Promise((resolve, reject) => {
+            if (!req.body.result) {
+                reject(rejectMessage);
+            }
             let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.directMortgages);
-            resolve(result);
+            Calculator.mortgageCalculatorMonthlyPayment(req).then(monthly => {
+                let returnResponse = Content.calculateMortgageMonthly.simpleResponse + monthly;
+                result = Convo_Components.createUtterance(req, returnResponse);
+                resolve(result);
+            })
         })
     }
-    export function handleMortgagesCatalogue(req: any): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.mortgageCatalogue);
-            resolve(result);
-        })
-    }
-    export function handleMorgagesPreApproval(req: any): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.mortgagePreApproval);
-            resolve(result);
-        })
-    }
-    export function handleCalculateMortgageMonthly(req: any): Promise<FulfillmentResponse>{
-        return new Promise((resolve, reject: any) => {
-            let result: Promise<FulfillmentResponse>;
-            let monthlyPayment = Calculator.mortgageCalculatorMonthlyPayment(req);
-            result = Convo_Components.createUtterance(req, Content.calculateMortgageRemaining.simpleResponse + monthlyPayment);
-            resolve(result);
-            return
-        })
-    }
-    export function handleCalculateMortgage0(req: any): Promise<FulfillmentResponse>{
-        return new Promise<FulfillmentResponse> ((resolve, reject) =>{
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.calculateMortgage0.simpleResponse);
-            resolve(result);
-            return
-        })
-    }
-    export function handleCalculateRemaining(req: any) : Promise<FulfillmentResponse>{
+    export function handleCalculateRemaining(req) : Promise<FulfillmentResponse>{
         return new Promise((resolve, reject)=> {
+            if (!req.body.result) {
+                reject(rejectMessage);
+            }
             let result: Promise<FulfillmentResponse>;
-            // todo, use amount
-            let remainingAmount = Calculator.mortgageCalculatorRemainingPayment(req);
-            result = Convo_Components.createUtterance(req, Content.calculateMortgageRemaining.simpleResponse);
-            resolve(result);
-            return
+            Calculator.mortgageCalculatorRemainingPayment(req).then(remaining =>{
+                let returnResponse = Content.calculateMortgageRemaining.simpleResponse + remaining;
+                result = Convo_Components.createUtterance(req, returnResponse);
+                resolve(result);
 
+            }).catch(err => {
+                result = Convo_Components.createUtterance(req, "I'm sorry, we were unable to fulfill your request. The error was: " + err);
+                resolve(result);
+            })
         })
     }
 
-    export function handleMortgageTypeTraditional(req: any) : Promise<FulfillmentResponse>{
-        return new Promise((resolve, reject)=> {
-            let result: Promise<FulfillmentResponse>;
-            // todo: use amount
-            let remainingAmount = Calculator.mortgageCalculatorRemainingPayment(req);
-            result = Convo_Components.createUtterance(req, Content.traditionalMortgage);
-            resolve(result);
-            return
 
-        })
+
+
+
+
+    //TOP LEVEL DIRECT
+    export function handleDirectMortgage(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.directMortgages);
+
     }
 
-    export function handleMortgageTypeEquityPower(req: any) : Promise<FulfillmentResponse>{
-        return new Promise((resolve, reject)=> {
-            let result: Promise<FulfillmentResponse>;
-            // todo: use amount
-            let remainingAmount = Calculator.mortgageCalculatorRemainingPayment(req);
-            result = Convo_Components.createUtterance(req, Content.equityPowerMortgage);
-            resolve(result);
-            return
 
-        })
+    export function handleMortgagesCatalogue(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.mortgageCatalogue);
+
+    }
+    export function handleMortgagesPreApproval(req): Promise<FulfillmentResponse> {
+        return Convo_Components.handleUtterance(req, Content.mortgagePreApproval);
     }
 
-    export function handleMortgageTypeSmartSaver(req: any) : Promise<FulfillmentResponse>{
-        return new Promise((resolve, reject)=> {
-            let result: Promise<FulfillmentResponse>;
-            // todo: use amount
-            let remainingAmount = Calculator.mortgageCalculatorRemainingPayment(req);
-            result = Convo_Components.createUtterance(req, Content.smartSaversMortgage);
-            resolve(result);
-            return
 
-        })
+    //WHAT KIND OF CALCULATION WOULD YOU LIKE TO DO?
+    export function handleCalculateMortgage0(req): Promise<FulfillmentResponse>{
+        return Convo_Components.handleUtterance(req, Content.calculateMortgage0.simpleResponse);
     }
 
+
+    //TYPES
+    export function handleMortgageTypeTraditional(req) : Promise<FulfillmentResponse>{
+        return Convo_Components.handleUtterance(req, Content.traditionalMortgage);
+    }
+    export function handleMortgageTypeEquityPower(req) : Promise<FulfillmentResponse>{
+        return Convo_Components.handleUtterance(req, Content.equityPowerMortgage);
+    }
+    export function handleMortgageTypeSmartSaver(req) : Promise<FulfillmentResponse>{
+        return Convo_Components.handleUtterance(req, Content.smartSaversMortgage);
+    }
+
+    //SPECIAL OFFERS
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body || !req.body.result) {
-                reject("invalid request");
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferAdvance);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferAdvance);
     }
-
     export function handleMortgageRateSpecialOfferPremier(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferPremier);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferPremier);
     }
-
     export function handleMortgageRateSpecialOfferPersonalRates(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject("invalid request");
-
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferPersonalRates);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferPersonalRates);
     }
-
     export function handleMortgageRateSpecialOfferSmartSaver(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            if (!req.body.result) {
-                reject("invalid request");
-            }
-            let result: Promise<FulfillmentResponse>;
-            result = Convo_Components.createUtterance(req, Content.specialOfferSmartSaver);
-            resolve(result);
-        });
+        return Convo_Components.handleUtterance(req, Content.specialOfferSmartSaver);
     }
 }

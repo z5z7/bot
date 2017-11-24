@@ -74,7 +74,7 @@ let actionToFuncMap = {
                     //MORTGAGES
                     "direct.mortgages" : MortFunc.handleDirectMortgage,
                     "find.what.mortgages.catalogue" : MortFunc.handleMortgagesCatalogue,
-                    "find.what.mortgages.preApproval" : MortFunc.handleMorgagesPreApproval,
+                    "find.what.mortgages.preApproval" : MortFunc.handleMortgagesPreApproval,
                     "find.how.mortgages.calculate.monthlyPayment" : MortFunc.handleCalculateMortgageMonthly,
                     "find.how.mortgages.calculate.mortgage0" : MortFunc.handleCalculateMortgage0,
                     "find.how.mortgages.calculate.remainingLoan" : MortFunc.handleCalculateRemaining,

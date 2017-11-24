@@ -9,33 +9,18 @@ import {Content} from './contentObject';
 
 export namespace RrspFunc {
     export function handleDirectRRSP(req: any): Promise<FulfillmentResponse>{
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.directRRSP);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.directRRSP);
     }
     export function handleApplyRRSP(req:any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse>  = Convo_Components.createUtterance(req, Content.applyRRSP);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.applyRRSP);
     }
     export function handleRRSPBenefits(req:any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.benefitsRRSP);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.benefitsRRSP);
     }
     export function handleRRSPBrokerageYes(req:any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.rrspBrokerageAccountYes);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.rrspBrokerageAccountYes);
     }
     export function handleRRSPBrokerageNo(req:any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.rrspBrokerageAccountNo);
-            resolve(result);
-        })
+        return Convo_Components.handleUtterance(req, Content.rrspBrokerageAccountNo);
     }
 }
