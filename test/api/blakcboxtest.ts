@@ -157,7 +157,7 @@ describe('Black Box Test Script', () => {
                 "source": "agent",
                 "resolvedQuery": "atm close",
                 "speech": "",
-                "action": "search.where.atm.location",
+                "action": "search.where.atm.permission",
                 "actionIncomplete": false,
                 "parameters": {
                     "city": "user-location"
@@ -257,7 +257,7 @@ describe('Black Box Test Script', () => {
             });
     });
 
-    it('handleSearchWhereAtmLocationFallback', (done) => {
+    it('handleSearchWhereAtmLocation', (done) => {
         let sendval: {} = {
             "originalRequest": {
                 "source": "google",
