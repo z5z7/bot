@@ -22,10 +22,12 @@ export namespace Appointments {
 
         return new Promise<string>((resolve, reject) => {
 
-            if (!req.body.result) reject("invalid request");
+            if (!req.body || !req.body || ! req.body.result.parameters) {
+                console.error("createBooking(): received invalid request: " + JSON.stringify(req));
+                reject("Invalid request: missing parameters in body");
+            }
 
             let params = req.body.result.parameters;
-
             let fName : string = params.first_name.toString();
             let lName : string = params.last_name.toString();
             let cEmail : string = params.contact_email.toString();
@@ -34,7 +36,6 @@ export namespace Appointments {
             let detail : string = params.further_detail.toString();
 
             let contact = {firstName : fName, lastName: lName, email: cEmail, phone: phoneNum};
-
             let booking = {contactInfo: contact, details:detail};
 
             client.appointmentsPost(booking).then(result => {
@@ -43,10 +44,11 @@ export namespace Appointments {
                 let ref = result.body.reference;
                 let date = result.body.date;
 
-                let a1 : string = "Thanks for chosing HSBC!\n An agent will contact you soon by " + method;
+                let a1 : string = "Thanks for chosing HSBC!\nAn agent will contact you soon by " + method;
                 let a2 : string = "\nYour reference string is" + ref;
-                let a3 : string = "\nAn agent will contact you to book an apointment based on the details included";
+                let a3 : string = "\nAn HSBC representative will contact you to book an appointment based on the details included.";
                 let ans : string = a1+a2+a3;
+
                 resolve(ans);
 
             }).catch(err => {
