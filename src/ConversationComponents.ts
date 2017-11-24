@@ -4,8 +4,8 @@
 import {FulfillmentResponse} from './contracts';
 import {ContentObject} from './contracts';
 
-const rejectMessage = "I'm sorry, that was an invalid request";
 
+const rejectMessage = "I'm sorry, that was an invalid request";
 
 export namespace Convo_Components {
     function isTextSurface(req : any) : boolean {

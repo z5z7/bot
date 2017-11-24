@@ -19,6 +19,7 @@ const rejectMessage = "I'm sorry, that was an invalid request";
 
 
 export namespace MortFunc {
+    //CALCULATE FUNCTIONS
     export function handleCalculateMortgageMonthly(req): Promise<FulfillmentResponse>{
         return new Promise((resolve, reject) => {
             if (!req.body.result) {
@@ -61,7 +62,7 @@ export namespace MortFunc {
 
     }
 
-    //CALCULATE FUNCTIONS
+
     export function handleMortgagesCatalogue(req): Promise<FulfillmentResponse> {
         return Convo_Components.handleUtterance(req, Content.mortgageCatalogue);
 
@@ -92,15 +93,12 @@ export namespace MortFunc {
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
         return Convo_Components.handleUtterance(req, Content.specialOfferAdvance);
     }
-
     export function handleMortgageRateSpecialOfferPremier(req: any): Promise<FulfillmentResponse> {
         return Convo_Components.handleUtterance(req, Content.specialOfferPremier);
     }
-
     export function handleMortgageRateSpecialOfferPersonalRates(req: any): Promise<FulfillmentResponse> {
         return Convo_Components.handleUtterance(req, Content.specialOfferPersonalRates);
     }
-
     export function handleMortgageRateSpecialOfferSmartSaver(req: any): Promise<FulfillmentResponse> {
         return Convo_Components.handleUtterance(req, Content.specialOfferSmartSaver);
     }
