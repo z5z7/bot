@@ -224,17 +224,51 @@ export namespace Content {
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/mortgage-offers?WT.ac=HBCA_161204_11GENMORTe05609H&gclid=CjwKCAiAxuTQBRBmEiwAAkFF1l2xiwjYvczvPIl6-FOftoP2lqFsgniJ-8DN1pfxVofrKewlYSf3RRoC81sQAvD_BwE&gclsrc=aw.ds"]
     }
 
-
+    //PRE-APPROVAL
     export let mortgagePreApproval: ContentObject = {
         simpleResponse: "What you need to know before applying",
-        speech: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident. You will be asked to provide personal details and gross annual income (pre-tax). You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application. ",
-        text: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident.  \n You will be asked to provide personal details and gross annual income (pre-tax).  \n You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application. ",
+        speech: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident. You will be asked to provide personal details and gross annual income (pre-tax). You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application. Would you like to contact an agent to apply?",
+        text: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident.  \n You will be asked to provide personal details and gross annual income (pre-tax).  \n You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application.  \n Would you like to contact an agent to apply?",
         title: "Pre-approval",
         subtitle: "",
-        suggestions: [{"title" : "Contact agent"}, {"title" : "Types"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
+        suggestions: [{"title" : "Yes"}, {"title" : "Types"}, {"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/friends.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"]
+    }
+    export let mortgagePreApprovalApplied: ContentObject = {
+        simpleResponse: "Thanks for contacting us. An agent will get back to you soon.",
+        speech: "Thanks for contacting us. An agent will get back to you soon.",
+        text: "Thanks for contacting us. An agent will get back to you soon.",
+        title: "Message Received",
+        subtitle: "",
+        suggestions: [{"title" : "Main Menu"}, {"title" : "Mortgages"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/canoes.jpg",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"]
+    }
+    export let mortgagePreApprovalNotApplied: ContentObject = {
+        simpleResponse: "All right. What shall we do instead?",
+        speech: "All right. What shall we do instead?",
+        text: "All right. What shall we do instead?",
+        title: "Re-direct",
+        subtitle: "",
+        suggestions: [{"title" : "Main Menu"}, {"title" : "Mortgages"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/canoes.jpg",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"]
+    }
+    //CALCULATOR
+    export let calculateMortgage0: ContentObject = {
+        simpleResponse: "Mortgage Calculator",
+        speech: "What would you like to calculate today? Your remaining balance or your monthly payments?",
+        text: "What would you like to calculate today?   \n  Your remaining balance or   \n  Your monthly payments?",
+        title: "Let us Calculate",
+        subtitle: "",
+        suggestions: [{"title" : "Remaining"}, {"title" : "Monthly"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
+        buttonTitle: [""],
+        buttonURL: [""]
     }
     export let calculateMortgageRemaining: ContentObject ={
         simpleResponse: "Your remaining mortgage balance is: ",
@@ -248,7 +282,7 @@ export namespace Content {
         buttonURL: [""]
     }
     export let calculateMortgageMonthly: ContentObject ={
-        simpleResponse: "Your monthly payment would be: ",
+        simpleResponse: "Calculate Monthly",
         speech: "Your monthly payment would be: ",
         text: "Your monthly payment would be: ",
         title: "",
@@ -258,60 +292,64 @@ export namespace Content {
         buttonTitle: [""],
         buttonURL: [""]
     }
-    export let calculateMortgage0: ContentObject = {
-        simpleResponse: "Calculate mortgage 0 ",
-        speech: "Calculate mortgage 0 ",
-        text: "Calculate mortgage 0",
+
+
+
+
+    export let specialOfferDirect: ContentObject = {
+        simpleResponse: "HSBC Special Offers on Mortgage Rates",
+        speech: "HSBC Special Offers on Mortgage Rates",
+        text: "",
         title: "",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Advance"}, {"title" : "Premier"}, {"title" : "Personal Rates"}, {"title" : "Smart Saver"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_02.png",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"]
     }
     export let specialOfferAdvance: ContentObject = {
         simpleResponse: "Advance Mortgage Special Offer",
         speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
         text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
-        title: "",
+        title: "Advance",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Premier"}, {"title" : "Personal Rates"}, {"title" : "Smart Saver"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/coupleEating.png",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"]
     }
     export let specialOfferPremier: ContentObject = {
         simpleResponse: "Premier Mortgage Special Offer",
         speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
         text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
-        title: "",
+        title: "Premier",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Advance"}, {"title" : "Personal Rates"}, {"title" : "Smart Saver"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/umbrellas.png",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"]
     }
     export let specialOfferPersonalRates: ContentObject = {
         simpleResponse: "Personal Rates Mortgage Special Offer",
         speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
         text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
-        title: "",
+        title: "Personal",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Advance"}, {"title" : "Premier"}, {"title" : "Smart Saver"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/wedding.png",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"]
     }
     export let specialOfferSmartSaver: ContentObject = {
         simpleResponse: "Smart Saver Special Offer",
         speech: "Our Fixed Rates for a 2 year Closed mortgage are 2.89%...  for a 5 year Fixed Closed it's 2.99%  and for our Variable Rates the rate is 2.34%",
         text: "Our Fixed Rates are:    \n  2 year Fixed Closed: 2.89%   \n   5 year Fixed Closed: 2.99%  \n    Our Variable Rates are:   \n   5 year Variable Closed: 2.34%",
-        title: "",
+        title: "Smart Saver",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Advance"}, {"title" : "Premier"}, {"title" : "Personal Rates"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/friends.png",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"]
     }
     export let traditionalMortgage: ContentObject = {
         simpleResponse: "HSBC Traditional Mortgage, ideal if you are a first-time homebuyer",
@@ -319,10 +357,10 @@ export namespace Content {
         text: "Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or by increasing the payment amount up to a total of 20% each year.   \n You can also make a match a payment and miss one later.   \n Already enrolled in the Rewards Program with your HSBC MasterCard? Redeem Reward Points to reduce your mortgage amount.   \n Enjoy preferential interest rates as a HSBC Premier or HSBC Advance Client.",
         title: "Become a homeowner sooner than you think",
         subtitle: "The HSBC Traditional Mortgage is an ideal choice if you are a first-time homebuyer, have limited down payment options and want to build equity in your home.",
-        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Equity Power"}, {"title": "Super Saver"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
         buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/traditional-mortgage/right-for-you"
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/traditional-mortgage/right-for-you"]
     }
     export let equityPowerMortgage: ContentObject = {
         simpleResponse: "HSBC Equity Power Mortgage, ideal if you want to use your equity",
@@ -330,10 +368,10 @@ export namespace Content {
         text: "Renovate, travel or make a major purchase: Access up to 80% of the value of your home.   \n Flexible rate options: Benefit from a combination of fixed and variable terms.   \n Save money: Consolidate high-interest debt and reduce the amount of interest you pay.   \n Exclusive savings: Reduced interest rates for HSBC Premier and HSBC Advance clients.",
         title: "Make the equity in your home work for you",
         subtitle: "The HSBC Equity Power Mortgage is an ideal choice if you want to use the equity you’ve built up in your home for important goals or want to consolidate high-interest loans to reduce the impact of interest rate fluctuations.",
-        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Traditional"}, {"title": "Super Saver"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/equity.png",
         buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/equity-power-mortgage/right-for-you"
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/equity-power-mortgage/right-for-you"]
     }
     export let smartSaversMortgage: ContentObject = {
         simpleResponse: "HSBC Smart Savers Mortgage, if you want to keep your savings accessible",
@@ -341,10 +379,10 @@ export namespace Content {
         text: "Pay a lower interest rate on your mortgage based on the amount in your eligible linked HSBC account Continue to earn interest on that linked account.   \n Access the money from your linked account when you need it.   \n Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or increasing the payment amount up to a total of 20% each year.    \n You can also make a match a payment and miss one later.",
         title: "Pay off your mortgage faster",
         subtitle: "The HSBC Smart Savers Mortgage is an ideal choice if you want to keep your savings accessible.",
-        suggestions: [{"title" : "HSBC Premier"}, {"title": "HSBC Advance"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Traditional"}, {"title": "Power Equity"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/sisters.png",
         buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/smart-savers-mortgage/right-for-you"
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/smart-savers-mortgage/right-for-you"]
     }
 
 
@@ -370,7 +408,7 @@ export namespace Content {
         suggestions: [{"title" : "HSBC Premier Eligibility"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_needs.png",
         buttonTitle: ["More"],
-        buttonURL: "https://www.hsbc.ca/1/2/personal/banking/hsbc-premier/benefits"
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/banking/hsbc-premier/benefits"]
     }
     export let premierCustomerApplication = {
         simpleResponse: "Thanks for contacting us!",
@@ -392,7 +430,7 @@ export namespace Content {
         suggestions: [{"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
-        buttonURL: "https://www.us.hsbc.com/1/2/home/advance"
+        buttonURL: ["https://www.us.hsbc.com/1/2/home/advance"]
     }
 
     export let directAdvance: ContentObject = {
@@ -415,7 +453,7 @@ export namespace Content {
         suggestions: [{"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
-        buttonURL: "https://www.us.hsbc.com/1/2/home/advance"
+        buttonURL: ["https://www.us.hsbc.com/1/2/home/advance"]
     }
 
     //FX RATES

@@ -64,20 +64,26 @@ export namespace MortFunc {
 
 
     export function handleMortgagesCatalogue(req): Promise<FulfillmentResponse> {
-        console.log("types");
         return Convo_Components.createUtterance(req, Content.mortgageCatalogue).catch(err => {
             console.log("There was an error at the last minute: " + err);
         })
 
     }
     export function handleMortgagesPreApproval(req): Promise<FulfillmentResponse> {
+        console.log("pre-approval blurb");
         return Convo_Components.createUtterance(req, Content.mortgagePreApproval);
     }
-
+    export function handleMortgagesPreApprovalApplyYes(req): Promise<FulfillmentResponse>{
+        //TODO: connect to booking application
+        return Convo_Components.createUtterance(req, Content.mortgagePreApprovalApplied);
+    }
+    export function handleMortgagesPreApprovalApplyNo(req): Promise<FulfillmentResponse>{
+        return Convo_Components.createUtterance(req, Content.mortgagePreApprovalNotApplied);
+    }
 
     //WHAT KIND OF CALCULATION WOULD YOU LIKE TO DO?
     export function handleCalculateMortgage0(req): Promise<FulfillmentResponse>{
-        return Convo_Components.createUtterance(req, Content.calculateMortgage0.simpleResponse);
+        return Convo_Components.createUtterance(req, Content.calculateMortgage0);
     }
 
 
@@ -93,6 +99,9 @@ export namespace MortFunc {
     }
 
     //SPECIAL OFFERS
+    export function handleDirectSpecialOffers(req: any): Promise<FulfillmentResponse>{
+        return Convo_Components.createUtterance(req, Content.specialOfferDirect);
+    }
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
         return Convo_Components.createUtterance(req, Content.specialOfferAdvance);
     }

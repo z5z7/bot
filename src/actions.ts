@@ -73,15 +73,22 @@ let actionToFuncMap = {
 
                     //MORTGAGES
                     "direct.mortgages" : MortFunc.handleDirectMortgage,
-                    "find.what.mortgages.catalogue" : MortFunc.handleMortgagesCatalogue,
+                    //preApproval
                     "find.what.mortgages.preApproval" : MortFunc.handleMortgagesPreApproval,
+                    "find.what.mortgages.preApproval.yes" : MortFunc.handleMortgagesPreApprovalApplyYes,
+                    "find.what.mortgages.preApproval.no" : MortFunc.handleMortgagesPreApprovalApplyNo,
+                    //calculate
+                    "find.how.mortgages.calculate0" : MortFunc.handleCalculateMortgage0,
                     "find.how.mortgages.calculate.monthlyPayment" : MortFunc.handleCalculateMortgageMonthly,
-                    "find.how.mortgages.calculate.mortgage0" : MortFunc.handleCalculateMortgage0,
                     "find.how.mortgages.calculate.remainingLoan" : MortFunc.handleCalculateRemaining,
+                    //specialOffers
+                    "direct.mortgages.specialOffers" : MortFunc.handleDirectSpecialOffers,
                     "mortgageRate.specialOffer.advance" : MortFunc.handleMortgageRateSpecialOfferAdvance,
                     "mortgageRate.specialOffer.premier" : MortFunc.handleMortgageRateSpecialOfferPremier,
                     "mortgageRate.specialOffer.personalRates" : MortFunc.handleMortgageRateSpecialOfferPersonalRates,
                     "mortgageRate.specialOffer.smartSaver" : MortFunc.handleMortgageRateSpecialOfferSmartSaver,
+                    //types
+                    "find.what.mortgages.catalogue" : MortFunc.handleMortgagesCatalogue,
                     "mortgage.what.trad" : MortFunc.handleMortgageTypeTraditional,
                     "mortgage.what.equityPower" : MortFunc.handleMortgageTypeEquityPower,
                     "mortgage.what.smartSaver" : MortFunc.handleMortgageTypeSmartSaver,
