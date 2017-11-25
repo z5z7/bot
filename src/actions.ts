@@ -14,6 +14,7 @@ import {Convo_Components} from "./ConversationComponents";
 import {CustomerFunc} from "./customerFunc";
 
 'use strict';
+import {FxFunc} from "./fxFunc";
 
 
 
@@ -45,9 +46,8 @@ let actionToFuncMap = {
 
 
                     //FXRATES
-                    "find.what.exchangeRate" : Exchange.findExchangeRate,
-                    "search.what.exchangeRate" : Exchange.searchWhatExchangeRate,
-
+                    "find.what.exchangeRate" : FxFunc.handleFindFxRate,
+                    "search.what.exchangeRate" : FxFunc.handleSearchFxRate,
 
 
 

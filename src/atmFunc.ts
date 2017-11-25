@@ -95,8 +95,8 @@ export namespace AtmFunc {
             try {
                 latIn = req.body.originalRequest.data.device.location.coordinates.latitude;
                 lonIn = req.body.originalRequest.data.device.location.coordinates.longitude;
-                console.log(latIn);
-                console.log(lonIn);
+                //console.log(latIn);
+                //console.log(lonIn);
             } catch (err) {
                 resolve(err);
             }
@@ -150,7 +150,7 @@ export namespace AtmFunc {
 
                     getHelper(apiURL).then(retval => {
                         let retarray: string[] = [];
-                        for (let i = 0; i < retval.results.length && i<10; i++){ // can adjust max i to give more return values
+                        for (let i = 0; i < retval.results.length && i<3; i++){ // can adjust max i to give more return values
                             retarray.push(retval.results[i].vicinity);
                         }
                         resolve(retarray);

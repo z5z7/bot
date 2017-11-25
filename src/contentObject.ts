@@ -417,6 +417,29 @@ export namespace Content {
         buttonURL: "https://www.us.hsbc.com/1/2/home/advance"
     }
 
+    //FX RATES
+    export let findFxRates: ContentObject = {
+        simpleResponse: "HSBC Exchange Rates",
+        speech: "",
+        text: "",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.personal.hsbc.com.hk/1/2/hk/investments/mkt-info/fcy"]
+    }
+    export let searchFxRates: ContentObject = {
+        simpleResponse: "HSBC Exchange Rates",
+        speech: "",
+        text: "",
+        title: "",
+        subtitle: "",
+        suggestions: [],
+        imageURL: "",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.personal.hsbc.com.hk/1/2/hk/investments/mkt-info/fcy"]
+    }
 }
 /*
  export let calculateMortgage0: ContentObject = {

@@ -18,10 +18,11 @@ export namespace Exchange {
     //output: lPromise response of currencies
 
         export function findExchangeRate(req: any): Promise<string> {
-                console.log(req.body);
+           //     console.log(req.body);
             if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
 
             let fromCheck = req.body.result.parameters.currency_from;
+            console.log("from check: " + fromCheck);
             if (fromCheck =="" ){ //return all
                 return exchangeHelperAll(req);
             }
@@ -65,18 +66,18 @@ export namespace Exchange {
     export function exchangeHelperFrom(req: any): Promise<string> {
 
         return new Promise<string>((resolve, reject) => {
-            let currency_from = req.body.result.parameters.currency_from;
+
             if (!req.body.result) reject("invalid request");
+            let currency_from = req.body.result.parameters.currency_from;
 
             client.xratesFromGet(currency_from).then(result => {
 
                 let rateinfo = result.body.rates;
-                let len = rateinfo.length;
                 let Rarray = [];
                 Rarray.push("From Currency " + currency_from + " the rates are \n")
-                for (let i = 0; i < len; i++) {
+                for (let i = 0; i < rateinfo.length; i++) {
                     let exchinfo = rateinfo[i];
-                    console.log(exchinfo);
+                    console.log("exchinfo: " + exchinfo);
                     let bprice = exchinfo.buy, sprice = exchinfo.sell, fromcode = exchinfo.code;
                     let str1 = ("Buy price: "+  bprice.toString()," Sell Price: ", + sprice.toString() + "Currency Code: " + fromcode.toString());
                     Rarray.push(str1);

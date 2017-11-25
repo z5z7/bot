@@ -44,10 +44,12 @@ export namespace Convo_Components {
     //TODO: ERROR CHECKING!!!!!!
     export function handleUtterance(req, contentObj: any): Promise<FulfillmentResponse> {
         return new Promise((resolve, reject) => {
-            if (!req.body.result) {
-                reject(rejectMessage);
-            }
             let result: Promise<FulfillmentResponse>;
+            if (!req.body.result) {
+                result = Convo_Components.createUtterance(req, rejectMessage);
+                reject(result);
+            }
+
             result = Convo_Components.createUtterance(req, contentObj);
             resolve(result);
         })
@@ -55,14 +57,16 @@ export namespace Convo_Components {
     //create and return an utterance
     export function createUtterance(req : any, contentObj : any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) => {
+            let result: Promise<FulfillmentResponse>;
             if (!req.body.result) {
-                reject(rejectMessage);
+                result = Convo_Components.createUtterance(req, rejectMessage);
+                reject(result);
             }
             let isText = isTextSurface(req);
             let isGoogle = Google(req);
             //for simple string responses that are not coming from the contents api
             if(typeof contentObj == "string"){
-                let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj);
+                result = returnSimpleResponse(contentObj);
                 resolve(result);
                 return;
             }
