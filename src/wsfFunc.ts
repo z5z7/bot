@@ -13,31 +13,31 @@ import {Content} from './contentObject';
 export namespace WsfFunc {
     export function handleDirectWsf(req: any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfDirect);
+            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.wsfDirect);
             resolve(result);
         })
     }
     export function handleEligibilityWSF(req : any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfEligibility);
+            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.wsfEligibility);
             resolve(result);
         })
     }
     export function handleWsfMore(req): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfMore);
+            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.wsfMore);
             resolve(result);
         });
     }
     export function handleWsfAdvantages(req): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) =>{
-            let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfAdvantages);
+            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.wsfAdvantages);
             resolve(result);
         });
     }
     export function handleWsfNo(req): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) =>{
-            let result: Promise<FulfillmentResponse> = Convo_Components.returnComplexResponse(Content.wsfNo);
+            let result: Promise<FulfillmentResponse> = Convo_Components.createUtterance(req, Content.wsfNo);
             resolve(result);
         });
     }

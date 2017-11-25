@@ -1,7 +1,7 @@
 /**
  * Created by valeriewyns on 2017-11-11.
  */
-import {FulfillmentResponse} from './contracts';
+import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {ContentObject} from './contracts';
 
 
@@ -12,7 +12,7 @@ export namespace Convo_Components {
         try{
            if(typeof JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"] != "undefined")){
                let inputs = JSON.stringify(req.body["originalRequest"]["data"]["inputs"][0]["rawInputs"]).toString();
-               console.log("inputs: " + inputs);
+               //console.log("inputs: " + inputs);
                if((inputs.includes("KEYBOARD")||(inputs.includes("TOUCH")))){
                    return true;
                }else{
@@ -40,26 +40,13 @@ export namespace Convo_Components {
             return false;
         }
     }
-    //handle an utterance
-    //TODO: ERROR CHECKING!!!!!!
-    export function handleUtterance(req, contentObj: any): Promise<FulfillmentResponse> {
-        return new Promise((resolve, reject) => {
-            let result: Promise<FulfillmentResponse>;
-            if (!req.body.result) {
-                result = Convo_Components.createUtterance(req, rejectMessage);
-                reject(result);
-            }
-
-            result = Convo_Components.createUtterance(req, contentObj);
-            resolve(result);
-        })
-    }
     //create and return an utterance
-    export function createUtterance(req : any, contentObj : any): Promise<FulfillmentResponse>{
+    export function createUtterance(req : FulfillmentRequest, contentObj : any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
             if (!req.body.result) {
-                result = Convo_Components.createUtterance(req, rejectMessage);
+                console.log("request is malformed");
+                result = Convo_Components.returnSimpleResponse(rejectMessage);
                 reject(result);
             }
             let isText = isTextSurface(req);
@@ -70,30 +57,40 @@ export namespace Convo_Components {
                 resolve(result);
                 return;
             }
-            //is contentObj is not a string then it is a ContentObject
+            //if contentObj is not a string then it is a ContentObject
             if(isGoogle){
                 if(isText) {
                     //console.log("isText");
                     let result: Promise<FulfillmentResponse> = returnComplexResponse(contentObj).catch(error =>{
+                        console.log("error making card");
                         resolve(returnSimpleResponse("Sorry, there was an error."));
                     })
-                    resolve(result);
-                    return;
+                   resolve(result);
+
                 }else{
                     //console.log("is not text");
                     let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj.speech).catch(error =>{
+                        console.log("error making simple");
                         resolve(returnSimpleResponse("Sorry, there was an error."));
                     })
                     resolve(result);
-                    return;
+
                 }
             }else{
-                //console.log("is Facebook?")
-               let result: Promise<FulfillmentResponse> = returnComplexResponseFB(contentObj.speech);
+                //console.log("is Facebook?");
+                //this will eventually catch for Facebook
+                result = returnSimpleResponse(contentObj.simpleResponse);
                 resolve(result);
                 return;
+
+               /*let result: Promise<FulfillmentResponse> = returnComplexResponseFB(contentObj.speech);
+                resolve(result);
+                return;*/
             }
 
+        }).catch(err => {
+            let result = returnSimpleResponse(rejectMessage + err);
+            return(result);
         })
     }
 
@@ -182,6 +179,7 @@ export namespace Convo_Components {
                 source: ""
 
             };
+            console.log("resolve");
             resolve(result);
 
         });

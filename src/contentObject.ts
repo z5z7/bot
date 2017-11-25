@@ -207,33 +207,34 @@ export namespace Content {
         text: "There are many things we could talk about today.   \n We could do some calculations,  \n  Look into various mortgage options,   \n   Apply for pre-approval,  \n or then look at some special offers.",
         title: "",
         subtitle: "",
-        suggestions: [{"title": "Mortgage Calculator"}, {"title": "Mortgage Catalogue"}, {"title": "Mortgage Pre-approval"}, {"title" : "Special Offers"}],
+        suggestions: [{"title": "Calculator"}, {"title": "Types"}, {"title": "Pre-approval"}, {"title" : "Special Offers"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
-        buttonTitle: [],
-        buttonURL: []
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/mortgage-offers?WT.ac=HBCA_161204_11GENMORTe05609H&gclid=CjwKCAiAxuTQBRBmEiwAAkFF1l2xiwjYvczvPIl6-FOftoP2lqFsgniJ-8DN1pfxVofrKewlYSf3RRoC81sQAvD_BwE&gclsrc=aw.ds"]
     }
     export let mortgageCatalogue: ContentObject = {
-        simpleResponse: "",
-        speech: "",
-        text: "",
+        simpleResponse : "HSBC Mortgage solutions for the world you live in",
+        speech: "There are many types of mortgages. Yours should have the right combination of features that give you the greatest financial flexibility.",
+        text: "There are many types of mortgages.  \n Yours should have the right combination of features that give you the greatest financial flexibility.",
         title: "",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title": "Traditional"}, {"title": "Power Equity"}, {"title": "Super Saver"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/mortgage-offers?WT.ac=HBCA_161204_11GENMORTe05609H&gclid=CjwKCAiAxuTQBRBmEiwAAkFF1l2xiwjYvczvPIl6-FOftoP2lqFsgniJ-8DN1pfxVofrKewlYSf3RRoC81sQAvD_BwE&gclsrc=aw.ds"]
     }
 
+
     export let mortgagePreApproval: ContentObject = {
-        simpleResponse: "",
-        speech: "",
-        text: "",
-        title: "",
+        simpleResponse: "What you need to know before applying",
+        speech: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident. You will be asked to provide personal details and gross annual income (pre-tax). You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application. ",
+        text: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident.  \n You will be asked to provide personal details and gross annual income (pre-tax).  \n You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application. ",
+        title: "Pre-approval",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Contact agent"}, {"title" : "Types"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
+        buttonTitle: ["More"],
+        buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"]
     }
     export let calculateMortgageRemaining: ContentObject ={
         simpleResponse: "Your remaining mortgage balance is: ",
@@ -313,7 +314,7 @@ export namespace Content {
         buttonURL: [""]
     }
     export let traditionalMortgage: ContentObject = {
-        simpleResponse: "HSBC Traditional Mortgage",
+        simpleResponse: "HSBC Traditional Mortgage, ideal if you are a first-time homebuyer",
         speech: "Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or by increasing the payment amount up to a total of 20% each year.   \n You can also make a match a payment and miss one later.   \n Already enrolled in the Rewards Program with your HSBC MasterCard? Redeem Reward Points to reduce your mortgage amount.   \n Enjoy preferential interest rates as a HSBC Premier or HSBC Advance Client.",
         text: "Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or by increasing the payment amount up to a total of 20% each year.   \n You can also make a match a payment and miss one later.   \n Already enrolled in the Rewards Program with your HSBC MasterCard? Redeem Reward Points to reduce your mortgage amount.   \n Enjoy preferential interest rates as a HSBC Premier or HSBC Advance Client.",
         title: "Become a homeowner sooner than you think",
@@ -324,7 +325,7 @@ export namespace Content {
         buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/traditional-mortgage/right-for-you"
     }
     export let equityPowerMortgage: ContentObject = {
-        simpleResponse: "HSBC Equity Power Mortgage",
+        simpleResponse: "HSBC Equity Power Mortgage, ideal if you want to use your equity",
         speech: "Renovate, travel or make a major purchase: Access up to 80% of the value of your home.    Flexible rate options: Benefit from a combination of fixed and variable terms.   Save money: Consolidate high-interest debt and reduce the amount of interest you pay.  Exclusive savings: Reduced interest rates for HSBC Premier and HSBC Advance clients.",
         text: "Renovate, travel or make a major purchase: Access up to 80% of the value of your home.   \n Flexible rate options: Benefit from a combination of fixed and variable terms.   \n Save money: Consolidate high-interest debt and reduce the amount of interest you pay.   \n Exclusive savings: Reduced interest rates for HSBC Premier and HSBC Advance clients.",
         title: "Make the equity in your home work for you",
@@ -335,7 +336,7 @@ export namespace Content {
         buttonURL: "https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/equity-power-mortgage/right-for-you"
     }
     export let smartSaversMortgage: ContentObject = {
-        simpleResponse: "HSBC Smart Savers Mortgage",
+        simpleResponse: "HSBC Smart Savers Mortgage, if you want to keep your savings accessible",
         speech: "Tell me more about the smart savers mortgage",
         text: "Pay a lower interest rate on your mortgage based on the amount in your eligible linked HSBC account Continue to earn interest on that linked account.   \n Access the money from your linked account when you need it.   \n Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or increasing the payment amount up to a total of 20% each year.    \n You can also make a match a payment and miss one later.",
         title: "Pay off your mortgage faster",

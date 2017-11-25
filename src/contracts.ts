@@ -3,7 +3,8 @@
  */
 export interface FulfillmentRequest {
     id: string,
-    result: {
+    body: {
+        result: Object,
         parameters: Object,
         source: string,
         action: string

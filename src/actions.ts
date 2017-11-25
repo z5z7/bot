@@ -107,7 +107,8 @@ let actionToFuncMap = {
 
 export namespace Actions {
     //called in app.ts and handles all of the action to function mapping and calling
-    export function handleRequest(req: express.Request): Promise<FulfillmentResponse> {
+    import createUtterance = Convo_Components.createUtterance;
+    export function handleRequest(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let currentAction = req.body.result.action;
             console.log("current action: " + currentAction);
@@ -118,10 +119,15 @@ export namespace Actions {
             if(actionToFuncMap[currentAction]){
                 actionToFuncMap[currentAction](req).then(response =>{
                     resolve(response);
+                }).catch(err => {
+                    resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err))
                 })
             }else{
                 resolve(Convo_Components.returnSimpleResponse("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
             }
-        });
+        }).catch(err => {
+            let result = createUtterance(req, err);
+            return(result);
+        })
     }
 }

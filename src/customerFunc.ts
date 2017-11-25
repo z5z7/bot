@@ -21,23 +21,23 @@ client.setDefaultAuthentication(auth);
 export namespace CustomerFunc {
     //ADVANCE CUSTOMER
     export function handleDirectAdvance(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.directAdvance);
+        return Convo_Components.createUtterance(req, Content.directAdvance);
     }
     export function handleAdvanceBenefits(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.advanceCustomerBenefits);
+        return Convo_Components.createUtterance(req, Content.advanceCustomerBenefits);
     }
     //PREMIER CUSTOMER
     export function handleDirectPremier(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.directPremier);
+        return Convo_Components.createUtterance(req, Content.directPremier);
     }
     export function handlePremierBenefits(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.premierCustomerBenefits);
+        return Convo_Components.createUtterance(req, Content.premierCustomerBenefits);
     }
     export function handlePremierApplication(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.premierCustomerApplication);
+        return Convo_Components.createUtterance(req, Content.premierCustomerApplication);
     }
     export function handlePremierEligibility(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.premierCustomerEligibility);
+        return Convo_Components.createUtterance(req, Content.premierCustomerEligibility);
     }
 }
 
