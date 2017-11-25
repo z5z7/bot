@@ -1,6 +1,6 @@
 {
-  "name": "fulfillment",
-  "version": "0.0.0",
+  "name": "dialogflow-webhook",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./out/www.js",
