@@ -58,48 +58,51 @@ export namespace MortFunc {
 
     //TOP LEVEL DIRECT
     export function handleDirectMortgage(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.directMortgages);
+        return Convo_Components.createUtterance(req, Content.directMortgages);
 
     }
 
 
     export function handleMortgagesCatalogue(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.mortgageCatalogue);
+        console.log("types");
+        return Convo_Components.createUtterance(req, Content.mortgageCatalogue).catch(err => {
+            console.log("There was an error at the last minute: " + err);
+        })
 
     }
     export function handleMortgagesPreApproval(req): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.mortgagePreApproval);
+        return Convo_Components.createUtterance(req, Content.mortgagePreApproval);
     }
 
 
     //WHAT KIND OF CALCULATION WOULD YOU LIKE TO DO?
     export function handleCalculateMortgage0(req): Promise<FulfillmentResponse>{
-        return Convo_Components.handleUtterance(req, Content.calculateMortgage0.simpleResponse);
+        return Convo_Components.createUtterance(req, Content.calculateMortgage0.simpleResponse);
     }
 
 
     //TYPES
     export function handleMortgageTypeTraditional(req) : Promise<FulfillmentResponse>{
-        return Convo_Components.handleUtterance(req, Content.traditionalMortgage);
+        return Convo_Components.createUtterance(req, Content.traditionalMortgage);
     }
     export function handleMortgageTypeEquityPower(req) : Promise<FulfillmentResponse>{
-        return Convo_Components.handleUtterance(req, Content.equityPowerMortgage);
+        return Convo_Components.createUtterance(req, Content.equityPowerMortgage);
     }
     export function handleMortgageTypeSmartSaver(req) : Promise<FulfillmentResponse>{
-        return Convo_Components.handleUtterance(req, Content.smartSaversMortgage);
+        return Convo_Components.createUtterance(req, Content.smartSaversMortgage);
     }
 
     //SPECIAL OFFERS
     export function handleMortgageRateSpecialOfferAdvance(req: any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.specialOfferAdvance);
+        return Convo_Components.createUtterance(req, Content.specialOfferAdvance);
     }
     export function handleMortgageRateSpecialOfferPremier(req: any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.specialOfferPremier);
+        return Convo_Components.createUtterance(req, Content.specialOfferPremier);
     }
     export function handleMortgageRateSpecialOfferPersonalRates(req: any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.specialOfferPersonalRates);
+        return Convo_Components.createUtterance(req, Content.specialOfferPersonalRates);
     }
     export function handleMortgageRateSpecialOfferSmartSaver(req: any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.specialOfferSmartSaver);
+        return Convo_Components.createUtterance(req, Content.specialOfferSmartSaver);
     }
 }

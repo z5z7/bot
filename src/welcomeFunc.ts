@@ -8,9 +8,9 @@ import {Content} from './contentObject';
 
 export namespace Welcome {
     export function handleWelcome(req: any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.welcome);
+        return Convo_Components.createUtterance(req, Content.welcome);
     }
     export function handleAboutUs(req: any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.aboutUs);
+        return Convo_Components.createUtterance(req, Content.aboutUs);
     }
 }

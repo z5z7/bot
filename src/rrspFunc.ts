@@ -9,18 +9,18 @@ import {Content} from './contentObject';
 
 export namespace RrspFunc {
     export function handleDirectRRSP(req: any): Promise<FulfillmentResponse>{
-        return Convo_Components.handleUtterance(req, Content.directRRSP);
+        return Convo_Components.createUtterance(req, Content.directRRSP);
     }
     export function handleApplyRRSP(req:any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.applyRRSP);
+        return Convo_Components.createUtterance(req, Content.applyRRSP);
     }
     export function handleRRSPBenefits(req:any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.benefitsRRSP);
+        return Convo_Components.createUtterance(req, Content.benefitsRRSP);
     }
     export function handleRRSPBrokerageYes(req:any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.rrspBrokerageAccountYes);
+        return Convo_Components.createUtterance(req, Content.rrspBrokerageAccountYes);
     }
     export function handleRRSPBrokerageNo(req:any): Promise<FulfillmentResponse> {
-        return Convo_Components.handleUtterance(req, Content.rrspBrokerageAccountNo);
+        return Convo_Components.createUtterance(req, Content.rrspBrokerageAccountNo);
     }
 }
