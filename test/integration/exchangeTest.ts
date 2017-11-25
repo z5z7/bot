@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 describe('Exchange Test Script', () => {
 
-    describe('findExchangeRate (this connect to an intent but return a string ???)', () => {
+    describe('findExchangeRate', () => {
 
         it("function return a fulfillment response with the right request", function () {
             let sendval: {} = {
@@ -67,7 +67,7 @@ describe('Exchange Test Script', () => {
 
     });
 
-    describe('searchWhatExchangeRate (this connect to an intent but return a string ???)', () => {
+    describe('searchWhatExchangeRate', () => {
 
         it("function return a fulfillment response with the all parameter", function () {
             let sendval: {} = {

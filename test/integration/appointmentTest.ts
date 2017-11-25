@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 describe('Appointment Test Script', () => {
 
-    describe('createBooking (this connect to an intent but return a string ???)', () => {
+    describe('createBooking', () => {
 
         it("function return a string response with the right request", function () {
 

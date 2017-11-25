@@ -68,23 +68,21 @@ describe('Rrsp Test Script', () => {
             return RrspFunc.handleDirectRRSP(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-               expect.fail();
+                response.should.be.a('object');
+                response.should.have.property('speech');
+                response.speech.should.be.a('string');
+                response.should.have.property('displayText');
+                response.displayText.should.be.a('string');
+                response.should.have.property('data');
+                response.data.should.be.a('object');
+                response.should.have.property('contextOut');
+                response.contextOut.should.be.a('array');
+                response.should.have.property('source');
+                response.source.should.be.a('string');
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                /* TO USE WHEN ERR RETURN A Fullfillment response
-               err.should.be.a('object');
-                err.should.have.property('speech');
-                err.speech.should.be.a('string');
-                err.should.have.property('displayText');
-                err.displayText.should.be.a('string');
-                err.should.have.property('data');
-                err.data.should.be.a('object');
-                err.should.have.property('contextOut');
-                err.contextOut.should.be.a('array');
-                err.should.have.property('source');
-                */
-                expect(err).to.be.a('string');
+                expect.fail();
             })
         });
     });
@@ -140,23 +138,20 @@ describe('Rrsp Test Script', () => {
             let sendval: {} = {body:{}};
             return RrspFunc.handleApplyRRSP(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
-                //console.log(response);
-                expect.fail();
+                response.should.be.a('object');
+                response.should.have.property('speech');
+                response.speech.should.be.a('string');
+                response.should.have.property('displayText');
+                response.displayText.should.be.a('string');
+                response.should.have.property('data');
+                response.data.should.be.a('object');
+                response.should.have.property('contextOut');
+                response.contextOut.should.be.a('array');
+                response.should.have.property('source');
+                response.source.should.be.a('string');
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                /* TO USE WHEN ERR RETURN A Fullfillment response
-               err.should.be.a('object');
-                err.should.have.property('speech');
-                err.speech.should.be.a('string');
-                err.should.have.property('displayText');
-                err.displayText.should.be.a('string');
-                err.should.have.property('data');
-                err.data.should.be.a('object');
-                err.should.have.property('contextOut');
-                err.contextOut.should.be.a('array');
-                err.should.have.property('source');
-                */
-                expect(err).to.be.a('string');
+                expect.fail();
             })
         });
     });
@@ -213,23 +208,21 @@ describe('Rrsp Test Script', () => {
             return RrspFunc.handleRRSPBenefits(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                expect.fail();
+                response.should.be.a('object');
+                response.should.have.property('speech');
+                response.speech.should.be.a('string');
+                response.should.have.property('displayText');
+                response.displayText.should.be.a('string');
+                response.should.have.property('data');
+                response.data.should.be.a('object');
+                response.should.have.property('contextOut');
+                response.contextOut.should.be.a('array');
+                response.should.have.property('source');
+                response.source.should.be.a('string');
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                /* TO USE WHEN ERR RETURN A Fullfillment response
-               err.should.be.a('object');
-                err.should.have.property('speech');
-                err.speech.should.be.a('string');
-                err.should.have.property('displayText');
-                err.displayText.should.be.a('string');
-                err.should.have.property('data');
-                err.data.should.be.a('object');
-                err.should.have.property('contextOut');
-                err.contextOut.should.be.a('array');
-                err.should.have.property('source');
-                */
-                expect(err).to.be.a('string');
+                expect.fail();
             })
         });
     });
@@ -289,11 +282,21 @@ describe('Rrsp Test Script', () => {
             return RrspFunc.handleRRSPBrokerageYes(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                expect.fail();
+                response.should.be.a('object');
+                response.should.have.property('speech');
+                response.speech.should.be.a('string');
+                response.should.have.property('displayText');
+                response.displayText.should.be.a('string');
+                response.should.have.property('data');
+                response.data.should.be.a('object');
+                response.should.have.property('contextOut');
+                response.contextOut.should.be.a('array');
+                response.should.have.property('source');
+                response.source.should.be.a('string');
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect(err).to.be.a('string');
+                expect.fail();
             })
         });
     });
@@ -348,23 +351,22 @@ describe('Rrsp Test Script', () => {
             return RrspFunc.handleRRSPBrokerageNo(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                expect.fail();
+                response.should.be.a('object');
+                response.should.have.property('speech');
+                response.speech.should.be.a('string');
+                response.should.have.property('displayText');
+                response.displayText.should.be.a('string');
+                response.should.have.property('data');
+                response.data.should.be.a('object');
+                response.should.have.property('contextOut');
+                response.contextOut.should.be.a('array');
+                response.should.have.property('source');
+                response.source.should.be.a('string');
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                /* TO USE WHEN ERR RETURN A Fullfillment response
-               err.should.be.a('object');
-                err.should.have.property('speech');
-                err.speech.should.be.a('string');
-                err.should.have.property('displayText');
-                err.displayText.should.be.a('string');
-                err.should.have.property('data');
-                err.data.should.be.a('object');
-                err.should.have.property('contextOut');
-                err.contextOut.should.be.a('array');
-                err.should.have.property('source');
-                */
-                expect(err).to.be.a('string');
+
+               expect.fail();
             })
         });
     });
