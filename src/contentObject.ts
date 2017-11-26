@@ -55,10 +55,10 @@ export namespace Content {
     export let welcome: ContentObject = {
         simpleResponse: "Welcome to HSBC",
         speech: "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM? Exchange Rates? The World Selection Fund?",
-        text: "Welcome to HSBC, what shall we talk about today?  \n Mortgages?  \n RRSPs?,  \n Finding an ATM?  \nExchange Rates?  \n The World Selection Fund?",
+        text: "Welcome to HSBC, what shall we talk about today?  \n Mortgages?  \n RRSPs?,  \n Finding an ATM?  \nExchange Rates?  \n The World Selection Fund?  \n Becoming a Premier Customer?",
         title: "How can we help you today?",
         subtitle: "Find out more",
-        suggestions: [{"title": "ATM"}, {"title": "FxRates"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title" : "WSF"}],
+        suggestions: [{"title": "ATM"}, {"title": "Exchange"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title" : "WSF"}, {"title" : "Premier"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"]
@@ -393,21 +393,21 @@ export namespace Content {
         simpleResponse: "Become a Premier Customer.",
         speech: "HSBC Premier offers comprehensive banking and investment services tailored to your financial needs. Would you like to find out more about: The benefits of being a Premier Customer? Of How to apply? Of eligibility requirements? About Premier customer mortgage rates?",
         text: "HSBC Premier offers comprehensive banking and investment services tailored to your financial needs.   \n  Would you like to find out more about:   \n   The benefits of being a Premier Customer?    \n Of How to apply?   \n  Of eligibility requirements?   \n  About Premier customer mortgage rates?",
-        title: "",
+        title: "Premier",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Eligibility"}, {"title" : "Benefits"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_needs.png",
+        buttonTitle: ["More"],
+        buttonURL: ["http://www.hsbc.ca/1/2/personal/banking/hsbc-premier/contact"]
     }
     export let premierCustomerBenefits: ContentObject = {
-        simpleResponse: "Premier customer benefits",
-        speech: "What are the benefits of being a premier customer?",
+        simpleResponse: "Premier Customer Benefits",
+        speech: "What are the benefits of being a Premier Customer?",
         text: "Your Relationship Manager: A dedicated Premier Relationship Manager identifies a wealth strategy designed just for you.   \n Meeting your needs: Our Relationship Managers are recognized based on how well they provide their service and how well they meet your needs.   \n Anytime, anywhere: Your personal economy is always with you. So are we, providing support and services whenever and wherever you need us.     \n Preferential Access: Access some of the most prestigious banking products, services and rewards that we have to offer.",
         title: "HSBC Premier focuses on the most important economy in the world. Yours.",
         subtitle: "",
-        suggestions: [{"title" : "HSBC Premier Eligibility"}, {"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_needs.png",
+        suggestions: [{"title" : "Eligibility"}, {"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_benefits.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/banking/hsbc-premier/benefits"]
     }
@@ -423,12 +423,13 @@ export namespace Content {
         buttonURL: [""]
     }
     export let premierCustomerEligibility: ContentObject = {
-        simpleResponse: "Advance Benefits",
-        speech: "Benefits of Advance",
-        text: "Everyone is different, which is why we make the effort to understand your needs and how you like to bank.   \n We offer you preferential rates with unique rewards and benefits to help you with your everyday banking, borrowing and investment needs - because we want to help you reach your individual goals.   \n Speak to a mortgage specialist at 1-866-609-4722. ",
+
+        simpleResponse: "Premier Eligibility",
+        speech: "You will need a minimum of $100,000 to fund your HSBC Total Relationship Balance.   You will need to open a mortgage with a minimum amount of $500,000 at HSBC.   Or you have Qualified for HSBC Premier in another country",
+        text: "You will need a minimum of $100,000 to fund your HSBC Total Relationship Balance  \n You will need to open a mortgage with a minimum amount of $500,000 at HSBC  \n Or you have Qualified for HSBC Premier in another country",
         title: "HSBC",
         subtitle: "Welcome to a whole new way of banking with HSBC Advance",
-        suggestions: [{"title" : "Main Menu"}],
+        suggestions: [{"title" : "Main Menu"}, {"title" : "Benefits"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.us.hsbc.com/1/2/home/advance"]
