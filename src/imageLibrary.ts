@@ -26,19 +26,20 @@ export namespace Images {
 
 
     export function getCityImage(city : string){
-        if(city.includes("Vancouver")){
+        console.log("get city image: " + city);
+        if(city === "Vancouver"){
             return atmMapVancouverImage;
-        }else if (city.includes("Burnaby")){
+        }else if (city === "Burnaby"){
             return atmMapBurnabyImage;
-        }else if (city.includes("Richmond")){
+        }else if (city === "Richmond"){
             return atmMapRichmondImage;
-        }else if (city.includes("New Westminster")){
+        }else if (city === "New Westminster"){
             return atmMapNewWestminsterImage;
-        }else if (city.includes("North Vancouver")){
+        }else if (city === "North Vancouver"){
             return atmMapNorthVancouverImage;
-        }else if (city.includes("Coquitlam")){
+        }else if (city === "Coquitlam"){
             return atmMapCoquitlamImage;
-        }else if (city.includes("West Vancouver")){
+        }else if (city === "West Vancouver"){
             return atmMapWestVancouverImage;
         }
     }

@@ -30,6 +30,9 @@ export namespace MortFunc {
                 let returnResponse = Content.calculateMortgageMonthly.simpleResponse + monthly;
                 result = Convo_Components.createUtterance(req, returnResponse);
                 resolve(result);
+            }).catch(err => {
+                result = Convo_Components.createUtterance(req, err);
+                resolve(result);
             })
         })
     }
@@ -45,7 +48,7 @@ export namespace MortFunc {
                 resolve(result);
 
             }).catch(err => {
-                result = Convo_Components.createUtterance(req, "I'm sorry, we were unable to fulfill your request. The error was: " + err);
+                result = Convo_Components.createUtterance(req, err);
                 resolve(result);
             })
         })

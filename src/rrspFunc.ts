@@ -18,7 +18,7 @@ export namespace RrspFunc {
         return Convo_Components.createUtterance(req, Content.benefitsRRSP);
     }
     export function handleRRSPBrokerageYes(req:any): Promise<FulfillmentResponse> {
-        return Convo_Components.createUtterance(req, Content.rrspBrokerageAccountYes);
+        return Convo_Components.createUtterance(req, Content.bookAppointment);
     }
     export function handleRRSPBrokerageNo(req:any): Promise<FulfillmentResponse> {
         return Convo_Components.createUtterance(req, Content.rrspBrokerageAccountNo);

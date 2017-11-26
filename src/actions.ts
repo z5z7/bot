@@ -12,6 +12,7 @@ import {RrspFunc} from "./rrspFunc";
 import {WsfFunc} from "./wsfFunc";
 import {Convo_Components} from "./ConversationComponents";
 import {CustomerFunc} from "./customerFunc";
+import {BookFunc} from "./bookFunc";
 
 'use strict';
 import {FxFunc} from "./fxFunc";
@@ -108,7 +109,7 @@ let actionToFuncMap = {
 
                     //MISCELLANEOUS
                     "direct.apply" : Appointments.createBooking,
-                    "book.appointment" : Appointments.createBooking,
+                    "book.appointment" : BookFunc.handleBooking,
                     "blurb.aboutUs" : Welcome.handleAboutUs,
                     };
 
@@ -132,9 +133,6 @@ export namespace Actions {
             }else{
                 resolve(Convo_Components.returnSimpleResponse("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
             }
-        }).catch(err => {
-            let result = createUtterance(req, err);
-            return(result);
         })
     }
 }

@@ -30,6 +30,17 @@ export namespace Content {
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["https://www.hsbc.ca/1/2/applications/book-appointment?WABFormEntryCommand=cmd_prefill&HiddenMandatoryFields.ProductId=@PR&HiddenMandatoryFields.IndividualSolutionId=DC&HiddenMandatoryFields.WebTrendSkuId=HBCA_BR_APPOINTMENT&HiddenMandatoryFields.ProductionPromotionCode=HPG"]
     }
+    export let bookAppointment: ContentObject = {
+        simpleResponse: "Let an HSBC Agent help you today.",
+        speech: "Thanks. An agent will get in touch with you soon.",
+        text: "An agent will get in touch with you soon.",
+        title: "Thanks.",
+        subtitle: "",
+        suggestions: [{"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mumKid.png",
+        buttonTitle: ["More"],
+        buttonURL: ["http://www.hsbc.ca"]
+    }
     export let aboutUs: ContentObject = {
         simpleResponse: "About HSBC",
         speech: "Founded in 1865 to finance trade between Asia and the West, today HSBC is one of the world’s largest banking and financial services organizations serving around 38 million customers worldwide. Our aim is to be acknowledged as the world’s leading and most respected international bank.   Throughout our history we have been where the growth is, connecting customers to opportunities.    We enable businesses to thrive and economies to prosper, helping people fulfil their hopes and dreams and realize their ambitions. This is our role and purpose.",
@@ -87,7 +98,7 @@ export namespace Content {
         text: "\n  Life is tough.   \n  Retire instead",
         title: "Invest in your future",
         subtitle: "What about RRSPs shall we discuss?",
-        suggestions: [{"title" : "Benefits"}, {"title" : "Apply"}],
+        suggestions: [{"title" : "Benefits"}, {"title" : "Apply RRSP"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/RRSP.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"]
@@ -98,7 +109,7 @@ export namespace Content {
         text: "Social Insurance Number,   \n Two pieces of valid identification,   \n Bank account information (transit, institution number,   \n account number and bank address), Spouse or common-law partner's employment information",
         title: "What you need before you call: ",
         subtitle: "",
-        suggestions: [{"title": "Book Now"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Book Agent"},{"title": "Benefits"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspApply.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"]
@@ -109,7 +120,7 @@ export namespace Content {
         text: "1 Pay less income tax.  \n Your contribution is deducted directly from your current income, giving you immediate tax savings.  \n 2 Build your wealth faster.  \n When you contribute regularly throughout the year, you take advantage of the power of compound interest. And since income earned within your RRSP is not taxed, your investment grows even more quickly!  \n 3  Defer your taxes to a lower rate.   \n When you start to withdraw money from your RRSP investment your income will likely be lower and you’ll pay tax at a lower rate.",
         title: "Why should you do it?",
         subtitle: "",
-        suggestions: [{"title": "Book Now"}, {"title" : "Main Menu"}],
+        suggestions: [{"title": "Apply RRSP"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspBenefits.png",
         buttonTitle: ["More"],
         buttonURL: "http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"
@@ -125,17 +136,7 @@ export namespace Content {
         buttonTitle: [""],
         buttonURL: [""]
     }
-    export let rrspBrokerageAccountYes: ContentObject = {
-        simpleResponse: "Apply for Brokerage Account.",
-        speech: "Thanks. An agent will get in touch with you soon.",
-        text: "Thanks. An agent will get in touch with you soon.",
-        title: "",
-        subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
-    }
+
 
 
 
