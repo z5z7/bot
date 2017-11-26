@@ -32,7 +32,7 @@ export namespace FxFunc {
                 resolve(result);
 
             }).catch(err => {
-                result = Convo_Components.createUtterance(req, "I'm sorry, we were unable to fulfill your request. The error was: " + err);
+                result = Convo_Components.createUtterance(req, err);
                 resolve(result);
             })
         })
@@ -48,7 +48,7 @@ export namespace FxFunc {
                 resolve(result);
 
             }).catch(err => {
-                result = Convo_Components.createUtterance(req, "I'm sorry, we were unable to fulfill your request. The error was: " + err);
+                result = Convo_Components.createUtterance(req, err);
                 resolve(result);
             })
         })

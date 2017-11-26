@@ -4,8 +4,7 @@ import {FulfillmentResponse, ContentObject} from './contracts';
 import {Convo_Components} from './ConversationComponents';
 import {Images} from './imageLibrary';
 import {Content} from './contentObject';
-//import {} from '@types/googlemaps';
-import * as http from 'http';
+
 import * as https from 'https';
 //const gmKEY : any = process.env.GOOGLE_MAPS_API_KEY;
 const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
@@ -35,9 +34,8 @@ export namespace AtmFunc {
 
             searchWhereAtmKeyword(city).then(cityArray => {
 
-
                 //create suggestions with every city except for current one
-                let allCities: Array<string> = ["Vancouver", "West Van", "North Van", "New West", "Burnaby", "Coquitlam", "Richmond"];
+                let allCities: Array<string> = ["Vancouver", "West Vancouver", "North Vancouver", "New Westminster", "Burnaby", "Coquitlam", "Richmond"];
                 let suggestions = [];
 
                 const index = allCities.indexOf(city);
@@ -56,7 +54,7 @@ export namespace AtmFunc {
                 contentObj.speech = "Here are the atm's in your city " + cityArray.toString();
                 contentObj.imageURL = Images.getCityImage(city);
                 contentObj.suggestions = suggestions;
-                contentObj.buttonURL = ["https://www.google.ca/maps/search/hsbc+" + city];
+                contentObj.buttonURL = ["https://www.google.ca/maps/search/hsbc+" + encodeURIComponent(city)];
                 console.log("my buttonURL is " + contentObj.buttonURL[0]);
                 result = Convo_Components.createUtterance(req, contentObj);
 

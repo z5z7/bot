@@ -44,9 +44,14 @@ export namespace Convo_Components {
     export function createUtterance(req : FulfillmentRequest, contentObj : any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
-            if (!req.body.result) {
+            if ((!req.body.result)) {
                 console.log("request is malformed");
-                result = Convo_Components.returnSimpleResponse(rejectMessage);
+                result = Convo_Components.returnSimpleResponse("Request Body is malformed");
+                reject(result);
+            }
+            if (!(typeof contentObj === "string") && !(typeof contentObj === "object")) {
+                console.log("contentObject is malformed");
+                result = Convo_Components.returnSimpleResponse("Content Body is malformed");
                 reject(result);
             }
             let isText = isTextSurface(req);

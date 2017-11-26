@@ -12,6 +12,7 @@ import {RrspFunc} from "./rrspFunc";
 import {WsfFunc} from "./wsfFunc";
 import {Convo_Components} from "./ConversationComponents";
 import {CustomerFunc} from "./customerFunc";
+import {BookFunc} from "./bookFunc";
 
 'use strict';
 import {FxFunc} from "./fxFunc";
@@ -73,15 +74,22 @@ let actionToFuncMap = {
 
                     //MORTGAGES
                     "direct.mortgages" : MortFunc.handleDirectMortgage,
-                    "find.what.mortgages.catalogue" : MortFunc.handleMortgagesCatalogue,
+                    //preApproval
                     "find.what.mortgages.preApproval" : MortFunc.handleMortgagesPreApproval,
+                    "find.what.mortgages.preApproval.yes" : MortFunc.handleMortgagesPreApprovalApplyYes,
+                    "find.what.mortgages.preApproval.no" : MortFunc.handleMortgagesPreApprovalApplyNo,
+                    //calculate
+                    "find.how.mortgages.calculate0" : MortFunc.handleCalculateMortgage0,
                     "find.how.mortgages.calculate.monthlyPayment" : MortFunc.handleCalculateMortgageMonthly,
-                    "find.how.mortgages.calculate.mortgage0" : MortFunc.handleCalculateMortgage0,
                     "find.how.mortgages.calculate.remainingLoan" : MortFunc.handleCalculateRemaining,
+                    //specialOffers
+                    "direct.mortgages.specialOffers" : MortFunc.handleDirectSpecialOffers,
                     "mortgageRate.specialOffer.advance" : MortFunc.handleMortgageRateSpecialOfferAdvance,
                     "mortgageRate.specialOffer.premier" : MortFunc.handleMortgageRateSpecialOfferPremier,
                     "mortgageRate.specialOffer.personalRates" : MortFunc.handleMortgageRateSpecialOfferPersonalRates,
                     "mortgageRate.specialOffer.smartSaver" : MortFunc.handleMortgageRateSpecialOfferSmartSaver,
+                    //types
+                    "find.what.mortgages.catalogue" : MortFunc.handleMortgagesCatalogue,
                     "mortgage.what.trad" : MortFunc.handleMortgageTypeTraditional,
                     "mortgage.what.equityPower" : MortFunc.handleMortgageTypeEquityPower,
                     "mortgage.what.smartSaver" : MortFunc.handleMortgageTypeSmartSaver,
@@ -101,7 +109,7 @@ let actionToFuncMap = {
 
                     //MISCELLANEOUS
                     "direct.apply" : Appointments.createBooking,
-                    "book.appointment" : Appointments.createBooking,
+                    "book.appointment" : BookFunc.handleBooking,
                     "blurb.aboutUs" : Welcome.handleAboutUs,
                     };
 
@@ -125,9 +133,6 @@ export namespace Actions {
             }else{
                 resolve(Convo_Components.returnSimpleResponse("I'm sorry. My mind skipped a beat. What was that?   \n I didn't catch: " + currentAction))
             }
-        }).catch(err => {
-            let result = createUtterance(req, err);
-            return(result);
         })
     }
 }
