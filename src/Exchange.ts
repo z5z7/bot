@@ -21,14 +21,17 @@ export namespace Exchange {
            //     console.log(req.body);
             if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
 
-            let fromCheck = req.body.result.parameters.currency_from;
-            console.log("from check: " + fromCheck);
-            if (fromCheck =="" ){ //return all
+            //try/catch just in case there is no currency_from parameter
+            //if there is no parameter it means we want it ALLLLL
+            try{
+                if(req.body.result.parameters.currency_from){
+                    return exchangeHelperFrom(req);
+                }
+            }
+            catch(err){
                 return exchangeHelperAll(req);
             }
-            else { // Return from Specified
-                return exchangeHelperFrom(req);
-            }
+
 
         }
         export function exchangeHelperAll(req: any): Promise<string> {
@@ -55,9 +58,8 @@ export namespace Exchange {
                     resolve(answer);
                 })
             })
-             .catch(reason => { // catch for promise loop
-                let error: string = reason;
-                resolve(error);
+             .catch(err => { // catch for promise loop
+                resolve(err);
             });
         });
     }
@@ -86,9 +88,8 @@ export namespace Exchange {
                     let answer = Rarray.join('\n');
                     resolve(answer);
 
-            }).catch(reason => { // catch for promise loop
-                let error: string = reason;
-                resolve(error);
+            }).catch(err => { // catch for promise loop
+                resolve(err);
             });
         });
     }
@@ -125,8 +126,7 @@ export namespace Exchange {
                     resolve(answer);
 
                 }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
-                        let error: string = err;
-                        resolve(error);
+                        resolve(err);
 
                 });
             }
@@ -136,8 +136,7 @@ export namespace Exchange {
                     console.log(result);
                     resolve(`The converted amount is ${result.body.conversion}`);
                 }).catch(err => {
-                        let error: string = err;
-                        resolve(error);
+                        resolve(err);
 
                 });
             }

@@ -28,6 +28,7 @@ export namespace CustomerFunc {
     }
     //PREMIER CUSTOMER
     export function handleDirectPremier(req): Promise<FulfillmentResponse> {
+        console.log("directPremier");
         return Convo_Components.createUtterance(req, Content.directPremier);
     }
     export function handlePremierBenefits(req): Promise<FulfillmentResponse> {
