@@ -42,7 +42,7 @@ export namespace FxFunc {
     export function handleSearchFxRate(req: any): Promise<FulfillmentResponse> {
         return new Promise((resolve, reject)=> {
             let result: Promise<FulfillmentResponse>;
-            Exchange.findExchangeRate(req).then(rates =>{
+            Exchange.searchWhatExchangeRate(req).then(rates =>{
                 let returnResponse = Content.searchFxRates.simpleResponse + rates;
                 result = Convo_Components.createUtterance(req, returnResponse.toString());
                 resolve(result);
