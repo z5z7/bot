@@ -28,7 +28,7 @@ export namespace FxFunc {
             let result: Promise<FulfillmentResponse>;
             Exchange.findExchangeRate(req).then(rates =>{
                 let returnResponse = Content.findFxRates.simpleResponse + rates;
-                result = Convo_Components.createUtterance(req, returnResponse);
+                result = Convo_Components.createUtterance(req, returnResponse.toString());
                 resolve(result);
 
             }).catch(err => {
@@ -44,7 +44,7 @@ export namespace FxFunc {
             let result: Promise<FulfillmentResponse>;
             Exchange.findExchangeRate(req).then(rates =>{
                 let returnResponse = Content.searchFxRates.simpleResponse + rates;
-                result = Convo_Components.createUtterance(req, returnResponse);
+                result = Convo_Components.createUtterance(req, returnResponse.toString());
                 resolve(result);
 
             }).catch(err => {

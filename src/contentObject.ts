@@ -25,7 +25,7 @@ export namespace Content {
         text: "Sure, what is it you would like to apply for?   \n To be a Premier Customer?   \n For a Brokerage RRSP Account?   \n For the World Selection Fund?  \n Mortgage PreApproval?",
         title: "Book an Appointment",
         subtitle: "",
-        suggestions: [{"title": "Premier"}, {"title": "RRSP"}, {"title": "WSF"}, {"title" : "mortgage"}],
+        suggestions: [{"title": "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["https://www.hsbc.ca/1/2/applications/book-appointment?WABFormEntryCommand=cmd_prefill&HiddenMandatoryFields.ProductId=@PR&HiddenMandatoryFields.IndividualSolutionId=DC&HiddenMandatoryFields.WebTrendSkuId=HBCA_BR_APPOINTMENT&HiddenMandatoryFields.ProductionPromotionCode=HPG"]
@@ -69,7 +69,7 @@ export namespace Content {
     //ATM
     export let findATM: ContentObject = {
         simpleResponse: "Find ATMs in your city.",
-        speech: "There are many ATMs in the Lower Mainland. Would you like to narrow down your options to just ONE city?  West Vancouver? North Vancouver?  New Westminster? Burnaby?  Coquitlam? Richmond?",
+        speech: "There are many ATMs in the Lower Mainland. Would you like to narrow down your options to just one?  West Vancouver? North Vancouver?  New Westminster? Burnaby?  Coquitlam? Richmond?",
         text: "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city?  \n  West Vancouver?   \n North Vancouver?  \n  New Westminster?   \n Burnaby?   \n  Coquitlam?  \n Richmond?",
         title: "HSBC ATMs",
         subtitle: "Lower Mainland",
@@ -94,29 +94,29 @@ export namespace Content {
     //RRSP
     export let directRRSP: ContentObject = {
         simpleResponse : "Find out more about HSBC's RRSPs",
-        speech: "Find out more about HSBC's RRSPs",
+        speech: "Life is tough, retire instead. Find out about the benefits of an rrsp, or then contact an agent",
         text: "\n  Life is tough.   \n  Retire instead",
         title: "Invest in your future",
         subtitle: "What about RRSPs shall we discuss?",
-        suggestions: [{"title" : "Benefits"}, {"title" : "Apply RRSP"}],
+        suggestions: [{"title" : "Benefits"}, {"title" : "Apply"}, {"title" : "Contact Agent"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/RRSP.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"]
     }
     export let applyRRSP: ContentObject = {
         simpleResponse : "Apply for an RRSP",
-        speech: "Apply for an RRSP",
+        speech: "In order to apply you will need a Social Insurance Number,    Two pieces of valid identification,    Bank account information (transit, institution number, account number and bank address), Spouse or common-law partner's employment information",
         text: "Social Insurance Number,   \n Two pieces of valid identification,   \n Bank account information (transit, institution number,   \n account number and bank address), Spouse or common-law partner's employment information",
         title: "What you need before you call: ",
         subtitle: "",
-        suggestions: [{"title" : "Book Agent"},{"title": "Benefits"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Contact Agent"},{"title": "Benefits"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspApply.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"]
     }
     export let benefitsRRSP: ContentObject = {
         simpleResponse : "The Benefits of a RRSP",
-        speech: "RRSP Benefits",
+        speech: "1 Pay less income tax.   Your contribution is deducted directly from your current income, giving you immediate tax savings.   2 Build your wealth faster.   When you contribute regularly throughout the year, you take advantage of compound interest   3  Defer your taxes to a lower rate.    When you start to withdraw money from your RRSP investment your income will likely be lower and you’ll pay less tax",
         text: "1 Pay less income tax.  \n Your contribution is deducted directly from your current income, giving you immediate tax savings.  \n 2 Build your wealth faster.  \n When you contribute regularly throughout the year, you take advantage of the power of compound interest. And since income earned within your RRSP is not taxed, your investment grows even more quickly!  \n 3  Defer your taxes to a lower rate.   \n When you start to withdraw money from your RRSP investment your income will likely be lower and you’ll pay tax at a lower rate.",
         title: "Why should you do it?",
         subtitle: "",
@@ -126,15 +126,15 @@ export namespace Content {
         buttonURL: "http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"
     }
     export let rrspBrokerageAccountNo: ContentObject = {
-        simpleResponse: "All righty then.",
+        simpleResponse: "On to the next thing.",
         speech: "What should we talk about next? Mortgages, World Selection Funds, Find an ATM, How to become Premier customer, The benefits of RRSPs?",
         text: "What should we talk about next?   \n Mortgages,  \n World Selection Funds,  \n Find an ATM,   \n How to become Premier customer,  \n  The benefits of RRSPs?",
-        title: "",
+        title: "What shall we discuss next?",
         subtitle: "",
-        suggestions: [],
-        imageURL: "",
-        buttonTitle: [""],
-        buttonURL: [""]
+        suggestions: [{"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspBenefits.png",
+        buttonTitle: ["More"],
+        buttonURL: "http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"
     }
 
 
@@ -144,11 +144,11 @@ export namespace Content {
     //WSF
     export let wsfDirect: ContentObject = {
         simpleResponse : "Direct to World Selection Fund",
-        speech: "World Selection Direct",
+        speech: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         text: "This premium investment service ensures you have access to a diversified investment portfolio managed by a range of local and global investment managers.",
         title: "Prepare for your financial future",
         subtitle: "",
-        suggestions: [{"title" : "Eligibility"}, {"title" : "Advantages"}, {"title" : "More Info"}],
+        suggestions: [{"title" : "Eligibility"}, {"title" : "Advantages"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"]
@@ -159,7 +159,7 @@ export namespace Content {
         text: "A Minimum initial investment of $50,000...  \n A Subsequent lump-sum investments from $500...   \n To Contribute from $250 in a regular savings plan",
         title: "In order to be eligible, you will need: ",
         subtitle: "",
-        suggestions: [{"title" : "More Info"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Advantages"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"]
@@ -181,7 +181,7 @@ export namespace Content {
         text: "1. Global investment opportunities Your portfolio includes investment opportunities identified by professional investment managers who have insight into the regions and markets in which they invest.   \n 2. Broad diversification: Gain exposure to a wide range of geographic regions, asset classes and investment managers to ensure you can benefit from a broadly diversified investment portfolio.",
         title: "Make Bank",
         subtitle: "HSBC World Selection® Portfolio.",
-        suggestions: [{"title" : "Eligibility"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "More"}, {"title" : "Eligibility"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"]
@@ -301,7 +301,7 @@ export namespace Content {
         simpleResponse: "HSBC Special Offers on Mortgage Rates",
         speech: "HSBC Special Offers on Mortgage Rates",
         text: "",
-        title: "",
+        title: "Specials",
         subtitle: "",
         suggestions: [{"title" : "Advance"}, {"title" : "Premier"}, {"title" : "Personal Rates"}, {"title" : "Smart Saver"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_02.png",
