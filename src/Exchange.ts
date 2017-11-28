@@ -17,52 +17,59 @@ export namespace Exchange {
     //input : Currency you want the list of exchanges for, or blank for all
     //output: lPromise response of currencies
 
-        export function findExchangeRate(req: any): Promise<string> {
-           //     console.log(req.body);
-            if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
+    export function findExchangeRate(req: any): Promise<string> {
+        //     console.log(req.body);
+        if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
 
-            //try/catch just in case there is no currency_from parameter
-            //if there is no parameter it means we want it ALLLLL
-            try{
-                if(req.body.result.parameters.currency_from){
+        //try/catch just in case there is no currency_from parameter
+        //if there is no parameter it means we want it ALLLLL
+        if (req.body.result.hasOwnProperty('parameters')) {
+            if (req.body.result.parameters.hasOwnProperty('currency_from')) {
+
+                if (req.body.result.parameters.currency_from) {
                     return exchangeHelperFrom(req);
                 }
-            }
-            catch(err){
-                return exchangeHelperAll(req);
-            }
 
-
+            }
         }
-        export function exchangeHelperAll(req: any): Promise<string> {
 
-            return new Promise<string>((resolve, reject) => {
+        else {
+            return exchangeHelperAll(req);
+        }
 
-             if (!req.body.result) reject("invalid request");
 
-             client.xratesGet().then(result => {
-                let response = result.response;
-                let currencies = result.body.currencies;
-                let len = currencies.length;
+    }
+
+
+    export function exchangeHelperAll(req: any): Promise<string> {
+
+        return new Promise<string>((resolve, reject) => {
+
+            if (!req.body.result) reject("invalid request");
+            let currency_from = "CAD";
+
+            client.xratesFromGet(currency_from).then(result => {
+
+                let rateinfo = result.body.rates;
                 let Rarray = [];
-
-                let rateProm: Promise<any>[] = [];
-                for (let i = 0; i < len; i++) {
-                    // console.log(currencies[i].code);
-                    rateProm.push(ratehelper(currencies[i].code)); // ratehelper is just making a string of all of these returns
+                Rarray.push("\nFrom Currency " + currency_from + " the rates are \n")
+                for (let i = 0; i < rateinfo.length; i++) {
+                    let exchinfo = rateinfo[i];
+                    console.log("exchinfo: " + exchinfo);
+                    let bprice = exchinfo.buy, sprice = exchinfo.sell, fromcode = exchinfo.code;
+                    let str1 = ("Buy price: "+  bprice.toString()," Sell Price: ", + sprice.toString() + "Currency Code: " + fromcode.toString());
+                    Rarray.push(str1);
                 }
 
-                Promise.all(rateProm).then(values => {
-                    Rarray.push(values);
-                    let answer: string = Rarray.join('\n');
-                    resolve(answer);
-                })
-            })
-             .catch(err => { // catch for promise loop
+                let answer = Rarray.join('\n');
+                resolve(answer);
+
+            }).catch(err => { // catch for promise loop
                 resolve(err);
             });
         });
     }
+
 
 
     export function exchangeHelperFrom(req: any): Promise<string> {
@@ -71,7 +78,7 @@ export namespace Exchange {
 
             if (!req.body.result) reject("invalid request");
             let currency_from = req.body.result.parameters.currency_from;
-
+            if (currency_from == "") currency_from = "CAD";
             client.xratesFromGet(currency_from).then(result => {
 
                 let rateinfo = result.body.rates;
@@ -85,8 +92,8 @@ export namespace Exchange {
                     Rarray.push(str1);
                 }
 
-                    let answer = Rarray.join('\n');
-                    resolve(answer);
+                let answer = Rarray.join('\n');
+                resolve(answer);
 
             }).catch(err => { // catch for promise loop
                 resolve(err);
@@ -105,7 +112,7 @@ export namespace Exchange {
             let amount = req.body.result.parameters.amount;
 
             if (currency_from == "") {// in the case of no from input, assume Canadian
-            currency_from = "CAD";
+                currency_from = "CAD";
             }
 
             if (amount == "") { // case where no amount is given
@@ -126,7 +133,7 @@ export namespace Exchange {
                     resolve(answer);
 
                 }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
-                        resolve(err);
+                    resolve(err);
 
                 });
             }
@@ -136,7 +143,7 @@ export namespace Exchange {
                     console.log(result);
                     resolve(`The converted amount is ${result.body.conversion}`);
                 }).catch(err => {
-                        resolve(err);
+                    resolve(err);
 
                 });
             }
