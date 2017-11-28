@@ -57,7 +57,7 @@ export namespace Exchange {
 
                 let rateinfo = result.body.rates;
                 let Rarray = [];
-                Rarray.push("From Currency " + currency_from + ", the rates are \n\n");
+                Rarray.push("\nFrom Currency " + currency_from + ", the rates are \n\n");
                 for (let i = 0; i < rateinfo.length; i++) {
                     let exchinfo = rateinfo[i];
                     let bprice = exchinfo.buy, sprice = exchinfo.sell, fromcode = exchinfo.code;
@@ -87,7 +87,7 @@ export namespace Exchange {
 
                 let rateinfo = result.body.rates;
                 let Rarray = [];
-                Rarray.push("From Currency " + currency_from + " the rates are, \n")
+                Rarray.push("\nFrom Currency " + currency_from + " the rates are, \n")
                 for (let i = 0; i < rateinfo.length; i++) {
                     let exchinfo = rateinfo[i];
                     console.log("exchinfo: " + exchinfo);
