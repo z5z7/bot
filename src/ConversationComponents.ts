@@ -73,7 +73,7 @@ export namespace Convo_Components {
                    resolve(result);
 
                 }else{
-                    //console.log("is not text");
+                    //Just in case we need to separate out text from speech functionality
                     let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj.speech).catch(error =>{
                         console.log("error making simple");
                         resolve(returnSimpleResponse("Sorry, there was an error."));
@@ -93,9 +93,6 @@ export namespace Convo_Components {
                 return;*/
             }
 
-        }).catch(err => {
-            let result = returnSimpleResponse(rejectMessage + err);
-            return(result);
         })
     }
 

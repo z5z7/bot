@@ -21,7 +21,7 @@ export namespace Content {
     //MISCELLANEOUS
     export let directApply: ContentObject = {
         simpleResponse : "Directly Apply",
-        speech: "Sure, what is it you would like to apply for?",
+        speech: "Sure, what is it you would like to apply for?   To be a Premier Customer?  For a Brokerage RRSP Account? For the World Selection Fund?  Mortgage PreApproval?",
         text: "Sure, what is it you would like to apply for?   \n To be a Premier Customer?   \n For a Brokerage RRSP Account?   \n For the World Selection Fund?  \n Mortgage PreApproval?",
         title: "Book an Appointment",
         subtitle: "",
@@ -69,7 +69,7 @@ export namespace Content {
     //ATM
     export let findATM: ContentObject = {
         simpleResponse: "Find ATMs in your city.",
-        speech: "There are many ATMs in the Lower Mainland. Would you like to narrow down your options to just one?  West Vancouver? North Vancouver?  New Westminster? Burnaby?  Coquitlam? Richmond?",
+        speech: "There are many ATMs in the Lower Mainland. Would you like to narrow down your options to just one?  West Van? North Van?  New West? Burnaby?  Coquitlam? Richmond?",
         text: "Here is a map of all ATMs in the Lower Mainland.  \n Would you like to narrow down your options to just ONE city?  \n  West Vancouver?   \n North Vancouver?  \n  New Westminster?   \n Burnaby?   \n  Coquitlam?  \n Richmond?",
         title: "HSBC ATMs",
         subtitle: "Lower Mainland",
@@ -98,7 +98,7 @@ export namespace Content {
         text: "\n  Life is tough.   \n  Retire instead",
         title: "Invest in your future",
         subtitle: "What about RRSPs shall we discuss?",
-        suggestions: [{"title" : "Benefits"}, {"title" : "Apply"}, {"title" : "Contact Agent"}],
+        suggestions: [{"title" : "Benefits"}, {"title" : "Apply"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/RRSP.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"]
@@ -120,7 +120,7 @@ export namespace Content {
         text: "1 Pay less income tax.  \n Your contribution is deducted directly from your current income, giving you immediate tax savings.  \n 2 Build your wealth faster.  \n When you contribute regularly throughout the year, you take advantage of the power of compound interest. And since income earned within your RRSP is not taxed, your investment grows even more quickly!  \n 3  Defer your taxes to a lower rate.   \n When you start to withdraw money from your RRSP investment your income will likely be lower and you’ll pay tax at a lower rate.",
         title: "Why should you do it?",
         subtitle: "",
-        suggestions: [{"title": "Apply RRSP"}, {"title" : "Main Menu"}],
+        suggestions: [{"title": "Apply"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspBenefits.png",
         buttonTitle: ["More"],
         buttonURL: "http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"
@@ -155,7 +155,7 @@ export namespace Content {
     }
     export let wsfEligibility: ContentObject = {
         simpleResponse : "WSF Eligibility",
-        speech: "The World Selection Eligibility",
+        speech: "A Minimum initial investment of $50,000...  A Subsequent lump-sum investments from $500...   To Contribute from $250 in a regular savings plan",
         text: "A Minimum initial investment of $50,000...  \n A Subsequent lump-sum investments from $500...   \n To Contribute from $250 in a regular savings plan",
         title: "In order to be eligible, you will need: ",
         subtitle: "",
@@ -166,22 +166,22 @@ export namespace Content {
     }
     export let wsfMore: ContentObject = {
         simpleResponse : "More about the World Selection Fund",
-        speech: "The World Selection More",
+        speech: "There are many types of customers: Conservative, Moderate, Balanced, Growth, Aggressive Growth. Would you like to contact an agent to find out more?",
         text: "Conservative   \n Moderate Conservative    \n Balanced    \n Growth     \n Aggressive Growth",
         title: "Your goals can influence how you invest",
         subtitle: "Some typical investor types:",
-        suggestions: [{"title" : "Main Menu"}],
+        suggestions: [{"title" : "Eligibility"}, {"title" : "Advantages"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"]
     }
     export let wsfAdvantages: ContentObject = {
         simpleResponse : "More about the advantages of the World Selection Fund",
-        speech: "The World Selection Advantages",
+        speech: "1. Global investment opportunities Your portfolio includes investment opportunities identified by professional investment managers who have insight into the regions and markets in which they invest.   \n 2. Broad diversification: Gain exposure to a wide range of geographic regions, asset classes and investment managers to ensure you can benefit from a broadly diversified investment portfolio.",
         text: "1. Global investment opportunities Your portfolio includes investment opportunities identified by professional investment managers who have insight into the regions and markets in which they invest.   \n 2. Broad diversification: Gain exposure to a wide range of geographic regions, asset classes and investment managers to ensure you can benefit from a broadly diversified investment portfolio.",
         title: "Make Bank",
         subtitle: "HSBC World Selection® Portfolio.",
-        suggestions: [{"title" : "More"}, {"title" : "Eligibility"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Eligibility"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"]
@@ -204,7 +204,7 @@ export namespace Content {
     //MORTGAGE STUFF
     export let directMortgages: ContentObject = {
         simpleResponse : "HSBC Mortgages",
-        speech: "Would you like to calculate, look at options, apply for pre-approval, or look at special offers?",
+        speech: "Would you like to look at mortgage types, apply for mortgage pre-approval, use our mortgage calculator, or talk about special offers?",
         text: "There are many things we could talk about today.   \n We could do some calculations,  \n  Look into various mortgage options,   \n   Apply for pre-approval,  \n or then look at some special offers.",
         title: "",
         subtitle: "",
@@ -215,7 +215,7 @@ export namespace Content {
     }
     export let mortgageCatalogue: ContentObject = {
         simpleResponse : "HSBC Mortgage solutions for the world you live in",
-        speech: "There are many types of mortgages. Yours should have the right combination of features that give you the greatest financial flexibility.",
+        speech: "There are many types of mortgages. Yours should have the right combination of features that give you the greatest financial flexibility. Ask about the Traditional, Power Equity, or Super Saver mortgages.",
         text: "There are many types of mortgages.  \n Yours should have the right combination of features that give you the greatest financial flexibility.",
         title: "",
         subtitle: "",
@@ -232,7 +232,7 @@ export namespace Content {
         text: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident.  \n You will be asked to provide personal details and gross annual income (pre-tax).  \n You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application.  \n Would you like to contact an agent to apply?",
         title: "Pre-approval",
         subtitle: "",
-        suggestions: [{"title" : "Yes"}, {"title" : "Types"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Yes"}, {"title" : "Types"}, {"title" : "Calculator"}, {"title" : "Special Offers"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/friends.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"]
@@ -243,7 +243,7 @@ export namespace Content {
         text: "Thanks for contacting us. An agent will get back to you soon.",
         title: "Message Received",
         subtitle: "",
-        suggestions: [{"title" : "Main Menu"}, {"title" : "Mortgages"}],
+        suggestions: [{"title" : "Types"}, {"title" : "Calculator"}, {"title" : "Special Offers"}, {"title" : "Mortgages"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/canoes.jpg",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"]
@@ -277,7 +277,7 @@ export namespace Content {
         text: "Your remaining mortgage balance is: ",
         title: "",
         subtitle: "",
-        suggestions: [{"title" : "Mortgages"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Mortgages"}, {"title" : "Monthly"}, {"title" : "Main Menu"}],
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""]
@@ -288,7 +288,7 @@ export namespace Content {
         text: "Your monthly payment would be: ",
         title: "",
         subtitle: "",
-        suggestions: [{"title" : "Mortgages"}, {"title" : "Main Menu"}],
+        suggestions: [{"title" : "Mortgages"}, {"title" : "Remaining"}, {"title" : "Main Menu"}],
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""]
@@ -299,7 +299,7 @@ export namespace Content {
 
     export let specialOfferDirect: ContentObject = {
         simpleResponse: "HSBC Special Offers on Mortgage Rates",
-        speech: "HSBC Special Offers on Mortgage Rates",
+        speech: "Which Special Offer would you like to talk about? Premier, Advance, Smart Saver, or Personal Rates",
         text: "",
         title: "Specials",
         subtitle: "",
@@ -376,7 +376,7 @@ export namespace Content {
     }
     export let smartSaversMortgage: ContentObject = {
         simpleResponse: "HSBC Smart Savers Mortgage, if you want to keep your savings accessible",
-        speech: "Tell me more about the smart savers mortgage",
+        speech: "Pay a lower interest rate on your mortgage based on the amount in your eligible linked HSBC account Continue to earn interest on that linked account.   \n Access the money from your linked account when you need it.   \n Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or increasing the payment amount up to a total of 20% each year.    \n You can also make a match a payment and miss one later.",
         text: "Pay a lower interest rate on your mortgage based on the amount in your eligible linked HSBC account Continue to earn interest on that linked account.   \n Access the money from your linked account when you need it.   \n Pay down your mortgage faster with flexible early payment options allowing you to prepay up to 20% of the original mortgage amount or increasing the payment amount up to a total of 20% each year.    \n You can also make a match a payment and miss one later.",
         title: "Pay off your mortgage faster",
         subtitle: "The HSBC Smart Savers Mortgage is an ideal choice if you want to keep your savings accessible.",
@@ -402,7 +402,7 @@ export namespace Content {
     }
     export let premierCustomerBenefits: ContentObject = {
         simpleResponse: "Premier Customer Benefits",
-        speech: "What are the benefits of being a Premier Customer?",
+        speech: "Your Relationship Manager: A dedicated Premier Relationship Manager identifies a wealth strategy designed just for you.     Meeting your needs: Our Relationship Managers are recognized based on how well they provide their service and how well they meet your needs.      Anytime, anywhere: Your personal economy is always with you. So are we, providing support and services whenever and wherever you need us.        Preferential Access: Access some of the most prestigious banking products, services and rewards that we have to offer.",
         text: "Your Relationship Manager: A dedicated Premier Relationship Manager identifies a wealth strategy designed just for you.   \n Meeting your needs: Our Relationship Managers are recognized based on how well they provide their service and how well they meet your needs.   \n Anytime, anywhere: Your personal economy is always with you. So are we, providing support and services whenever and wherever you need us.     \n Preferential Access: Access some of the most prestigious banking products, services and rewards that we have to offer.",
         title: "HSBC Premier focuses on the most important economy in the world. Yours.",
         subtitle: "",
@@ -417,7 +417,7 @@ export namespace Content {
         text: "We will get an agent to contact you soon.",
         title: "",
         subtitle: "",
-        suggestions: [],
+        suggestions: [{"title" : "Benefits"}, {"title" : "Main Menu"}],
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""]
@@ -429,7 +429,7 @@ export namespace Content {
         text: "You will need a minimum of $100,000 to fund your HSBC Total Relationship Balance  \n You will need to open a mortgage with a minimum amount of $500,000 at HSBC  \n Or you have Qualified for HSBC Premier in another country",
         title: "HSBC",
         subtitle: "Welcome to a whole new way of banking with HSBC Advance",
-        suggestions: [{"title" : "Main Menu"}, {"title" : "Benefits"}],
+        suggestions: [ {"title" : "Benefits"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.us.hsbc.com/1/2/home/advance"]
@@ -448,7 +448,7 @@ export namespace Content {
     }
     export let advanceCustomerBenefits: ContentObject = {
         simpleResponse: "Advance Benefits",
-        speech: "Benefits of Advance",
+        speech: "Everyone is different, which is why we make the effort to understand your needs and how you like to bank.    We offer you preferential rates with unique rewards and benefits to help you with your everyday banking, borrowing and investment needs - because we want to help you reach your individual goals.     Speak to a mortgage specialist at 1-866-609-4722. ",
         text: "Everyone is different, which is why we make the effort to understand your needs and how you like to bank.   \n We offer you preferential rates with unique rewards and benefits to help you with your everyday banking, borrowing and investment needs - because we want to help you reach your individual goals.   \n Speak to a mortgage specialist at 1-866-609-4722. ",
         title: "HSBC",
         subtitle: "Welcome to a whole new way of banking with HSBC Advance",
