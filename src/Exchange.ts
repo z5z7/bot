@@ -115,7 +115,7 @@ export namespace Exchange {
             let currency_from = req.body.result.parameters.currency_from;
             let currency_into = req.body.result.parameters.currency_into;
             let amount = req.body.result.parameters.amount;
-
+            if (Number(amount) < 0) reject ("amount must be greater then 0");
             if (currency_from == "") {// in the case of no from input, assume Canadian
                 currency_from = "CAD";
             }
