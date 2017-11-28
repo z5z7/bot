@@ -136,11 +136,15 @@ export namespace Exchange {
                 });
             }
             else { // case where amount is given
+
                 if (Number(amount) < 0) reject ("Amount must be above 0");
+
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
 
-                    console.log(result);
-                    resolve(`\nThe converted amount is ${result.body.conversion} ` + currency_into );
+                    let retnum : number = result.body.conversion;
+                    let resultstring = retnum.toFixed(2);
+
+                    resolve(`\nThe converted amount is ` + resultstring + " " + currency_into );
                 }).catch(err => {
                     resolve(err);
 
