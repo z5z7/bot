@@ -57,12 +57,11 @@ export namespace Exchange {
 
                 let rateinfo = result.body.rates;
                 let Rarray = [];
-                Rarray.push("\nFrom Currency " + currency_from + " the rates are \n")
+                Rarray.push("From Currency " + currency_from + ", the rates are \n\n");
                 for (let i = 0; i < rateinfo.length; i++) {
                     let exchinfo = rateinfo[i];
-                    console.log("exchinfo: " + exchinfo);
                     let bprice = exchinfo.buy, sprice = exchinfo.sell, fromcode = exchinfo.code;
-                    let str1 = ("Buy price: "+  bprice.toString()," Sell Price: ", + sprice.toString() + "Currency Code: " + fromcode.toString());
+                    let str1 = ("Buy price: "+  bprice.toString(),", Sell Price: ", + sprice.toString() + "Currency Code: " + fromcode.toString());
                     Rarray.push(str1);
                 }
 
@@ -88,13 +87,14 @@ export namespace Exchange {
 
                 let rateinfo = result.body.rates;
                 let Rarray = [];
-                Rarray.push("From Currency " + currency_from + " the rates are \n")
+                Rarray.push("From Currency " + currency_from + " the rates are, \n")
                 for (let i = 0; i < rateinfo.length; i++) {
                     let exchinfo = rateinfo[i];
                     console.log("exchinfo: " + exchinfo);
                     let bprice = exchinfo.buy, sprice = exchinfo.sell, fromcode = exchinfo.code;
-                    let str1 = ("Buy price: "+  bprice.toString()," Sell Price: ", + sprice.toString() + "Currency Code: " + fromcode.toString());
+                    let str1 = ("Buy price: "+  bprice.toString()+ ", Sell Price: " + sprice.toString() + ",Currency Code: " + fromcode.toString());
                     Rarray.push(str1);
+                    Rarray.push('\n');
                 }
 
                 let answer = Rarray.join('\n');
@@ -127,14 +127,11 @@ export namespace Exchange {
                     let bprice = result.body.buy;
                     let sprice = result.body.sell;
 
-                    let str0 = currency_from;
-                    let str1 = str0.concat(" to ", currency_into," rate for buy is ", bprice.toString());
-                    let str2 = str0.concat(" to ", currency_into," rate for sell is ", sprice.toString());
+                    let str0 = "\n For " + currency_from + " to " + currency_into + ", \nthe buy rate is " + bprice.toString();
+                    let answer = str0 + ".\n the sell rate is " + sprice.toString() + ".";
 
-                    Rarray.push(str1);
-                    Rarray.push(str2);
 
-                    let answer : string = Rarray.join('\n');
+
                     resolve(answer);
 
                 }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
@@ -146,7 +143,7 @@ export namespace Exchange {
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
 
                     console.log(result);
-                    resolve(`The converted amount is ${result.body.conversion}`);
+                    resolve(`\nThe converted amount is ${result.body.conversion}`);
                 }).catch(err => {
                     resolve(err);
 
