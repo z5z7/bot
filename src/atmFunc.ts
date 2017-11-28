@@ -6,8 +6,7 @@ import {Images} from './imageLibrary';
 import {Content} from './contentObject';
 
 import * as https from 'https';
-//const gmKEY : any = process.env.GOOGLE_MAPS_API_KEY;
-const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
+const gmKey : any = process.env.GOOGLE_MAPS_API_KEY;
 
 export namespace AtmFunc {
     export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
@@ -171,7 +170,7 @@ export namespace AtmFunc {
     export function findLocbyKeyword(keyword : string) : Promise<any> {
         return new Promise((resolve, reject) => {
             //let apiURL = `${this.apiRoot}?term=${term};
-            let apiURL : string = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + keyword + "&key=AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4";
+            let apiURL : string = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + keyword + "&key=" + gmKey;
             getHelper(apiURL).then( retval => {
                 resolve(retval);
             }).catch(error => {
@@ -186,7 +185,7 @@ export namespace AtmFunc {
     export function getGeoDetails(placeid : string): Promise<any> {
         return new Promise((resolve, reject) => {
             //let apiURL = `${this.apiRoot}?term=${term};
-            let apiURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeid + "&key=AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4";
+            let apiURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeid + "&key=" + gmKey;;
 
             getHelper(apiURL).then( retval => {
                 // console.log(retval);
