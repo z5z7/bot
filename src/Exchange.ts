@@ -136,6 +136,7 @@ export namespace Exchange {
                 });
             }
             else { // case where amount is given
+                if (Number(amount) < 0) reject ("Amount must be above 0");
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
 
                     console.log(result);
