@@ -20,3 +20,20 @@ especially in combination with a tool like Postman. Since both services are stat
 no functional effects.
 
 There is a README under each service for service-specific instructions.
+
+**Running tests**
+
+You must have the following npm modules installed globally to run the tests:
+- ts-node
+
+To run functional tests from command line:
+- `mocha -r ts-node/register test/functional/**Test.ts`
+
+To run API tests:
+- `grunt serve` or `npm start` in one terminal
+- `mocha -r ts-node/register test/api/**Test.ts` in another terminal
+
+You may also use IntelliJ's run configuration:
+- Run -> Edit Configurations -> + Mocha
+- Add "-r ts-node/register" to the Mocha parameters
+- Add "test\functional\**Test.ts"

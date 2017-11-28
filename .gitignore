@@ -8,6 +8,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
+*.env
 
 # Runtime data
 pids
@@ -105,3 +106,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+/config
+.env

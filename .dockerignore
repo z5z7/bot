@@ -1,0 +1,10 @@
+.git
+.gitignore
+README.md
+node_modules
+k8s
+.idea
+test
+src
+*.iml
+LICENSE
