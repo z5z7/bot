@@ -152,6 +152,7 @@ export namespace Exchange {
                     let resultstring = retnum.toFixed(2);
 
                     resolve(`\nThe converted amount is ` + resultstring + " " + currency_into );
+
                 }).catch(err => {
                     resolve(err);
 
