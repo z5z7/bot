@@ -122,7 +122,6 @@ export namespace Exchange {
 
             if (amount == "") { // case where no amount is given
                 client.xratesFromToGet(currency_from,currency_into).then(result => {
-
                     let Rarray =[];
                     let bprice = result.body.buy;
                     let sprice = result.body.sell;
@@ -134,16 +133,13 @@ export namespace Exchange {
 
                     resolve(answer);
 
-                }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
-                    resolve(err);
-
                 });
             }
             else { // case where amount is given
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
 
                     console.log(result);
-                    resolve(`\nThe converted amount is ${result.body.conversion}`);
+                    resolve(`\nThe converted amount is ${result.body.conversion} ` + currency_into );
                 }).catch(err => {
                     resolve(err);
 
