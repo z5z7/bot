@@ -71,7 +71,6 @@ export namespace AtmFunc {
             }
 
 
-
             searchWhereAtmLocation(req).then(cityArray => {
                 //console.log(req.body);
 
@@ -82,7 +81,6 @@ export namespace AtmFunc {
             });
         });
     }
-    //INPUT: Req for local cities
 
     export function searchWhereAtmLocation(req:any): Promise<any> {
 

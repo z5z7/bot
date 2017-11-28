@@ -26,9 +26,14 @@ export namespace Exchange {
         if (req.body.result.hasOwnProperty('parameters')) {
             if (req.body.result.parameters.hasOwnProperty('currency_from')) {
 
+                if (req.body.result.parameters.currency_from == "") {
+                    return exchangeHelperAll(req);
+                }
+
                 if (req.body.result.parameters.currency_from) {
                     return exchangeHelperFrom(req);
                 }
+
 
             }
         }
