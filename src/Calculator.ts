@@ -1,8 +1,13 @@
-import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-import {Convo_Components} from './ConversationComponents';
-import {Images} from './imageLibrary';
+import {FulfillmentResponse} from "./contracts";
+import {Content} from './contentObject';
+import {MortgageFunc} from './mortgageFunc';
+import {AtmFunc} from './atmFunc';
 //
+let MortgageFunction = new MortgageFunc();
+let
+let
+
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
 
@@ -13,61 +18,30 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-
+//TODO: Figure out how to get rid of this redundancy
 export namespace Calculator {
+    export function admin(req:any): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            if (!req.body.result.parameters.newValue) reject("invalid request");
+
+            let currentAction = req.body.result.action;
+            let property: string = req.body.result.parameters.newProperty;
+            let newPropertyValue: string = req.body.result.parameters.newValue;
+
+            //TODO: connect this when contentObject is fed by database as it currently has no teeth
+            Content[currentAction][property] = newPropertyValue;
+
+            let returnString = property + " has been changed to: " + newPropertyValue;
+            resolve(returnString);
+        })
+    }
 
     //input : Req node with proper loanamount, rate, and Duration parameters
     //output: Promise<String> with return value for calc # 1
-    export function mortgageCalculatorMonthlyPayment(req: any): Promise<string> {
-
-        return new Promise<string>((resolve, reject) => {
-
-            if (!req.body.result) reject("invalid request");
-
-            let loanAmount = req.body.result.parameters.loanAmount;
-            let interestRate = req.body.result.parameters.interestRate;
-            let loanDuration = req.body.result.parameters.loanDuration;
-
-            let arg = "0001/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString();
-
-            client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = result.body.result.toString();
-                resolve(pay);
-
-            }).catch(err => {
-                resolve(`Error in Calc: ${err}`);
-            });
-
-        });
-
+    export function calculateMortgageMonthly(req: any): Promise<string> {
+        return MortgageFunction.calculateMortgageMonthly(req);
     }
-
-    export function mortgageCalculatorRemainingPayment(req: any): Promise<string> {
-
-        return new Promise<string>((resolve, reject) => {
-
-            if (!req.body.result) reject("invalid request");
-
-            let params = req.body.result.parameters;
-            let loanAmount = params.loanAmount;
-            let interestRate = params.interestRate;
-            let loanDuration = params.loanDuration;
-            let numberPayments = params.numberPayments;
-
-            let arg = "0002/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate.toString() + "&years=" + loanDuration.toString() + "&monthsRemaining=" + numberPayments.toString();
-
-            client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = result.body.result;
-                let retval : string = pay.toString();
-                resolve(retval);
-
-            }).catch(err => {
-                resolve("Error in Calc 2 :" + err);
-            });
-
-        });
-
+    export function calculateMortgageRemaining(req: any): Promise<string> {
+        return MortgageFunction.calculateMortgageRemaining(req);
     }
-
-
 }

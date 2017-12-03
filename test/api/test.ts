@@ -340,7 +340,7 @@ describe('Test Script', () => {
             });
 
 
-            it('PASS: handleSearchWhereAtm ', (done) => {
+            it('PASS: searchATM ', (done) => {
                 let sendval: {} = {
                     "id": "41d1a81f-9388-45b1-b490-2b72a9315499",
                     "timestamp": "2017-11-05T14:24:07.153Z",
@@ -420,7 +420,7 @@ describe('Test Script', () => {
                     });
             });
 
-            it('PASS: handleFindAtm', (done) => {
+            it('PASS: findAtm', (done) => {
                 let sendval: {} = {
                     "originalRequest": {
                         "source": "google",
@@ -938,7 +938,7 @@ describe('Test Script', () => {
             });
 
 
-            it('PASS: handleSearchWhereAtm ', (done) => {
+            it('PASS: searchATM ', (done) => {
             let sendval: {} = {
                 "id": "41d1a81f-9388-45b1-b490-2b72a9315499",
                 "timestamp": "2017-11-05T14:24:07.153Z",
@@ -1018,7 +1018,7 @@ describe('Test Script', () => {
                 });
         });
 
-            it('PASS: handleFindAtm', (done) => {
+            it('PASS: findAtm', (done) => {
             let sendval: {} = {
                 "originalRequest": {
                     "source": "google",

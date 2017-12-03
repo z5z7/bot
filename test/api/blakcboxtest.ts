@@ -410,7 +410,7 @@ describe('Black Box Test Script', () => {
             });
     });
 
-    it('handleSearchWhereAtm ', (done) => {
+    it('searchATM ', (done) => {
         let sendval: {} = {
             "id": "41d1a81f-9388-45b1-b490-2b72a9315499",
             "timestamp": "2017-11-05T14:24:07.153Z",
@@ -490,7 +490,7 @@ describe('Black Box Test Script', () => {
             });
     });
 
-    it('handleFindAtm', (done) => {
+    it('findAtm', (done) => {
         let sendval: {} = {
             "originalRequest": {
                 "source": "google",

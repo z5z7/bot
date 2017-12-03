@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 describe('Calculator Test Script', () => {
 
-    describe('mortgageCalculatorMonthlyPayment', () => {
+    describe('calculateMortgageMonthly', () => {
 
         it("function return a string response with all appropriate parameters", function () {
             let sendval: {} = {
@@ -43,7 +43,7 @@ describe('Calculator Test Script', () => {
                     "sessionId": "ecd93a31-61cd-4dcc-a62f-758e8103cd80"
                 }
             };
-            return Calculator.mortgageCalculatorMonthlyPayment(sendval).then(function (response) {
+            return Calculator.calculateMortgageMonthly(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 response.should.be.a('string');
@@ -84,7 +84,7 @@ describe('Calculator Test Script', () => {
                     "sessionId": "ecd93a31-61cd-4dcc-a62f-758e8103cd80"
                 }
             };
-            return Calculator.mortgageCalculatorMonthlyPayment(sendval).then(function (response) {
+            return Calculator.calculateMortgageMonthly(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 //response.should.be.a('string');
@@ -101,7 +101,7 @@ describe('Calculator Test Script', () => {
     });
 
 
-    describe('mortgageCalculatorRemainingPayment', () => {
+    describe('calculateMortgageRemaining', () => {
 
         it("function return a string response with all appropriate parameters", function () {
             let sendval: {} = {
@@ -130,7 +130,7 @@ describe('Calculator Test Script', () => {
                     "sessionId": "ecd93a31-61cd-4dcc-a62f-758e8103cd80"
                 }
             };
-            return Calculator.mortgageCalculatorRemainingPayment(sendval).then(function (response) {
+            return Calculator.calculateMortgageRemaining(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 response.should.be.a('string');
@@ -171,7 +171,7 @@ describe('Calculator Test Script', () => {
                     "sessionId": "ecd93a31-61cd-4dcc-a62f-758e8103cd80"
                 }
             };
-            return Calculator.mortgageCalculatorRemainingPayment(sendval).then(function (response) {
+            return Calculator.calculateMortgageRemaining(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 expect.fail();

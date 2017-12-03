@@ -10,20 +10,8 @@ import * as https from 'https';
 const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
 
 export namespace AtmFunc {
-    export function handleFindAtm(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
-            let result : Promise<FulfillmentResponse>;
-            if (!req.body.result) {
-                result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with.");
-                resolve(result);
-
-            }
-            result = Convo_Components.createUtterance(req, Content.findATM);
-            resolve(result);
-        });
-    }
-    export function handleSearchWhereAtm(req: any): Promise<FulfillmentResponse> {
-        return new Promise<FulfillmentResponse>((resolve, reject) => {
+    export function searchATM(req: any): Promise<string> {
+        return new Promise<string>((resolve) => {
             if (!req.body.result) {
                 let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
                 resolve(result);
@@ -85,11 +73,11 @@ export namespace AtmFunc {
     }
     //INPUT: Req for local cities
 
-    export function searchWhereAtmLocation(req:any): Promise<any> {
+    function searchWhereAtmLocation(req:any): Promise<any> {
 
         return new Promise<any>((resolve, reject) => {
-            var latIn;
-            var lonIn;
+            let latIn;
+            let lonIn;
             try {
                 latIn = req.body.originalRequest.data.device.location.coordinates.latitude;
                 lonIn = req.body.originalRequest.data.device.location.coordinates.longitude;
@@ -109,7 +97,7 @@ export namespace AtmFunc {
     }
     //  Input: Lat and Lon of user location
     //  OUTPUT: the 10 closest HSBC atm locations
-    export function searchLocHelper(latIn,lonIn): Promise<any> {
+    function searchLocHelper(latIn,lonIn): Promise<any> {
 
         return new Promise((resolve, reject) => {
             let apiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latIn + "," + lonIn + "&radius=10000&keyword=HSBC+atm&key=" + gmKey;
@@ -133,7 +121,7 @@ export namespace AtmFunc {
 
     //INPUT: Keyword of some location passed by diagflow (this can be a google search string, postal code, ETC)
     //OUTPUT: 10 closest ATMS based off of keyword passed
-    export function searchWhereAtmKeyword(keyword: any): Promise<any> {
+    function searchWhereAtmKeyword(keyword: any): Promise<any> {
         return new Promise((resolve, reject) => {
             findLocbyKeyword(keyword).then( locval => {
                 let placeid : string = locval.results[0].place_id;
