@@ -9,20 +9,16 @@ import * as https from 'https';
 //const gmKEY : any = process.env.GOOGLE_MAPS_API_KEY;
 const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
 
-export namespace AtmFunc {
-    export function searchATM(req: any): Promise<string> {
+export class AtmFunc {
+    searchATM = function(req: any): Promise<string> {
         return new Promise<string>((resolve) => {
-            if (!req.body.result) {
-                let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
-                resolve(result);
-
-            }
 
             let city = req.body.result.parameters["local_cities"];
 
-            searchWhereAtmKeyword(city).then(cityArray => {
-
-                //create suggestions with every city except for current one
+            this.searchWhereAtmKeyword(city).then(cityArray => {
+                console.log("I should be returning now: " + cityArray.toString());
+                resolve(cityArray.toString());
+                /*//create suggestions with every city except for current one
                 let allCities: Array<string> = ["Vancouver", "West Vancouver", "North Vancouver", "New Westminster", "Burnaby", "Coquitlam", "Richmond"];
                 let suggestions = [];
 
@@ -46,12 +42,12 @@ export namespace AtmFunc {
                 console.log("my buttonURL is " + contentObj.buttonURL[0]);
                 result = Convo_Components.createUtterance(req, contentObj);
 
-                resolve(result);
+                resolve(result);   */
 
             });
         });
     }
-    export function handleSearchWhereAtmLocation(req: any): Promise<FulfillmentResponse> {
+    handleSearchWhereAtmLocation = function(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             if (!req.body.result) {
                 let result = Convo_Components.returnSimpleResponse("I'm sorry. That is not something I can help you with. Would you still like to search for an ATM?");
@@ -61,7 +57,7 @@ export namespace AtmFunc {
 
 
 
-            searchWhereAtmLocation(req).then(cityArray => {
+            this.searchWhereAtmLocation(req).then(cityArray => {
                 //console.log(req.body);
 
                 let result = Convo_Components.createUtterance(req, cityArray.toString());
@@ -73,7 +69,7 @@ export namespace AtmFunc {
     }
     //INPUT: Req for local cities
 
-    function searchWhereAtmLocation(req:any): Promise<any> {
+    searchWhereAtmLocation = function(req:any): Promise<any> {
 
         return new Promise<any>((resolve, reject) => {
             let latIn;
@@ -88,7 +84,7 @@ export namespace AtmFunc {
             }
 
 
-            searchLocHelper(latIn,lonIn).then(retval => {
+            this.searchLocHelper(latIn,lonIn).then(retval => {
                 resolve(retval);
             }).catch(error => {
                 resolve(error);
@@ -97,13 +93,13 @@ export namespace AtmFunc {
     }
     //  Input: Lat and Lon of user location
     //  OUTPUT: the 10 closest HSBC atm locations
-    function searchLocHelper(latIn,lonIn): Promise<any> {
+    searchLocHelper = function(latIn,lonIn): Promise<any> {
 
         return new Promise((resolve, reject) => {
             let apiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latIn + "," + lonIn + "&radius=10000&keyword=HSBC+atm&key=" + gmKey;
 
 
-            getHelper(apiURL).then(retval => {
+            this.getHelper(apiURL).then(retval => {
                 let retarray: string[] = [];
 
                 for (let i = 0; i < retval.results.length && i<3; i++){ // can adjust max i to give more return values
@@ -121,12 +117,12 @@ export namespace AtmFunc {
 
     //INPUT: Keyword of some location passed by diagflow (this can be a google search string, postal code, ETC)
     //OUTPUT: 10 closest ATMS based off of keyword passed
-    function searchWhereAtmKeyword(keyword: any): Promise<any> {
+    searchWhereAtmKeyword = function(keyword: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            findLocbyKeyword(keyword).then( locval => {
+            this.findLocbyKeyword(keyword).then( locval => {
                 let placeid : string = locval.results[0].place_id;
 
-                getGeoDetails(placeid).then ( location => {
+                this.getGeoDetails(placeid).then ( location => {
 
                     let lat  = location.result.geometry.location.lat;
                     let long  = location.result.geometry.location.lng;
@@ -134,7 +130,7 @@ export namespace AtmFunc {
                     let apiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&rankby=distance&keyword=HSBC+atm&key=" + gmKey;
                     // let apiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=15000&keyword=HSBC+atm&key=" + gmKey;
 
-                    getHelper(apiURL).then(retval => {
+                    this.getHelper(apiURL).then(retval => {
                         let retarray: string[] = [];
                         for (let i = 0; i < retval.results.length && i<3; i++){ // can adjust max i to give more return values
                             retarray.push(retval.results[i].vicinity);
@@ -156,11 +152,11 @@ export namespace AtmFunc {
 
     //INPUT: Keyword you want helper to find
     //OUTPUT: Google Map token for that keyword
-    export function findLocbyKeyword(keyword : string) : Promise<any> {
+    findLocbyKeyword = function(keyword : string) : Promise<any> {
         return new Promise((resolve, reject) => {
             //let apiURL = `${this.apiRoot}?term=${term};
             let apiURL : string = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + keyword + "&key=AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4";
-            getHelper(apiURL).then( retval => {
+            this.getHelper(apiURL).then( retval => {
                 resolve(retval);
             }).catch(error => {
                 reject(error);
@@ -171,12 +167,12 @@ export namespace AtmFunc {
 
     //INPUT:Google Place ID
     //OUTPUT: Details of that place ID
-    export function getGeoDetails(placeid : string): Promise<any> {
+    getGeoDetails = function(placeid : string): Promise<any> {
         return new Promise((resolve, reject) => {
             //let apiURL = `${this.apiRoot}?term=${term};
             let apiURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeid + "&key=AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4";
 
-            getHelper(apiURL).then( retval => {
+            this.getHelper(apiURL).then( retval => {
                 // console.log(retval);
                 resolve(retval);
 
@@ -189,7 +185,7 @@ export namespace AtmFunc {
     //Winson Permission Function
     //INPUT:
     //OUTPUT:
-    export function permissionAtm(req: any): Promise<FulfillmentResponse> {
+    permissionAtm = function(req: any): Promise<FulfillmentResponse> {
 
         return new Promise<FulfillmentResponse>((resolve, reject) => {
 
@@ -244,7 +240,7 @@ export namespace AtmFunc {
 
     }
 
-    export function getHelper(apiurl : string) : Promise<any> {
+    getHelper = function(apiurl : string) : Promise<any> {
         return new Promise((resp) => {
             https.get(apiurl, res => {
                 res.setEncoding("utf8");

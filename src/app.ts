@@ -4,9 +4,18 @@ import * as bodyParser from 'body-parser';
 import * as basicAuth from 'express-basic-auth';
 
 import {Actions} from './actions';
+
+
+//const { DialogflowApp } = require('actions-on-google');
+
 'use strict';
+import request = require("request");
+
 
 const app: express.Express = express();
+
+//const app: any = new DialogflowApp({request: request, response: response});
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -26,6 +35,7 @@ if(process.env.DEBUG!='1') {
     app.use(basicAuth({authorizer: basicAuthorizer}));
 }
 
+
 app.route('/dialogflow').post(function (req: any, res: any) {
     Actions.handleRequest(req).then(response => {
         res.json(response);
@@ -36,3 +46,4 @@ app.route('/dialogflow').post(function (req: any, res: any) {
 });
 
 export default app;
+

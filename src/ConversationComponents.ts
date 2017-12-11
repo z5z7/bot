@@ -1,9 +1,14 @@
+import * as request from "request";
 /**
  * Created by valeriewyns on 2017-11-11.
  */
+
+
+
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {ContentObject} from './contracts';
 import {Calculator} from './Calculator';
+import {Content} from './contentObject';
 
 
 const rejectMessage = "I'm sorry, that was an invalid request";
@@ -42,22 +47,49 @@ export namespace Convo_Components {
         }
     }
 
-    export function handleUtterance(req: any, contentObj: any): Promise<FulfillmentResponse>{
+    export function handleUtterance(req: any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve) => {
+            let currentAction = req.body.result.action;
+            let contentObj = Content[currentAction];
             //do we need to grab a value from the service?
-            if(contentObj.varFunc){
-                let currentAction = req.body.result.action;
+            if(contentObj.varFunc.length !== 0){
+
+                console.log("current action is: " + currentAction);
                 //TODO: figure out how to call the proper Calculator class dynamically
 
+                //we have a few situations here re: the returnVar
+                //either it is just one simple var
+                //or then it is a simple var that happens to be an array
+                //or then it is an array with more than one var: var0, var1, var2 which is captured in contentObject
                 Calculator[currentAction](req).then(returnVar => {
-                    let newContentObj : ContentObject = contentObj;
-                    newContentObj.simpleResponse= newContentObj.simpleResponse.replace("var", returnVar);
-                    newContentObj.speech= newContentObj.speech.replace("var", returnVar);
-                    newContentObj.text= newContentObj.text.replace("var", returnVar);
-                    newContentObj.title= newContentObj.title.replace("var", returnVar);
-                    newContentObj.subtitle= newContentObj.subtitle.replace("var", returnVar);
+                    //TODO: this should return the content object, instead of just the variables
+                    //TODO: that is because each func (like atm) will be needing particular integration code
+                    //this whole rigamarole is ridiculous and is because object is passed by reference
+                    let originalSimple: ContentObject = contentObj.simpleResponse;
+                    let originalSpeech: ContentObject = contentObj.speech;
+                    let originalText: ContentObject = contentObj.text;
+                    let originalTitle: ContentObject = contentObj.title;
+                    let originalSubtitle: ContentObject = contentObj.subtitle;
 
-                    Convo_Components.createUtterance(req, newContentObj).then(response =>{
+                    let newContentObj : ContentObject = contentObj;
+
+
+                    newContentObj.simpleResponse = newContentObj.simpleResponse.replace("var", returnVar.toString());
+                    newContentObj.speech = newContentObj.speech.replace("var", returnVar.toString());
+                    newContentObj.text = newContentObj.text.replace("var", returnVar.toString());
+                    newContentObj.title = newContentObj.title.replace("var", returnVar.toString());
+                    newContentObj.subtitle = newContentObj.subtitle.replace("var", returnVar.toString());
+
+
+                   Convo_Components.createUtterance(req, contentObj).then(response =>{
+                       console.log(JSON.stringify(Content[currentAction]));
+                       Content[currentAction].simpleResponse = originalSimple;
+                       Content[currentAction].speech = originalSpeech;
+                       Content[currentAction].text = originalText;
+                       Content[currentAction].title = originalTitle;
+                       Content[currentAction].subtitle = originalSubtitle;
+                       console.log(JSON.stringify(Content[currentAction]));
+
                         resolve(response);
                     }).catch(err => {
                         resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
@@ -84,12 +116,6 @@ export namespace Convo_Components {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
 
-            //our contentObj is neither a string or a contentObj therefore we do not have anything we can work with
-            if (!(typeof contentObj === "string") && !(typeof contentObj === "object")) {
-                console.log("contentObject is malformed");
-                result = Convo_Components.returnSimpleResponse("Content Body is malformed");
-                reject(result);
-            }
 
             //are we dealing with a text surface? If not we are dealing with speech
             let isText = isTextSurface(req);
@@ -220,7 +246,6 @@ export namespace Convo_Components {
                 source: ""
 
             };
-            console.log("resolve");
             resolve(result);
 
         });

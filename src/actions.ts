@@ -20,9 +20,6 @@ export namespace Actions {
     export function handleRequest(req: any): Promise<FulfillmentResponse> {
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let currentAction = req.body.result.action;
-            let contentObj: ContentObject = Content[currentAction];
-
-            console.log("current action: " + currentAction + "  contentObj.simpleResponse is: " + contentObj.simpleResponse);
 
             //is action valid?
             if(typeof currentAction === "undefined") {
@@ -35,13 +32,20 @@ export namespace Actions {
                 let result: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("Request Body is malformed");
                 reject(result);
             }
-
-            //if here all is good... let's make some utterances!
-            Convo_Components.handleUtterance(req, contentObj).then(response =>{
-                resolve(response);
-            }).catch(err => {
-                resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
-            })
+            console.log("currentAction is: " + currentAction + "   our object is:" + JSON.stringify(Content[currentAction]));
+            //does our contentObject exist?
+            if(Content[currentAction]){
+                //if here all is good... let's make some utterances!
+                Convo_Components.handleUtterance(req).then(response =>{
+                    resolve(response);
+                }).catch(err => {
+                    resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
+                })
+            }else{
+                console.log("our contentObj is malformed");
+                let result: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("HandleRequest: ContentObject is malformed");
+                resolve(result);
+            }
 
         })
     }

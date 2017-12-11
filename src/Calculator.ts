@@ -4,9 +4,9 @@ import {Content} from './contentObject';
 import {MortgageFunc} from './mortgageFunc';
 import {AtmFunc} from './atmFunc';
 //
-let MortgageFunction = new MortgageFunc();
-let
-let
+let MortgageFunction: MortgageFunc = new MortgageFunc();
+let AtmFunction: AtmFunc = new AtmFunc();
+
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -43,5 +43,8 @@ export namespace Calculator {
     }
     export function calculateMortgageRemaining(req: any): Promise<string> {
         return MortgageFunction.calculateMortgageRemaining(req);
+    }
+    export function searchATM(req : any): Promise<string>{
+        return AtmFunction.searchATM(req);
     }
 }
