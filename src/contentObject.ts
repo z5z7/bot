@@ -21,7 +21,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["https://www.hsbc.ca/1/2/applications/book-appointment?WABFormEntryCommand=cmd_prefill&HiddenMandatoryFields.ProductId=@PR&HiddenMandatoryFields.IndividualSolutionId=DC&HiddenMandatoryFields.WebTrendSkuId=HBCA_BR_APPOINTMENT&HiddenMandatoryFields.ProductionPromotionCode=HPG"],
-        varFunc: []
+        varFunc: false
 
     }
     export let bookAppointment: ContentObject = {
@@ -34,7 +34,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_ init/chat_trial_images/mumKid.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/applications/book-appointment?WABFormEntryCommand=cmd_prefill&HiddenMandatoryFields.ProductId=@PR&HiddenMandatoryFields.IndividualSolutionId=DC&HiddenMandatoryFields.WebTrendSkuId=HBCA_BR_APPOINTMENT&HiddenMandatoryFields.ProductionPromotionCode=HPG"],
-        varFunc: [true]
+        varFunc: true
 
     }
     export let aboutUs: ContentObject = {
@@ -46,8 +46,8 @@ export namespace Content {
         suggestions: [{"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/building.png",
         buttonTitle: ["More"],
-        buttonURL: "http://www.about.hsbc.ca",
-        varFunc: []
+        buttonURL: ["http://www.about.hsbc.ca"],
+        varFunc: false
 
     }
     export let welcome: ContentObject = {
@@ -60,7 +60,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"],
-        varFunc: []
+        varFunc: false
 
     }
 
@@ -77,7 +77,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/atmMapAll.png",   //this url is completed in the handleFunc
         buttonTitle: ["Map"],
         buttonURL: ["https://www.google.ca/maps/search/hsbc+Vancouver"],
-        varFunc: []
+        varFunc: false
 
     }
     export let searchATM: ContentObject = {
@@ -90,7 +90,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/atmMapAll.png",       //image handled in handleFunc
         buttonTitle: ["Map"],
         buttonURL: ["https://google.com"],    /* add city here in handleFunc*/
-        varFunc: ["var"]
+        varFunc: true
 
     }
 
@@ -106,7 +106,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/RRSP.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"],
-        varFunc: []
+        varFunc: false
 
     }
     export let applyRRSP: ContentObject = {
@@ -119,7 +119,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspApply.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"],
-        varFunc: []
+        varFunc: false
 
     }
     export let benefitsRRSP: ContentObject = {
@@ -131,8 +131,8 @@ export namespace Content {
         suggestions: [{"title": "Apply"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspBenefits.png",
         buttonTitle: ["More"],
-        buttonURL: "http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp",
-        varFunc: []
+        buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"],
+        varFunc: false
 
     }
     export let rrspBrokerageAccountNo: ContentObject = {
@@ -144,8 +144,8 @@ export namespace Content {
         suggestions: [{"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/rrspBenefits.png",
         buttonTitle: ["More"],
-        buttonURL: "http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp",
-        varFunc: []
+        buttonURL: ["http://www.hsbc.ca/1/2/personal/investing/products-and-services/registered-products/rrsp"],
+        varFunc: false
 
     }
 
@@ -164,7 +164,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"],
-        varFunc: []
+        varFunc: false
 
     }
     export let wsfEligibility: ContentObject = {
@@ -177,7 +177,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"],
-        varFunc: []
+        varFunc: false
 
     }
     export let wsfMore: ContentObject = {
@@ -190,7 +190,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"],
-        varFunc: []
+        varFunc: false
 
     }
     export let wsfAdvantages: ContentObject = {
@@ -203,7 +203,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"],
-        varFunc: []
+        varFunc: false
 
     }
     export let wsfNo: ContentObject = {
@@ -215,7 +215,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/worldSelectionFund.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/world-selection"],
-        varFunc: []
+        varFunc: false
 
     }
 
@@ -229,11 +229,11 @@ export namespace Content {
         text: "There are many things we could talk about today.   \n We could do some calculations,  \n  Look into various mortgage options,   \n   Apply for pre-approval,  \n or then look at some special offers.",
         title: "",
         subtitle: "",
-        suggestions: [{"title": "Integrator"}, {"title": "Types"}, {"title": "Pre-approval"}, {"title" : "Special Offers"}],
+        suggestions: [{"title": "Calculator"}, {"title": "Types"}, {"title": "Pre-approval"}, {"title" : "Special Offers"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/mortgage-offers?WT.ac=HBCA_161204_11GENMORTe05609H&gclid=CjwKCAiAxuTQBRBmEiwAAkFF1l2xiwjYvczvPIl6-FOftoP2lqFsgniJ-8DN1pfxVofrKewlYSf3RRoC81sQAvD_BwE&gclsrc=aw.ds"],
-        varFunc: []
+        varFunc: false
 
     }
     export let mortgageCatalogue: ContentObject = {
@@ -246,7 +246,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/mortgage-offers?WT.ac=HBCA_161204_11GENMORTe05609H&gclid=CjwKCAiAxuTQBRBmEiwAAkFF1l2xiwjYvczvPIl6-FOftoP2lqFsgniJ-8DN1pfxVofrKewlYSf3RRoC81sQAvD_BwE&gclsrc=aw.ds"],
-        varFunc: []
+        varFunc: false
 
     }
 
@@ -257,11 +257,11 @@ export namespace Content {
         text: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident.  \n You will be asked to provide personal details and gross annual income (pre-tax).  \n You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application.  \n Would you like to contact an agent to apply?",
         title: "Pre-approval",
         subtitle: "",
-        suggestions: [{"title" : "Yes"}, {"title" : "Types"}, {"title" : "Integrator"}, {"title" : "Special Offers"}],
+        suggestions: [{"title" : "Yes"}, {"title" : "Types"}, {"title" : "Calculator"}, {"title" : "Special Offers"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/friends.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"],
-        varFunc: []
+        varFunc: false
 
     }
     export let mortgagePreApprovalApplied: ContentObject = {
@@ -270,11 +270,11 @@ export namespace Content {
         text: "Thanks for contacting us. An agent will get back to you soon.",
         title: "Message Received",
         subtitle: "",
-        suggestions: [{"title" : "Types"}, {"title" : "Integrator"}, {"title" : "Special Offers"}, {"title" : "Mortgages"}],
+        suggestions: [{"title" : "Types"}, {"title" : "Calculator"}, {"title" : "Special Offers"}, {"title" : "Mortgages"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/canoes.jpg",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"],
-        varFunc: []
+        varFunc: false
 
     }
     export let mortgagePreApprovalNotApplied: ContentObject = {
@@ -287,12 +287,12 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/canoes.jpg",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"],
-        varFunc: []
+        varFunc: false
 
     }
     //CALCULATOR
     export let calculateMortgage0: ContentObject = {
-        simpleResponse: "Mortgage Integrator",
+        simpleResponse: "Mortgage Calculator",
         speech: "What would you like to calculate today? Your remaining balance or your monthly payments?",
         text: "What would you like to calculate today?   \n  Your remaining balance or   \n  Your monthly payments?",
         title: "Let us Calculate",
@@ -301,7 +301,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.google.com"],
-        varFunc: []
+        varFunc: false
 
     }
     export let calculateMortgageRemaining: ContentObject ={
@@ -314,7 +314,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.google.com"],
-        varFunc: [true],
+        varFunc: true,
 
     }
     export let calculateMortgageMonthly: ContentObject ={
@@ -327,7 +327,7 @@ export namespace Content {
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""],
-        varFunc: [true]
+        varFunc: true
     }
 
 
@@ -343,7 +343,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_02.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"],
-        varFunc: []
+        varFunc: false
 
     }
     export let specialOfferAdvance: ContentObject = {
@@ -356,7 +356,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/coupleEating.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"],
-        varFunc: []
+        varFunc: false
 
     }
     export let specialOfferPremier: ContentObject = {
@@ -369,7 +369,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/umbrellas.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"],
-        varFunc: []
+        varFunc: false
 
     }
     export let specialOfferPersonalRates: ContentObject = {
@@ -382,7 +382,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/wedding.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"],
-        varFunc: []
+        varFunc: false
 
     }
     export let specialOfferSmartSaver: ContentObject = {
@@ -395,7 +395,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/friends.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/rates/mortgage-and-loan-rates"],
-        varFunc: []
+        varFunc: false
 
     }
     export let traditionalMortgage: ContentObject = {
@@ -408,7 +408,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/traditional-mortgage/right-for-you"],
-        varFunc: []
+        varFunc: false
 
     }
     export let equityPowerMortgage: ContentObject = {
@@ -421,7 +421,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/equity.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/equity-power-mortgage/right-for-you"],
-        varFunc: []
+        varFunc: false
 
     }
     export let smartSaversMortgage: ContentObject = {
@@ -434,7 +434,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/sisters.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages/smart-savers-mortgage/right-for-you"],
-        varFunc: []
+        varFunc: false
 
     }
 
@@ -451,7 +451,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_needs.png",
         buttonTitle: ["More"],
         buttonURL: ["http://www.hsbc.ca/1/2/personal/banking/hsbc-premier/contact"],
-        varFunc: []
+        varFunc: false
 
    }
     export let premierCustomerBenefits: ContentObject = {
@@ -464,7 +464,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/premier_benefits.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/banking/hsbc-premier/benefits"],
-        varFunc: []
+        varFunc: false
 
     }
     export let premierCustomerApplication = {
@@ -477,7 +477,7 @@ export namespace Content {
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""],
-        varFunc: []
+        varFunc: false
 
     }
     export let premierCustomerEligibility: ContentObject = {
@@ -491,7 +491,7 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.us.hsbc.com/1/2/home/advance"],
-        varFunc: []
+        varFunc: false
 
     }
 
@@ -504,7 +504,7 @@ export namespace Content {
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""],
-        varFunc: []
+        varFunc: false
 
     }
     export let advanceCustomerBenefits: ContentObject = {
@@ -517,33 +517,35 @@ export namespace Content {
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.us.hsbc.com/1/2/home/advance"],
-        varFunc: []
+        varFunc: false
 
     }
 
     //FX RATES
     export let findFxRates: ContentObject = {
         simpleResponse: "HSBC Exchange Rates",
-        speech: "",
-        text: "",
-        title: "",
+        speech: "Here are the HSBC Exchange Rates:  var ",
+        text: "Here are the HSBC Exchange Rates:  var ",
+        title: "HSBC Exchange Rates",
         subtitle: "",
-        imageURL: "",
+        suggestions: [{"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
-        buttonURL: ["https://www.personal.hsbc.com.hk/1/2/hk/investments/mkt-info/fcy"],
-        varFunc: []
+        buttonURL: ["https://www.us.hsbc.com/1/2/home/advance"],
+        varFunc: true
 
     }
     export let searchFxRates: ContentObject = {
         simpleResponse: "HSBC Exchange Rates",
-        speech: "",
-        text: "",
-        title: "",
+        speech: "Here are the HSBC Exchange Rates:  var ",
+        text: "Here are the HSBC Exchange Rates:  var ",
+        title: "HSBC Exchange Rates",
         subtitle: "",
-        imageURL: "",
+        suggestions: [{"title" : "Main Menu"}],
+        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/dad.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.personal.hsbc.com.hk/1/2/hk/investments/mkt-info/fcy"],
-        varFunc: []
+        varFunc: true
 
     }
     export let admin: ContentObject = {
@@ -555,7 +557,7 @@ export namespace Content {
         imageURL: "",
         buttonTitle: ["We shall now do some admin",],
         buttonURL: ["http://www.google.com"],
-        varFunc: [true]
+        varFunc: false
     }
 }
 /*

@@ -30,10 +30,10 @@ export namespace Integrator {
     //
     //exchange rates
     //
-    export function searchFxRates(req : any): Promise<ContentObject>{
-        return ExchangeFunction.searchWhatExchangeRate(req);
+    export function searchFxRates(req : any): Promise<string>{
+        return ExchangeFunction.searchFxRates(req);
     }
-    export function findFxRates(req : any): Promise<ContentObject>{
+    export function findFxRates(req : any): Promise<string>{
         return ExchangeFunction.findExchangeRate(req);
     }
     //

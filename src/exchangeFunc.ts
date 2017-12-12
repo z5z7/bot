@@ -18,7 +18,7 @@ export class Exchange {
     //input : Currency you want the list of exchanges for, or blank for all
     //output: lPromise response of currencies
 
-        findExchangeRate = function(req: any): Promise<ContentObject> {
+        findExchangeRate = function(req: any): Promise<string> {
            //     console.log(req.body);
             if (!req.body) return this.exchangeHelperAll(req); // Check invalid Paramgit
 
@@ -35,9 +35,9 @@ export class Exchange {
 
 
         }
-        exchangeHelperAll = function(req: any): Promise<ContentObject> {
+        exchangeHelperAll = function(req: any): Promise<string> {
 
-            return new Promise<ContentObject>((resolve, reject) => {
+            return new Promise<string>((resolve, reject) => {
 
              if (!req.body.result) reject("invalid request");
 
@@ -57,15 +57,8 @@ export class Exchange {
                     Rarray.push(values);
                     let answer: string = Rarray.join('\n');
 
-                    let newContentObj : ContentObject = Content.searchFxRates;
 
-                    newContentObj.simpleResponse = answer;
-                    newContentObj.speech = answer;
-                    newContentObj.text = answer;
-
-
-
-                    resolve(newContentObj);
+                    resolve(answer);
 
 
                 })
@@ -106,9 +99,9 @@ export class Exchange {
         });
     }
 
-    searchWhatExchangeRate = function(req: any): Promise<ContentObject> {
+    searchFxRates = function(req: any): Promise<string> {
 
-        return new Promise<ContentObject>((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
 
             if (!req.body.result) reject("invalid request");
 
@@ -136,15 +129,10 @@ export class Exchange {
 
                     let answer : string = Rarray.join('\n');
 
-                    let newContentObj : ContentObject = Content.searchFxRates;
-
-                    newContentObj.simpleResponse = answer;
-                    newContentObj.speech = answer;
-                    newContentObj.text = answer;
 
 
 
-                    resolve(newContentObj);
+                    resolve(answer);
 
 
                 }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
@@ -155,12 +143,8 @@ export class Exchange {
             else { // case where amount is given
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
 
-                    let newContentObj : ContentObject = Content.searchFxRates;
 
-                    newContentObj.simpleResponse = result.body.conversion.toString();
-                    newContentObj.speech = result.body.conversion.toString();
-                    newContentObj.text = result.body.conversion.toString();
-                    resolve(newContentObj);
+                    resolve(result.toString());
 
                 }).catch(err => {
                         resolve(err);

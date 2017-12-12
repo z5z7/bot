@@ -50,10 +50,11 @@ export namespace Convo_Components {
     export function handleUtterance(req: any): Promise<FulfillmentResponse>{
         return new Promise<FulfillmentResponse>((resolve) => {
             let currentAction = req.body.result.action;
-            let contentObj = Content[currentAction];
+            let contentObj: ContentObject = Content[currentAction];
             //do we need to grab a value from the service?
-            if(contentObj.varFunc.length !== 0){
+            if(contentObj.varFunc){
                 Integrator[currentAction](req).then(newContentObj => {
+                    console.log("newContentObj typeof is: " + typeof newContentObj);
                    Convo_Components.createUtterance(req, newContentObj).then(response =>{
                         resolve(response);
                     }).catch(err => {

@@ -18,7 +18,7 @@ export class AtmFunc {
             this.searchWhereAtmKeyword(city).then(cityArray => {
                 //create suggestions with every city except for current one
                 let allCities: Array<string> = ["Vancouver", "West Vancouver", "North Vancouver", "New Westminster", "Burnaby", "Coquitlam", "Richmond"];
-                let suggestions = [];
+                let suggestions = [{"title" : "Closest"}];
 
                 const index = allCities.indexOf(city);
                 allCities.splice(index, 1);
