@@ -1,3 +1,7 @@
+
+//TODO: This is glitchy as fuck... fix it
+/*
+
 import {FulfillmentResponse, FulfillmentRequest, ContentObject} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 import {Convo_Components} from './ConversationComponents';
@@ -19,9 +23,10 @@ export class Exchange {
     //output: lPromise response of currencies
 
         findExchangeRate = function(req: any): Promise<string> {
+            console.log("find exchange rate");
            //     console.log(req.body);
             if (!req.body) return this.exchangeHelperAll(req); // Check invalid Paramgit
-
+            console.log("within excha");
             //try/catch just in case there is no currency_from parameter
             //if there is no parameter it means we want it ALLLLL
             try{
@@ -49,7 +54,7 @@ export class Exchange {
 
                 let rateProm: Promise<any>[] = [];
                 for (let i = 0; i < len; i++) {
-                    // console.log(currencies[i].code);
+                     console.log(currencies[i].code);
                     rateProm.push(this.ratehelper(currencies[i].code)); // ratehelper is just making a string of all of these returns
                 }
 
@@ -58,7 +63,7 @@ export class Exchange {
                     let answer: string = Rarray.join('\n');
 
 
-                    resolve(answer);
+                    resolve(answer.toString());
 
 
                 })
@@ -91,7 +96,7 @@ export class Exchange {
                 }
 
                     let answer = Rarray.join('  \n');
-                    resolve(answer);
+                    resolve(answer.toString());
 
             }).catch(err => { // catch for promise loop
                 resolve(err);
@@ -132,7 +137,7 @@ export class Exchange {
 
 
 
-                    resolve(answer);
+                    resolve(answer.toString());
 
 
                 }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
@@ -178,3 +183,4 @@ export class Exchange {
         })
     }
 }
+*/

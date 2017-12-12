@@ -52,11 +52,11 @@ export namespace Content {
     }
     export let welcome: ContentObject = {
         simpleResponse: "Welcome to HSBC",
-        speech: "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM? Exchange Rates? The World Selection Fund?",
-        text: "Welcome to HSBC, what shall we talk about today?  \n Mortgages?  \n RRSPs?,  \n Finding an ATM?  \nExchange Rates?  \n The World Selection Fund?  \n Becoming a Premier Customer?",
+        speech: "Welcome to HSBC, what shall we talk about today? Mortgages? RRSPs?, Finding an ATM? The World Selection Fund?",
+        text: "Welcome to HSBC, what shall we talk about today?  \n Mortgages?  \n RRSPs?,  \n Finding an ATM?   \n The World Selection Fund?  \n Becoming a Premier Customer?",
         title: "How can we help you today?",
         subtitle: "Find out more",
-        suggestions: [{"title": "ATM"}, {"title": "Exchange"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title" : "WSF"}, {"title" : "Premier"}],
+        suggestions: [{"title": "ATM"}, {"title": "Mortgages"}, {"title": "RRSPs"}, {"title" : "WSF"}, {"title" : "Premier"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/welcomeImage.png",
         buttonTitle: ["Visit HSBC"],
         buttonURL: ["http://www.hsbc.ca"],

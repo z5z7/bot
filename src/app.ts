@@ -10,7 +10,7 @@ import * as basicAuth from 'express-basic-auth';
 import request = require("request");
 import {Content} from "./contentObject";
 import {Convo_Components} from "./ConversationComponents";
-import {FulfillmentResponse} from "./contracts";
+import {FulfillmentResponse, ContentObject} from "./contracts";
 
 
 const app: express.Express = express();
@@ -46,7 +46,7 @@ app.route('/dialogflow').post(function (req: any, res: any) {
         })
     }
 
-    let currentAction = req.body.result.action;
+    let currentAction: string = req.body.result.action.toString();
 
     //is content object valid
     if(Content[currentAction]){

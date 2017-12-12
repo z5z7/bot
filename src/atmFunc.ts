@@ -32,8 +32,11 @@ export class AtmFunc {
                 let newContentObj : ContentObject = contentObj;
 
                 newContentObj.title = city;
-                newContentObj.speech = "Here are the atm's in your city " + cityArray.toString();
-                newContentObj.text = newContentObj.text.replace("var", cityArray.toString());
+                newContentObj.speech = "Here are the atm's in your city: " + cityArray.toString();
+                newContentObj.text = "Here are the atm's in your city:  \n";
+                for(let i = 0; i < cityArray.length; i++){
+                    newContentObj.text += cityArray[i] + "  \n";
+                }
                 newContentObj.imageURL = Images.getCityImage(city);
                 newContentObj.suggestions = suggestions;
                 newContentObj.buttonURL = ["https://www.google.ca/maps/search/hsbc+" + encodeURIComponent(city)];

@@ -1,12 +1,12 @@
 import {ContentObject} from "./contracts";
 import {MortgageFunc} from './mortgageFunc';
 import {AtmFunc} from './atmFunc';
-import {Exchange} from './exchangeFunc';
+//import {Exchange} from './exchangeFunc';
 import {Appointments} from './appointmentFunc';
 //
 let MortgageFunction: MortgageFunc = new MortgageFunc();
 let AtmFunction: AtmFunc = new AtmFunc();
-let ExchangeFunction: Exchange = new Exchange();
+//let ExchangeFunction: Exchange = new Exchange();
 let AppointmentFunction: Appointments = new Appointments();
 
 
@@ -30,12 +30,12 @@ export namespace Integrator {
     //
     //exchange rates
     //
-    export function searchFxRates(req : any): Promise<string>{
+    /*export function searchFxRates(req : any): Promise<string>{
         return ExchangeFunction.searchFxRates(req);
     }
     export function findFxRates(req : any): Promise<string>{
         return ExchangeFunction.findExchangeRate(req);
-    }
+    }*/
     //
     //book appointment
     export function bookAppointment(req : any): Promise<ContentObject>{
