@@ -10,15 +10,13 @@ import * as https from 'https';
 const gmKey : any = 'AIzaSyDDDoI_eUw7nx8AXwzBPHi9PF2lxDDLAr4';
 
 export class AtmFunc {
-    searchATM = function(req: any): Promise<string> {
-        return new Promise<string>((resolve) => {
+    searchATM = function(req: any): Promise<ContentObject> {
+        return new Promise<ContentObject>((resolve) => {
 
             let city = req.body.result.parameters["local_cities"];
 
             this.searchWhereAtmKeyword(city).then(cityArray => {
-                console.log("I should be returning now: " + cityArray.toString());
-                resolve(cityArray.toString());
-                /*//create suggestions with every city except for current one
+                //create suggestions with every city except for current one
                 let allCities: Array<string> = ["Vancouver", "West Vancouver", "North Vancouver", "New Westminster", "Burnaby", "Coquitlam", "Richmond"];
                 let suggestions = [];
 
@@ -29,22 +27,21 @@ export class AtmFunc {
                     suggestions.push({"title": allCities[aCity]});
                 }
 
-
-                let result: Promise<FulfillmentResponse>;
                 let contentObj: ContentObject = Content.searchATM;
 
+                let newContentObj : ContentObject = contentObj;
 
-                contentObj.title = city;
-                contentObj.speech = "Here are the atm's in your city " + cityArray.toString();
-                contentObj.imageURL = Images.getCityImage(city);
-                contentObj.suggestions = suggestions;
-                contentObj.buttonURL = ["https://www.google.ca/maps/search/hsbc+" + encodeURIComponent(city)];
-                console.log("my buttonURL is " + contentObj.buttonURL[0]);
-                result = Convo_Components.createUtterance(req, contentObj);
+                newContentObj.title = city;
+                newContentObj.speech = "Here are the atm's in your city " + cityArray.toString();
+                newContentObj.text = newContentObj.text.replace("var", cityArray.toString());
+                newContentObj.imageURL = Images.getCityImage(city);
+                newContentObj.suggestions = suggestions;
+                newContentObj.buttonURL = ["https://www.google.ca/maps/search/hsbc+" + encodeURIComponent(city)];
 
-                resolve(result);   */
+                resolve(newContentObj);
 
             });
+
         });
     }
     handleSearchWhereAtmLocation = function(req: any): Promise<FulfillmentResponse> {

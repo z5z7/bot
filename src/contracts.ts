@@ -36,7 +36,7 @@ export interface ContentObject{
     title : string,
     subtitle : string,
     imageURL : string,
-    suggestions? : [{"title" : string}],
+    suggestions? : any,
     buttonTitle : any,
     buttonURL : any,
     varFunc? : any

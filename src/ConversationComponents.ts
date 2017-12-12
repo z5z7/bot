@@ -7,7 +7,7 @@ import * as request from "request";
 
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {ContentObject} from './contracts';
-import {Calculator} from './Calculator';
+import {Integrator} from './Integrator';
 import {Content} from './contentObject';
 
 
@@ -54,42 +54,8 @@ export namespace Convo_Components {
             //do we need to grab a value from the service?
             if(contentObj.varFunc.length !== 0){
 
-                console.log("current action is: " + currentAction);
-                //TODO: figure out how to call the proper Calculator class dynamically
-
-                //we have a few situations here re: the returnVar
-                //either it is just one simple var
-                //or then it is a simple var that happens to be an array
-                //or then it is an array with more than one var: var0, var1, var2 which is captured in contentObject
-                Calculator[currentAction](req).then(returnVar => {
-                    //TODO: this should return the content object, instead of just the variables
-                    //TODO: that is because each func (like atm) will be needing particular integration code
-                    //this whole rigamarole is ridiculous and is because object is passed by reference
-                    let originalSimple: ContentObject = contentObj.simpleResponse;
-                    let originalSpeech: ContentObject = contentObj.speech;
-                    let originalText: ContentObject = contentObj.text;
-                    let originalTitle: ContentObject = contentObj.title;
-                    let originalSubtitle: ContentObject = contentObj.subtitle;
-
-                    let newContentObj : ContentObject = contentObj;
-
-
-                    newContentObj.simpleResponse = newContentObj.simpleResponse.replace("var", returnVar.toString());
-                    newContentObj.speech = newContentObj.speech.replace("var", returnVar.toString());
-                    newContentObj.text = newContentObj.text.replace("var", returnVar.toString());
-                    newContentObj.title = newContentObj.title.replace("var", returnVar.toString());
-                    newContentObj.subtitle = newContentObj.subtitle.replace("var", returnVar.toString());
-
-
-                   Convo_Components.createUtterance(req, contentObj).then(response =>{
-                       console.log(JSON.stringify(Content[currentAction]));
-                       Content[currentAction].simpleResponse = originalSimple;
-                       Content[currentAction].speech = originalSpeech;
-                       Content[currentAction].text = originalText;
-                       Content[currentAction].title = originalTitle;
-                       Content[currentAction].subtitle = originalSubtitle;
-                       console.log(JSON.stringify(Content[currentAction]));
-
+                Integrator[currentAction](req).then(newContentObj => {
+                   Convo_Components.createUtterance(req, newContentObj).then(response =>{
                         resolve(response);
                     }).catch(err => {
                         resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
@@ -124,6 +90,7 @@ export namespace Convo_Components {
 
             //for simple string responses that are not coming from the contentObj
             if(typeof contentObj == "string"){
+                console.log("contentObject is a string!!!!!!!!!");
                 result = returnSimpleResponse(contentObj);
                 resolve(result);
                 return;

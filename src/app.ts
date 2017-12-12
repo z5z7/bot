@@ -10,6 +10,9 @@ import {Actions} from './actions';
 
 'use strict';
 import request = require("request");
+import {Content} from "./contentObject";
+import {Convo_Components} from "./ConversationComponents";
+import {FulfillmentResponse} from "./contracts";
 
 
 const app: express.Express = express();
@@ -35,14 +38,34 @@ if(process.env.DEBUG!='1') {
     app.use(basicAuth({authorizer: basicAuthorizer}));
 }
 
-
 app.route('/dialogflow').post(function (req: any, res: any) {
-    Actions.handleRequest(req).then(response => {
-        res.json(response);
-    }).catch(err => {
-        console.error(err);
-        res.sendStatus(400);
-    });
+
+
+    //error checking for both the req body and the req action to ensure they are valid
+    //else return error
+    if ((!req.body.result) || (typeof req.body.result.action === "undefined")) {
+        console.log("request is malformed");
+        Convo_Components.returnSimpleResponse("Request Body is malformed").then(response => {
+            res.json(response);
+        })
+    }
+
+    let currentAction = req.body.result.action;
+
+    //is content object valid
+    if(Content[currentAction]){
+        //if here all is good... let's make some utterances!
+        Convo_Components.handleUtterance(req).then(response =>{
+            res.json(response);
+        }).catch(err => {
+            res.json(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
+        })
+    }else{
+        console.log("our contentObj is malformed");
+        let result: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("HandleRequest: ContentObject is malformed");
+        res.json(result);
+    }
+
 });
 
 export default app;

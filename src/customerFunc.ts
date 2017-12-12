@@ -4,7 +4,7 @@
 import {FulfillmentResponse} from './contracts';
 import {Convo_Components} from './ConversationComponents';
 import {Content} from './contentObject';
-import {Calculator} from './Calculator';
+import {Integrator} from './Integrator';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 
 

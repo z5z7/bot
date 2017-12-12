@@ -1,7 +1,7 @@
-import {FulfillmentResponse} from './contracts';
+import {FulfillmentResponse, ContentObject} from './contracts';
 import {Convo_Components} from './ConversationComponents';
 import {Content} from './contentObject';
-import {Calculator} from './Calculator';
+import {Integrator} from './Integrator';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 
 
@@ -20,8 +20,8 @@ client.setDefaultAuthentication(auth);
 export class MortgageFunc{
     //input : Req node with proper loanamount, rate, and Duration parameters
     //output: Promise<String> with return value for calc # 1
-    calculateMortgageMonthly = function (req: any): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
+    calculateMortgageMonthly = function (req: any): Promise<ContentObject> {
+        return new Promise<ContentObject>((resolve, reject) => {
 
             if (!req.body.result) reject("invalid request");
 
@@ -32,16 +32,27 @@ export class MortgageFunc{
             let arg = "0001/?amount=" + loanAmount.toString() + "&interestRate=" + interestRate + "&years=" + loanDuration.toString();
 
             client.calculateProductIdGet("loans", arg).then(result => {
-                let pay = result.body.result.toString();
-                resolve(pay);
+                let pay = result.body.result;
+                let retval : string = pay.toString();
 
-            }).catch(err => {
-                resolve(`Error in Calc: ${err}`);
-            });
+
+                let newContentObj : ContentObject = Content.calculateMortgageMonthly;
+
+                newContentObj.simpleResponse = newContentObj.simpleResponse.replace("var", "$" + retval);
+                newContentObj.speech = newContentObj.speech.replace("var", "$" + retval);
+                newContentObj.text = newContentObj.text.replace("var", "$" + retval);
+                newContentObj.title = newContentObj.title.replace("var", "$" + retval);
+                newContentObj.subtitle = newContentObj.subtitle.replace("var", "$" + retval);
+
+
+
+                resolve(newContentObj);
+
+            })
         });
     }
-    calculateMortgageRemaining = function(req: any): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
+    calculateMortgageRemaining = function(req: any): Promise<ContentObject> {
+        return new Promise<ContentObject>((resolve, reject) => {
 
             if (!req.body.result) reject("invalid request");
 
@@ -56,11 +67,23 @@ export class MortgageFunc{
             client.calculateProductIdGet("loans", arg).then(result => {
                 let pay = result.body.result;
                 let retval : string = pay.toString();
-                resolve(retval);
 
-            }).catch(err => {
-                resolve("Error in Calc 2 :" + err);
-            });
+                let newContentObj : ContentObject = Content.calculateMortgageRemaining;
+
+                newContentObj.simpleResponse = newContentObj.simpleResponse.replace("var", "$" + retval);
+                newContentObj.speech = newContentObj.speech.replace("var", "$" + retval);
+                newContentObj.text = newContentObj.text.replace("var", "$" + retval);
+                newContentObj.title = newContentObj.title.replace("var", "$" + retval);
+                newContentObj.subtitle = newContentObj.subtitle.replace("var", "$" + retval);
+
+
+
+                resolve(newContentObj);
+
+
+
+
+            })
         });
     }
 }

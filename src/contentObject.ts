@@ -1,55 +1,14 @@
 /**
  * Created by valeriewyns on 2017-11-15.
  */
-
-/*import {DefaultApi, HttpBasicAuth} from './hsbc-api';
-const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST  "/v1";
-let client = new DefaultApi(HSBC_SERVICE_HOST);
-const HSBC_USER = process.env.HSBC_USER;
-const HSBC_PASS = process.env.HSBC_PASS;
-let auth = new HttpBasicAuth();
-auth.username = HSBC_USER;
-auth.password = HSBC_PASS;
-client.setDefaultAuthentication(auth);*/
 import {ContentObject} from './contracts';
 
 
-
-
-
-
-//TODO: this should all be retrieved from the database
 //name of function is the same as the key to call
 export namespace Content {
-    export function copyContentObject(obj : ContentObject) : any {
-        if (null == obj || "object" != typeof obj) return obj;
-        let copy = {} ;
-
-        if (obj instanceof Object) {
-            for (let attr in obj) {
-                if (obj.hasOwnProperty(attr)) copy[attr] = copyContentObject(obj[attr]);
-            }
-            return copy;
-        }
-
-        throw new Error("Unable to copy obj! Its type isn't supported.");
-        }
-
-//all of these will be populated from api instead
-    //MISCELLANEOUS
-    //"welcome" : Welcome.handleWelcome,
-    //"GOOGLE_ASSISTANT_WELCOME " : Welcome.handleWelcome,
-    //"smalltalk.agent.talk_to_me" : Welcome.handleWelcome,
-    //"input.welcome.trial" : Welcome.handleWelcome,
-    //"" : Welcome.handleWelcome,
 
 
-    //TODO: create function that inputs a utteranceObject and outputs a contentObject
-    //TODO: this function will first grab content from db by string flag
-    //TODO: this utteranceObject will contain an extra flag for a value that needs to be retrieved from the service
-    //TODO: if this flag exists need to stitch together value with contentObject utterance
-    //TODO: use replace method to insert variable dynamically into content
-    //TODO: the utteranceObject value flag will have to be an array, just in case more than one var is needed
+    //TODO: EXPORT THIS ALL OUT TO DB
 
 
     export let directApply: ContentObject = {
@@ -66,16 +25,16 @@ export namespace Content {
 
     }
     export let bookAppointment: ContentObject = {
-        simpleResponse: "Let an HSBC Agent help you today.",
-        speech: "Thanks. An agent will get in touch with you soon.",
-        text: "An agent will get in touch with you soon.",
+        simpleResponse: "",
+        speech: "",
+        text: "",
         title: "Thanks.",
         subtitle: "",
         suggestions: [{"title" : "Main Menu"}],
-        imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mumKid.png",
+        imageURL: "https://storage.googleapis.com/hello_ init/chat_trial_images/mumKid.png",
         buttonTitle: ["More"],
-        buttonURL: ["http://www.hsbc.ca"],
-        varFunc: []
+        buttonURL: ["https://www.hsbc.ca/1/2/applications/book-appointment?WABFormEntryCommand=cmd_prefill&HiddenMandatoryFields.ProductId=@PR&HiddenMandatoryFields.IndividualSolutionId=DC&HiddenMandatoryFields.WebTrendSkuId=HBCA_BR_APPOINTMENT&HiddenMandatoryFields.ProductionPromotionCode=HPG"],
+        varFunc: [true]
 
     }
     export let aboutUs: ContentObject = {
@@ -270,7 +229,7 @@ export namespace Content {
         text: "There are many things we could talk about today.   \n We could do some calculations,  \n  Look into various mortgage options,   \n   Apply for pre-approval,  \n or then look at some special offers.",
         title: "",
         subtitle: "",
-        suggestions: [{"title": "Calculator"}, {"title": "Types"}, {"title": "Pre-approval"}, {"title" : "Special Offers"}],
+        suggestions: [{"title": "Integrator"}, {"title": "Types"}, {"title": "Pre-approval"}, {"title" : "Special Offers"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/mortgage_00.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/mortgage-offers?WT.ac=HBCA_161204_11GENMORTe05609H&gclid=CjwKCAiAxuTQBRBmEiwAAkFF1l2xiwjYvczvPIl6-FOftoP2lqFsgniJ-8DN1pfxVofrKewlYSf3RRoC81sQAvD_BwE&gclsrc=aw.ds"],
@@ -298,7 +257,7 @@ export namespace Content {
         text: "You are at least the age of majority, 18 or 19 years of age depending on your province of residence, and You are a Canadian resident.  \n You will be asked to provide personal details and gross annual income (pre-tax).  \n You will be asked to consent to us obtaining your credit report. If you are applying for a joint loan, the co-applicant must complete the application.  \n Would you like to contact an agent to apply?",
         title: "Pre-approval",
         subtitle: "",
-        suggestions: [{"title" : "Yes"}, {"title" : "Types"}, {"title" : "Calculator"}, {"title" : "Special Offers"}],
+        suggestions: [{"title" : "Yes"}, {"title" : "Types"}, {"title" : "Integrator"}, {"title" : "Special Offers"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/friends.png",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"],
@@ -311,7 +270,7 @@ export namespace Content {
         text: "Thanks for contacting us. An agent will get back to you soon.",
         title: "Message Received",
         subtitle: "",
-        suggestions: [{"title" : "Types"}, {"title" : "Calculator"}, {"title" : "Special Offers"}, {"title" : "Mortgages"}],
+        suggestions: [{"title" : "Types"}, {"title" : "Integrator"}, {"title" : "Special Offers"}, {"title" : "Mortgages"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/canoes.jpg",
         buttonTitle: ["More"],
         buttonURL: ["https://www.hsbc.ca/1/2/personal/borrowing/mortgages/type-of-mortgages"],
@@ -333,7 +292,7 @@ export namespace Content {
     }
     //CALCULATOR
     export let calculateMortgage0: ContentObject = {
-        simpleResponse: "Mortgage Calculator",
+        simpleResponse: "Mortgage Integrator",
         speech: "What would you like to calculate today? Your remaining balance or your monthly payments?",
         text: "What would you like to calculate today?   \n  Your remaining balance or   \n  Your monthly payments?",
         title: "Let us Calculate",
@@ -341,7 +300,7 @@ export namespace Content {
         suggestions: [{"title" : "Remaining"}, {"title" : "Monthly"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
         buttonTitle: ["More"],
-        buttonURL: ["www.google.com"],
+        buttonURL: ["http://www.google.com"],
         varFunc: []
 
     }
@@ -354,8 +313,8 @@ export namespace Content {
         suggestions: [{"title" : "Mortgages"}, {"title" : "Monthly"}, {"title" : "Main Menu"}],
         imageURL: "https://storage.googleapis.com/hello_init/chat_trial_images/couple.png",
         buttonTitle: ["More"],
-        buttonURL: ["www.google.com"],
-        varFunc: ["var"],
+        buttonURL: ["http://www.google.com"],
+        varFunc: [true],
 
     }
     export let calculateMortgageMonthly: ContentObject ={
@@ -368,7 +327,7 @@ export namespace Content {
         imageURL: "",
         buttonTitle: [""],
         buttonURL: [""],
-        varFunc: ["var"]
+        varFunc: [true]
     }
 
 
@@ -595,7 +554,7 @@ export namespace Content {
         subtitle: "var",
         imageURL: "",
         buttonTitle: ["We shall now do some admin",],
-        buttonURL: ["We shall now do some admin",],
+        buttonURL: ["http://www.google.com"],
         varFunc: [true]
     }
 }

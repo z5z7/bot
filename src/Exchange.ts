@@ -1,6 +1,7 @@
-import {FulfillmentResponse, FulfillmentRequest} from './contracts';
+import {FulfillmentResponse, FulfillmentRequest, ContentObject} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 import {Convo_Components} from './ConversationComponents';
+import {Content} from "./contentObject";
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -12,31 +13,31 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-export namespace Exchange {
+export class Exchange {
 
     //input : Currency you want the list of exchanges for, or blank for all
     //output: lPromise response of currencies
 
-        export function findExchangeRate(req: any): Promise<string> {
+        findExchangeRate = function(req: any): Promise<ContentObject> {
            //     console.log(req.body);
-            if (!req.body) return exchangeHelperAll(req); // Check invalid Paramgit
+            if (!req.body) return this.exchangeHelperAll(req); // Check invalid Paramgit
 
             //try/catch just in case there is no currency_from parameter
             //if there is no parameter it means we want it ALLLLL
             try{
                 if(req.body.result.parameters.currency_from){
-                    return exchangeHelperFrom(req);
+                    return this.exchangeHelperFrom(req);
                 }
             }
             catch(err){
-                return exchangeHelperAll(req);
+                return this.exchangeHelperAll(req);
             }
 
 
         }
-        export function exchangeHelperAll(req: any): Promise<string> {
+        exchangeHelperAll = function(req: any): Promise<ContentObject> {
 
-            return new Promise<string>((resolve, reject) => {
+            return new Promise<ContentObject>((resolve, reject) => {
 
              if (!req.body.result) reject("invalid request");
 
@@ -49,13 +50,24 @@ export namespace Exchange {
                 let rateProm: Promise<any>[] = [];
                 for (let i = 0; i < len; i++) {
                     // console.log(currencies[i].code);
-                    rateProm.push(ratehelper(currencies[i].code)); // ratehelper is just making a string of all of these returns
+                    rateProm.push(this.ratehelper(currencies[i].code)); // ratehelper is just making a string of all of these returns
                 }
 
                 Promise.all(rateProm).then(values => {
                     Rarray.push(values);
                     let answer: string = Rarray.join('\n');
-                    resolve(answer);
+
+                    let newContentObj : ContentObject = Content.searchFxRates;
+
+                    newContentObj.simpleResponse = answer;
+                    newContentObj.speech = answer;
+                    newContentObj.text = answer;
+
+
+
+                    resolve(newContentObj);
+
+
                 })
             })
              .catch(err => { // catch for promise loop
@@ -65,7 +77,7 @@ export namespace Exchange {
     }
 
 
-    export function exchangeHelperFrom(req: any): Promise<string> {
+    exchangeHelperFrom = function(req: any): Promise<string> {
 
         return new Promise<string>((resolve, reject) => {
 
@@ -85,7 +97,7 @@ export namespace Exchange {
                     Rarray.push(str1);
                 }
 
-                    let answer = Rarray.join('\n');
+                    let answer = Rarray.join('  \n');
                     resolve(answer);
 
             }).catch(err => { // catch for promise loop
@@ -94,9 +106,9 @@ export namespace Exchange {
         });
     }
 
-    export function searchWhatExchangeRate(req: any): Promise<string> {
+    searchWhatExchangeRate = function(req: any): Promise<ContentObject> {
 
-        return new Promise<string>((resolve, reject) => {
+        return new Promise<ContentObject>((resolve, reject) => {
 
             if (!req.body.result) reject("invalid request");
 
@@ -116,14 +128,24 @@ export namespace Exchange {
                     let sprice = result.body.sell;
 
                     let str0 = currency_from;
-                    let str1 = str0.concat(" to ", currency_into," rate for buy is ", bprice.toString());
-                    let str2 = str0.concat(" to ", currency_into," rate for sell is ", sprice.toString());
+                    let str1 = str0.concat(" to ", currency_into," rate for buy is ", bprice.toString() + "  ");
+                    let str2 = str0.concat(" to ", currency_into," rate for sell is ", sprice.toString() + "  \n");
 
                     Rarray.push(str1);
                     Rarray.push(str2);
 
                     let answer : string = Rarray.join('\n');
-                    resolve(answer);
+
+                    let newContentObj : ContentObject = Content.searchFxRates;
+
+                    newContentObj.simpleResponse = answer;
+                    newContentObj.speech = answer;
+                    newContentObj.text = answer;
+
+
+
+                    resolve(newContentObj);
+
 
                 }).catch(err => { // TODO promise rejection is caught by caller? Need to confirm
                         resolve(err);
@@ -133,8 +155,13 @@ export namespace Exchange {
             else { // case where amount is given
                 client.xratesConvertGet(currency_from,currency_into,amount).then(result => {
 
-                    console.log(result);
-                    resolve(`The converted amount is ${result.body.conversion}`);
+                    let newContentObj : ContentObject = Content.searchFxRates;
+
+                    newContentObj.simpleResponse = result.body.conversion.toString();
+                    newContentObj.speech = result.body.conversion.toString();
+                    newContentObj.text = result.body.conversion.toString();
+                    resolve(newContentObj);
+
                 }).catch(err => {
                         resolve(err);
 
@@ -143,7 +170,7 @@ export namespace Exchange {
         });
     }
 
-    function ratehelper (cur: any) : Promise<any> { // do the data adding here then use prom.all with answers inside then? adress+shortname
+    ratehelper = function(cur: any) : Promise<any> { // do the data adding here then use prom.all with answers inside then? adress+shortname
         return new Promise(function (fulfill, reject) {
             //console.log(cur);
             client.xratesFromGet(cur).then(result => {
@@ -166,7 +193,4 @@ export namespace Exchange {
             })
         })
     }
-
-
-
 }
