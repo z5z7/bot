@@ -76,11 +76,7 @@ export class MortgageFunc{
                 newContentObj.title = newContentObj.title.replace("var", "$" + retval);
                 newContentObj.subtitle = newContentObj.subtitle.replace("var", "$" + retval);
 
-
-
                 resolve(newContentObj);
-
-
 
 
             })

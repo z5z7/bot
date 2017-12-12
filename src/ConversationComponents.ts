@@ -53,7 +53,6 @@ export namespace Convo_Components {
             let contentObj = Content[currentAction];
             //do we need to grab a value from the service?
             if(contentObj.varFunc.length !== 0){
-
                 Integrator[currentAction](req).then(newContentObj => {
                    Convo_Components.createUtterance(req, newContentObj).then(response =>{
                         resolve(response);

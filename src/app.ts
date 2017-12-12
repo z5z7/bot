@@ -3,8 +3,6 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as basicAuth from 'express-basic-auth';
 
-import {Actions} from './actions';
-
 
 //const { DialogflowApp } = require('actions-on-google');
 
@@ -39,8 +37,6 @@ if(process.env.DEBUG!='1') {
 }
 
 app.route('/dialogflow').post(function (req: any, res: any) {
-
-
     //error checking for both the req body and the req action to ensure they are valid
     //else return error
     if ((!req.body.result) || (typeof req.body.result.action === "undefined")) {
@@ -58,12 +54,16 @@ app.route('/dialogflow').post(function (req: any, res: any) {
         Convo_Components.handleUtterance(req).then(response =>{
             res.json(response);
         }).catch(err => {
-            res.json(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
+            console.log("We weren't able to handle utterance")
+            Convo_Components.returnSimpleResponse("I'm sorry. We weren't able to handle this utterance: " + err).then(response => {
+                res.json(response);
+            });
         })
     }else{
         console.log("our contentObj is malformed");
-        let result: Promise<FulfillmentResponse> = Convo_Components.returnSimpleResponse("HandleRequest: ContentObject is malformed");
-        res.json(result);
+        Convo_Components.returnSimpleResponse("HandleRequest: ContentObject is malformed").then(response => {
+            res.json(response);
+        })
     }
 
 });
