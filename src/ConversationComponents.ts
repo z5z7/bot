@@ -1,8 +1,14 @@
+import * as request from "request";
 /**
  * Created by valeriewyns on 2017-11-11.
  */
+
+
+
 import {FulfillmentResponse, FulfillmentRequest} from './contracts';
 import {ContentObject} from './contracts';
+import {Integrator} from './Integrator';
+import {Content} from './contentObject';
 
 
 const rejectMessage = "I'm sorry, that was an invalid request";
@@ -40,43 +46,71 @@ export namespace Convo_Components {
             return false;
         }
     }
+
+    export function handleUtterance(req: any): Promise<FulfillmentResponse>{
+        return new Promise<FulfillmentResponse>((resolve) => {
+            let currentAction = req.body.result.action;
+            let contentObj = Content[currentAction];
+            //do we need to grab a value from the service?
+            if(contentObj.varFunc.length !== 0){
+                Integrator[currentAction](req).then(newContentObj => {
+                   Convo_Components.createUtterance(req, newContentObj).then(response =>{
+                        resolve(response);
+                    }).catch(err => {
+                        resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
+                    })
+                }).catch(err => {
+                    resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
+                })
+
+            }else{
+                Convo_Components.createUtterance(req, contentObj).then(response =>{
+                    resolve(response);
+                }).catch(err => {
+                    resolve(Convo_Components.returnSimpleResponse("I'm sorry. There has been an error: " + err));
+                })
+            }
+
+        })
+    }
+
+
     //create and return an utterance
-    export function createUtterance(req : FulfillmentRequest, contentObj : any): Promise<FulfillmentResponse>{
+    export function createUtterance(req : any, contentObj : any): Promise<FulfillmentResponse>{
+
         return new Promise<FulfillmentResponse>((resolve, reject) => {
             let result: Promise<FulfillmentResponse>;
-            if ((!req.body.result)) {
-                console.log("request is malformed");
-                result = Convo_Components.returnSimpleResponse("Request Body is malformed");
-                reject(result);
-            }
-            if (!(typeof contentObj === "string") && !(typeof contentObj === "object")) {
-                console.log("contentObject is malformed");
-                result = Convo_Components.returnSimpleResponse("Content Body is malformed");
-                reject(result);
-            }
+
+
+            //are we dealing with a text surface? If not we are dealing with speech
             let isText = isTextSurface(req);
             let isGoogle = Google(req);
-            //for simple string responses that are not coming from the contents api
+
+
+            //for simple string responses that are not coming from the contentObj
             if(typeof contentObj == "string"){
+                console.log("contentObject is a string!!!!!!!!!");
                 result = returnSimpleResponse(contentObj);
                 resolve(result);
                 return;
             }
+
+
             //if contentObj is not a string then it is a ContentObject
             if(isGoogle){
                 if(isText) {
-                    //console.log("isText");
+                    //Here we are making a card
                     let result: Promise<FulfillmentResponse> = returnComplexResponse(contentObj).catch(error =>{
                         console.log("error making card");
-                        resolve(returnSimpleResponse("Sorry, there was an error."));
+                        resolve(returnSimpleResponse("Sorry, there was an error creating a card for you."));
                     })
                    resolve(result);
 
                 }else{
-                    //Just in case we need to separate out text from speech functionality
+                    //Here we are speaking
                     let result: Promise<FulfillmentResponse> = returnSimpleResponse(contentObj.speech).catch(error =>{
                         console.log("error making simple");
-                        resolve(returnSimpleResponse("Sorry, there was an error."));
+                        resolve(returnSimpleResponse("Sorry, there was an error speaking for you."));
                     })
                     resolve(result);
 
@@ -88,9 +122,6 @@ export namespace Convo_Components {
                 resolve(result);
                 return;
 
-               /*let result: Promise<FulfillmentResponse> = returnComplexResponseFB(contentObj.speech);
-                resolve(result);
-                return;*/
             }
 
         })
@@ -181,7 +212,6 @@ export namespace Convo_Components {
                 source: ""
 
             };
-            console.log("resolve");
             resolve(result);
 
         });

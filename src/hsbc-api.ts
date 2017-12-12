@@ -73,7 +73,7 @@ export class Calculator {
      */
     'name': string;
     /**
-     * The list of named parameters to include in a CalculatorQuery to this Calculator. All parameters are numbers.
+     * The list of named parameters to include in a CalculatorQuery to this Integrator. All parameters are numbers.
      */
     'parameters': Array<string>;
 }
@@ -381,7 +381,7 @@ export class DefaultApi {
     }
     /**
      * Returns a list of publically available calculators for a given product
-     * @summary Calculator Types
+     * @summary Integrator Types
      * @param product A banking product name
      */
     public calculateProductGet (product: string) : Promise<{ response: http.ClientResponse; body: CalculatorList;  }> {

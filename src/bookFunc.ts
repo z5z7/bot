@@ -1,6 +1,8 @@
 /**
  * Created by valeriewyns on 2017-11-25.
  */
+
+/*
 import {FulfillmentResponse, ContentObject} from './contracts';
 import {Convo_Components} from './ConversationComponents';
 import {Content} from './contentObject';
@@ -32,3 +34,6 @@ export namespace BookFunc {
     }
 
 }
+
+
+*/

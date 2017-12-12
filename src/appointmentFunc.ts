@@ -1,6 +1,7 @@
-import {FulfillmentResponse, FulfillmentRequest} from './contracts';
+import {FulfillmentResponse, FulfillmentRequest, ContentObject} from './contracts';
 import {DefaultApi, HttpBasicAuth} from './hsbc-api';
 import {Convo_Components} from './ConversationComponents';
+import {Content} from "./contentObject";
 
 const HSBC_SERVICE_HOST = process.env.HSBC_SERVICE_HOST + "/v1";
 let client = new DefaultApi(HSBC_SERVICE_HOST);
@@ -12,15 +13,15 @@ auth.username = HSBC_USER;
 auth.password = HSBC_PASS;
 client.setDefaultAuthentication(auth);
 
-export namespace Appointments {
+export class Appointments {
 
     // Input: Booking Function req from DF
     // Output: Requested booking information, Confirmation of email sent
     // NOTE: This is not a verified request return from HSBC - it only returns the details requested
     // by the customer (Still needs to be confirmed and contacted by HSBC based on inputed info).
-    export function createBooking(req: any): Promise<string> {
+    bookAppointment = function(req: any): Promise<ContentObject> {
 
-        return new Promise<string>((resolve, reject) => {
+        return new Promise<ContentObject>((resolve, reject) => {
 
             if (!req.body || !req.body || ! req.body.result.parameters) {
                 console.error("createBooking(): received invalid request: " + JSON.stringify(req));
@@ -49,11 +50,26 @@ export namespace Appointments {
                 let a3 : string = "\nAn HSBC representative will contact you to book an appointment based on the details included.";
                 let ans : string = a1+a2+a3;
 
-                resolve(ans);
+
+                let newContentObj : ContentObject = Content.bookAppointment;
+
+                newContentObj.simpleResponse = ans;
+                newContentObj.speech = ans;
+                newContentObj.text = ans;
+
+
+                resolve(newContentObj);
 
             }).catch(err => {
                 let error: string = "Error: " + err;
-                resolve(error);
+                let newContentObj : ContentObject = Content.bookAppointment;
+
+                newContentObj.simpleResponse = error;
+                newContentObj.speech = error;
+                newContentObj.text = error;
+
+
+                resolve(newContentObj);
 
             });
         });

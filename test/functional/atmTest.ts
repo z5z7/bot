@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 
 describe('Atm Test Script', () => {
 
-    describe('handleFindAtm', () => {
+    describe('findAtm', () => {
 
         it("function return a fulfillment response with the right request", function () {
             let sendval: {} = {
@@ -42,7 +42,7 @@ describe('Atm Test Script', () => {
                     "sessionId": "ecd93a31-61cd-4dcc-a62f-758e8103cd80"
                 }
             };
-            return AtmFunc.handleFindAtm(sendval).then(function (response) {
+            return AtmFunc.findAtm(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 response.should.be.a('object');
@@ -65,7 +65,7 @@ describe('Atm Test Script', () => {
 
     });
 
-    describe('handleSearchWhereAtm', () => {
+    describe('searchATM', () => {
 
         it("function return a fulfillment response given a city", function () {
             let sendval: {} = {
@@ -91,7 +91,7 @@ describe('Atm Test Script', () => {
                     "sessionId": "ecd93a31-61cd-4dcc-a62f-758e8103cd80"
                 }
             };
-            return AtmFunc.handleFindAtm(sendval).then(function (response) {
+            return AtmFunc.findAtm(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
                 response.should.be.a('object');

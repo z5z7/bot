@@ -3,10 +3,20 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as basicAuth from 'express-basic-auth';
 
-import {Actions} from './actions';
+
+//const { DialogflowApp } = require('actions-on-google');
+
 'use strict';
+import request = require("request");
+import {Content} from "./contentObject";
+import {Convo_Components} from "./ConversationComponents";
+import {FulfillmentResponse} from "./contracts";
+
 
 const app: express.Express = express();
+
+//const app: any = new DialogflowApp({request: request, response: response});
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -27,12 +37,36 @@ if(process.env.DEBUG!='1') {
 }
 
 app.route('/dialogflow').post(function (req: any, res: any) {
-    Actions.handleRequest(req).then(response => {
-        res.json(response);
-    }).catch(err => {
-        console.error(err);
-        res.sendStatus(400);
-    });
+    //error checking for both the req body and the req action to ensure they are valid
+    //else return error
+    if ((!req.body.result) || (typeof req.body.result.action === "undefined")) {
+        console.log("request is malformed");
+        Convo_Components.returnSimpleResponse("Request Body is malformed").then(response => {
+            res.json(response);
+        })
+    }
+
+    let currentAction = req.body.result.action;
+
+    //is content object valid
+    if(Content[currentAction]){
+        //if here all is good... let's make some utterances!
+        Convo_Components.handleUtterance(req).then(response =>{
+            res.json(response);
+        }).catch(err => {
+            console.log("We weren't able to handle utterance")
+            Convo_Components.returnSimpleResponse("I'm sorry. We weren't able to handle this utterance: " + err).then(response => {
+                res.json(response);
+            });
+        })
+    }else{
+        console.log("our contentObj is malformed");
+        Convo_Components.returnSimpleResponse("HandleRequest: ContentObject is malformed").then(response => {
+            res.json(response);
+        })
+    }
+
 });
 
 export default app;
+

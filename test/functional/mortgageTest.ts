@@ -65,22 +65,24 @@ describe('Mortgage Test Script', () => {
             let sendval: {} = {body : {}};
             return MortFunc.handleDirectMortgage(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
                 //console.log(err);
-                expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
             })
         });
 
@@ -136,21 +138,23 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgagesCatalogue(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
 
             })
         });
@@ -264,22 +268,23 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleCalculateMortgage0(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
-
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
             })
         });
     });
@@ -337,20 +342,11 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgageTypeTraditional(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
+
+                expect(err).to.be.a('string');
             })
         });
     });
@@ -408,20 +404,22 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgageTypeEquityPower(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
             })
         });
     });
@@ -478,21 +476,23 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgageTypeSmartSaver(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
             })
         });
     });
@@ -549,20 +549,22 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgageRateSpecialOfferAdvance(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+                               err.should.be.a('object');
+                                err.should.have.property('speech');
+                                err.speech.should.be.a('string');
+                                err.should.have.property('displayText');
+                                err.displayText.should.be.a('string');
+                                err.should.have.property('data');
+                                err.data.should.be.a('object');
+                                err.should.have.property('contextOut');
+                                err.contextOut.should.be.a('array');
+                                err.should.have.property('source');
+                                */
+                expect(err).to.be.a('string');
             })
         });
     });
@@ -619,20 +621,22 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgageRateSpecialOfferPremier(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
             })
         });
     });
@@ -689,21 +693,23 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgageRateSpecialOfferPersonalRates(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-                expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
             })
         });
     });
@@ -760,21 +766,23 @@ describe('Mortgage Test Script', () => {
             return MortFunc.handleMortgageRateSpecialOfferSmartSaver(sendval).then(function (response) {
                 // Log.test('The Response is: ' + JSON.stringify(response.body));
                 //console.log(response);
-                response.should.be.a('object');
-                response.should.have.property('speech');
-                response.speech.should.be.a('string');
-                response.should.have.property('displayText');
-                response.displayText.should.be.a('string');
-                response.should.have.property('data');
-                response.data.should.be.a('object');
-                response.should.have.property('contextOut');
-                response.contextOut.should.be.a('array');
-                response.should.have.property('source');
-                response.source.should.be.a('string');
+                expect.fail();
 
             }).catch(function (err) {
                 // Log.test('Error: ' + JSON.stringify(err));
-               expect.fail();
+                /* TO USE WHEN ERR RETURN A Fullfillment response
+               err.should.be.a('object');
+                err.should.have.property('speech');
+                err.speech.should.be.a('string');
+                err.should.have.property('displayText');
+                err.displayText.should.be.a('string');
+                err.should.have.property('data');
+                err.data.should.be.a('object');
+                err.should.have.property('contextOut');
+                err.contextOut.should.be.a('array');
+                err.should.have.property('source');
+                */
+                expect(err).to.be.a('string');
             })
         });
     });
